@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RootPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     lazy var viewControllerList:[UIViewController] = {
@@ -21,11 +22,13 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
     }()
 
     var pageControl = UIPageControl()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Assigns itself as the data source
         self.dataSource = self
+        let userInformation = UserDataModel(Auth.auth().currentUser!.uid)
         
         // It only sets the view controllers if there is at least one view controller stored in the array list
         if let firstViewController = viewControllerList.first {
@@ -80,4 +83,5 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         return viewControllerList[nextIndex]
     }
+    
 }

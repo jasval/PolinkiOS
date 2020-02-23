@@ -177,39 +177,39 @@ class ProfilerViewController: UIViewController {
         userResults[K.ideologyAxes.scty] = quiz.calcScores(quiz.scty, maxScore: quiz.maxScty)
     }
     func sendResults() {
-        let uid = Auth.auth().currentUser?.uid
-        let email =  Auth.auth().currentUser?.email
-        if let uid = uid, let email = email, let username = username {
-            let userData = UserDataModel(uid, fname: username, email: email, values: userResults)
-            var count = 0
-            while count < 3 {
-                do {
-                    try db.collection("users").document("\(uid)").setData(from: userData)
-                    count += 5
-                } catch let error {
-                    print("Error writing user data to Firestore: \(error)")
-                    Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {_ in
-                        count += 1
-                    })
-                }
-            }
-            if count == 3 {
-                let retryButton = UIButton(type: .custom)
-                self.view.addSubview(retryButton)
-                retryButton.alpha = 0
-                retryButton.setTitle("Retry", for: .normal)
-                retryButton.setTitleColor(UIColor.white, for: .normal)
-                retryButton.translatesAutoresizingMaskIntoConstraints = false
-                retryButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-                retryButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-                retryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
-                retryButton.addTarget(self, action: #selector(retryButtonPressed(_:)), for: .touchUpInside)
-                animateIn(retryButton, delay: 0)
-            }
-        } else {
-            print("Not all data is valid, please check current user data has been stored properly.")
-        }
+//        let uid = Auth.auth().currentUser?.uid
+//        let email =  Auth.auth().currentUser?.email
+//        if let uid = uid, let email = email, let username = username {
+//            let userData = UserDataModel(uid, fname: username, email: email, values: userResults)
+//            var count = 0
+//            while count < 3 {
+//                do {
+//                    try db.collection("users").document("\(uid)").setData(from: userData)
+//                    count += 5
+//                } catch let error {
+//                    print("Error writing user data to Firestore: \(error)")
+//                    Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {_ in
+//                        count += 1
+//                    })
+//                }
+//            }
+//            if count == 3 {
+//                let retryButton = UIButton(type: .custom)
+//                self.view.addSubview(retryButton)
+//                retryButton.alpha = 0
+//                retryButton.setTitle("Retry", for: .normal)
+//                retryButton.setTitleColor(UIColor.white, for: .normal)
+//                retryButton.translatesAutoresizingMaskIntoConstraints = false
+//                retryButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+//                retryButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//                retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//                retryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
+//                retryButton.addTarget(self, action: #selector(retryButtonPressed(_:)), for: .touchUpInside)
+//                animateIn(retryButton, delay: 0)
+//            }
+//        } else {
+//            print("Not all data is valid, please check current user data has been stored properly.")
+//        }
     }
     @IBAction func nextButtonPressed(_ sender: UIButton){
         self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)

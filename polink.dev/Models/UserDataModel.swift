@@ -12,13 +12,14 @@ import CoreLocation
 
 public struct UserDataModel: Codable {
     let uid: String
-    var firstName: String
+    var firstName: String?
     var lastName: String?
     var gender: String?
-    var location: Location?
-    var email: String
-    let createdAt: Date
+    var location: CGPoint?
+    var email: String?
+    let createdAt: Date?
     var values: [String : Double]?
+    var dob: Date?
     
     enum CodingKeys: String, CodingKey {
         case uid
@@ -29,16 +30,18 @@ public struct UserDataModel: Codable {
         case email
         case createdAt
         case values
+        case dob
     }
-    init(_ uid: String, fname: String, email: String, values: [String : Double]) {
+    init(_ uid: String) {
         self.uid = uid
-        self.createdAt = Date.init()
-        firstName = fname
-        self.email = email
-        self.values = values
+        createdAt = nil
+        firstName = nil
+        email = nil
+        values = nil
         location = nil
         lastName = nil
         gender = nil
+        dob = nil
     }
     
 }

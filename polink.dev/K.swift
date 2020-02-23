@@ -38,4 +38,10 @@ struct K {
         static let disagree = "Disagree"
         static let stronglyDisagree = "Strongly Disagree"
     }
+    struct userGenders {
+        static let male = "Male"
+        static let female = "Female"
+        static let trans = "Transgender"
+        static let other = "Other"
+    }
 }

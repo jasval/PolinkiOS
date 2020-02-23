@@ -108,7 +108,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         //Use what the user typed to call the signup process
         if textField == passwordField {
-            signupButtonPressed(self)
+            resignFirstResponder()
         }
     }
     /*
