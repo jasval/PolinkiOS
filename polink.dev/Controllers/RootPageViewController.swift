@@ -28,8 +28,7 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         super.viewDidLoad()
         //Assigns itself as the data source
         self.dataSource = self
-        let userInformation = UserDataModel(Auth.auth().currentUser!.uid)
-        
+               
         // It only sets the view controllers if there is at least one view controller stored in the array list
         if let firstViewController = viewControllerList.first {
             self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
