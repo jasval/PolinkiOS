@@ -15,7 +15,7 @@
 		FE01AE9123E61874002F36FA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE9023E61874002F36FA /* RegisterViewController.swift */; };
 		FE01AE9323E61897002F36FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE9223E61897002F36FA /* LoginViewController.swift */; };
 		FE01AE9523E618D6002F36FA /* ProfilerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE9423E618D6002F36FA /* ProfilerViewController.swift */; };
-		FE0C3BBD24015D2200ED8A3C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0C3BBC24015D2200ED8A3C /* UserInformation.swift */; };
+		FE0C3BBD24015D2200ED8A3C /* UserDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0C3BBC24015D2200ED8A3C /* UserDS.swift */; };
 		FE0CE33523E884FD002E5604 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33423E884FD002E5604 /* Main.storyboard */; };
 		FE0CE33723E88D1D002E5604 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */; };
 		FE0CE33923E8927E002E5604 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0CE33823E8927E002E5604 /* K.swift */; };
@@ -73,7 +73,7 @@
 		FE01AE9223E61897002F36FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FE01AE9423E618D6002F36FA /* ProfilerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilerViewController.swift; sourceTree = "<group>"; };
 		FE079D9123FAC4A6002B01FD /* DynamicBlurView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicBlurView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE0C3BBC24015D2200ED8A3C /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		FE0C3BBC24015D2200ED8A3C /* UserDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDS.swift; sourceTree = "<group>"; };
 		FE0CE33423E884FD002E5604 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE0CE33823E8927E002E5604 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 				FE6886B723EB18F8001F1301 /* Question.swift */,
 				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
-				FE0C3BBC24015D2200ED8A3C /* UserInformation.swift */,
+				FE0C3BBC24015D2200ED8A3C /* UserDS.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -432,7 +432,7 @@
 				FE01AE7C23E61241002F36FA /* InitialViewController.swift in Sources */,
 				FEF69CF223F8BFD3002C3524 /* BaseTabBarController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */,
-				FE0C3BBD24015D2200ED8A3C /* UserInformation.swift in Sources */,
+				FE0C3BBD24015D2200ED8A3C /* UserDS.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,

@@ -16,19 +16,19 @@ class UserLocationViewController: UIViewController {
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var checkMark: UIImageView!
     
-    var userInfo = UserInformation()
     let manager = CLLocationManager()
-    
+    let semaphore = DispatchSemaphore(value: 1)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.delegate = self
         mapView.alpha = 0
         checkMark.alpha = 0
+        print("\(String(describing: UserDS.user.fname)) and \(String(describing: UserDS.user.gender))")
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (Timer) in            self.manager.requestWhenInUseAuthorization()
-        }
+
     }
     
     @IBAction func searchCompleted(_ sender: Any) {
@@ -37,10 +37,10 @@ class UserLocationViewController: UIViewController {
             geoCoder.geocodeAddressString(searchTerms) { (clPlacemark, error) in
                 if let place = clPlacemark!.first {
                     if let country = place.country, let city = place.locality {
-                        self.userInfo.writegeoLoc(country, geoLocCity: city)
+                        UserDS.user.writegeoLoc(country, geoLocCity: city)
                         let geoPoint = GeoPoint(latitude: place.location!.coordinate.latitude, longitude: place.location!.coordinate.longitude)
-                        self.userInfo.writeLocation(geoPoint)
-                        let location = CLLocationCoordinate2DMake(self.userInfo.location!.latitude, self.userInfo.location!.longitude)
+                        UserDS.user.writeLocation(geoPoint)
+                        let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
                         let annotation = MKPointAnnotation()
                         self.initialiseMap(location)
                         self.initialiseAnnotation(annotation, location: location)
@@ -57,26 +57,35 @@ class UserLocationViewController: UIViewController {
     }
     
     @IBAction func locateDevice(){
-        manager.requestLocation()
-        // Setting the default map coordinates for the device
-        
-        let location = CLLocationCoordinate2DMake(userInfo.location!.latitude, userInfo.location!.longitude)
-        let annotation = MKPointAnnotation()
-        initialiseMap(location)
-        initialiseAnnotation(annotation, location: location)
-        checkIfComplete()
-        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.semaphore.wait()
+            self.manager.requestLocation()
+        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.semaphore.wait()
+            let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
+            let annotation = MKPointAnnotation()
+            DispatchQueue.main.async {
+                self.updateUI(location, annotation: annotation)
+            }
+            self.semaphore.signal()
+        }
     }
     
+    func updateUI(_ location: CLLocationCoordinate2D, annotation: MKPointAnnotation) {
+        self.initialiseMap(location)
+        self.initialiseAnnotation(annotation, location: location)
+        self.checkIfComplete()
+    }
     
     func checkIfComplete() -> Void {
-        if userInfo.location != nil && userInfo.geoLocCity != nil && userInfo.geoLocCountry != nil{
+        if UserDS.user.location != nil && UserDS.user.geoLocCity != nil && UserDS.user.geoLocCountry != nil{
             animateIn(checkMark, delay: 0.5)
-            userInfo.completePage(K.regPages.pageThree)
+            UserDS.user.completePage(K.regPages.pageThree)
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                userInfo.incompletePage(K.regPages.pageThree)
+                UserDS.user.incompletePage(K.regPages.pageThree)
             }
             return
         }
@@ -100,16 +109,21 @@ extension UserLocationViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             print("Found user's location: \(location)")
             let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            userInfo.writeLocation(geoPoint)
+            UserDS.user.writeLocation(geoPoint)
+            print(UserDS.user.location ?? "None")
             let geoCoder = CLGeocoder()
             geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { (placemark, Error) in
                 if let geoLoc = placemark!.first {
-                    self.userInfo.writegeoLoc(geoLoc.country!, geoLocCity: geoLoc.locality!)
+                    let country = geoLoc.country
+                    let city = geoLoc.locality
+                    UserDS.user.writegeoLoc(country!, geoLocCity: city!)
+                    print("\(UserDS.user.geoLocCountry ?? "No Country") and \(UserDS.user.geoLocCity ?? "No City")")
                 } else {
                     print("Program threw an error geocoding localisation: \(Error!.localizedDescription)")
                 }
             }
         }
+        self.semaphore.signal()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -131,8 +145,8 @@ extension UserLocationViewController: CLLocationManagerDelegate {
     func initialiseAnnotation(_ annotation: MKPointAnnotation, location: CLLocationCoordinate2D) {
         // Set annotation coordinates for the center of the region
         annotation.coordinate = location
-        annotation.title = userInfo.geoLocCity
-        annotation.subtitle = userInfo.geoLocCountry
+        annotation.title = UserDS.user.geoLocCity
+        annotation.subtitle = UserDS.user.geoLocCountry
         mapView.addAnnotation(annotation)
     }
     

@@ -15,7 +15,6 @@ class PreChatViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var nextButtonIcon: UIImageView!
     
-    let userInfo = UserInformation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,13 +34,16 @@ class PreChatViewController: UIViewController {
     }
     
     @objc func nextPressed(_ sender: Any) {
-        let checks = userInfo.regCompletion.values
+        let checks = UserDS.user.regCompletion.values
         var boolArray : [Bool] = []
         for value in checks {
             boolArray.append(value)
         }
         if reduceBools(boolArray) == true {
             self.performSegue(withIdentifier: K.Segue.registrationToQuiz, sender: self)
+            print("View will transition now")
+        } else {
+            print("Set up has not been completed")
         }
     }
     func reduceBools (_ values: [Bool]) -> Bool {

@@ -1,5 +1,5 @@
 //
-//  UserInformation.swift
+//  UserDS.swift
 //  polink.dev
 //
 //  Created by Jose Saldana on 22/02/2020.
@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct UserInformation {
+class UserDS {
     var uid: String?
     var fname: String?
     var lname: String?
@@ -24,32 +24,34 @@ struct UserInformation {
         K.regPages.pageThree : false,
     ]
     
-    mutating func writeFLD(_ firstname: String, lastname: String, dateOfBirth: Date){
+    // Singleton to store all information
+    static let user = UserDS()
+    
+//    MARK: Setters
+    func writeFLD(_ firstname: String, lastname: String, dateOfBirth: Date){
         fname = firstname
         lname = lastname
         dob = dateOfBirth
         print("Primary information has been recorded")
     }
-    mutating func writeGender(_ gender: String){
+    func writeGender(_ gender: String){
         self.gender = gender
         print("Gender has been recorded")
     }
-    mutating func writegeoLoc(_ geoLocCountry: String, geoLocCity: String){
+    func writegeoLoc(_ geoLocCountry: String, geoLocCity: String){
         self.geoLocCountry = geoLocCountry
         self.geoLocCity = geoLocCity
         print("Geolocation has been recorded")
     }
-    mutating func writeLocation(_ location: GeoPoint){
+    func writeLocation(_ location: GeoPoint){
         self.location = location
         print("Latitude and Longitude were recorded")
     }
-    mutating func completePage(_ key: String) {
+    func completePage(_ key: String) {
         regCompletion[key] = true
     }
-    mutating func incompletePage(_ key: String) {
+    func incompletePage(_ key: String) {
         regCompletion[key] = false
     }
-    // There exists the posibility to use this singleton to temporarily
-    // store the data to be written in Firestore
-    //      static let userInfo = UserInformation()
+
 }

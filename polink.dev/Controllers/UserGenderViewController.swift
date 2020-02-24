@@ -17,9 +17,6 @@ class UserGenderViewController: UIViewController {
     @IBOutlet weak var otherIcon: UIImageView!
     @IBOutlet weak var checkMark: UIImageView!
     
-    var userInfo = UserInformation()
-    
-    
     var femaleImages: [UIImage] = []
     var maleImages: [UIImage] = []
     var transImages: [UIImage] = []
@@ -78,32 +75,32 @@ class UserGenderViewController: UIViewController {
         let icon = tapGestureRecogniser.view as! UIImageView
         switch icon.tag {
         case 0:
-            userInfo.writeGender(K.userGenders.female)
+            UserDS.user.writeGender(K.userGenders.female)
             print(K.userGenders.female)
         case 1:
-            userInfo.writeGender(K.userGenders.male)
+            UserDS.user.writeGender(K.userGenders.male)
             print(K.userGenders.male)
         case 2:
-            userInfo.writeGender(K.userGenders.trans)
+            UserDS.user.writeGender(K.userGenders.trans)
             print(K.userGenders.trans)
         case 3:
-            userInfo.writeGender(K.userGenders.other)
+            UserDS.user.writeGender(K.userGenders.other)
             print(K.userGenders.other)
         default:
-            userInfo.writeGender(K.userGenders.other)
+            UserDS.user.writeGender(K.userGenders.other)
             print("Defaulted")
         }
         checkIfComplete()
     }
     
     func checkIfComplete() -> Void {
-        if userInfo.gender != nil {
+        if UserDS.user.gender != nil {
             animateIn(checkMark, delay: 0.5)
-            userInfo.completePage(K.regPages.pageTwo)
+            UserDS.user.completePage(K.regPages.pageTwo)
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                userInfo.incompletePage(K.regPages.pageTwo)
+                UserDS.user.incompletePage(K.regPages.pageTwo)
             }
         }
     }

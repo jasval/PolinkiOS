@@ -19,7 +19,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     
     var userPickedDate:Bool = false
-    var userInfo = UserInformation()
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -78,21 +77,21 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         if let fname = firstNameTextField.text, let lname = lastNameTextField.text {
             if userPickedDate == true {
                 if isValidName(fname) == true && isValidName(lname) == true {
-                    userInfo.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
+                    UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
                     print("Wrote to file!")
                     animateIn(checkMark, delay: 2)
-                    userInfo.completePage(K.regPages.pageOne)
+                    UserDS.user.completePage(K.regPages.pageOne)
                 } else {
                     if checkMark.alpha > 0 {
                         animateOut(checkMark)
-                        userInfo.incompletePage(K.regPages.pageOne)
+                        UserDS.user.incompletePage(K.regPages.pageOne)
                     }
                 }
             } 
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                userInfo.incompletePage(K.regPages.pageOne)
+                UserDS.user.incompletePage(K.regPages.pageOne)
             }
             return
         }
