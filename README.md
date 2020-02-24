@@ -8,10 +8,10 @@ App development for iOS of the Polink App
 > “The people who are crazy enough to think 
 > they can change the world are the ones who do.” - Steve Jobs
 
-#Project Aims
+# Project Aims
 The app is meant to act as a hub for political discussion around controversial issues, ensuring a safe environment bridging opposing views. In a world of great political divide and extreme polarisation, we need to explore solutions that seek to bring people together and celebrate contributions from different parties and their diversity.
 
-#Project Objectives
+# Project Objectives
 * Identify key functionality that will set this app apart from others in the market.
 * Requirements gathering by surveying potential users and identifying differences between demographics.
 * Write clean, efficient code that allows for third party libraries integration and networking with a database to store information.
@@ -19,6 +19,6 @@ The app is meant to act as a hub for political discussion around controversial i
 * Iterate over the development process as much as needed responding to user feedback.
 * Explore design alternatives to ensure it engages with our target audience and establishes a visual identity that matches the brand.
 
-#Methodology
+# Methodology
 1. 
 2. 
