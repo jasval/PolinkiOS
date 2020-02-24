@@ -18,6 +18,11 @@ struct UserInformation {
     var location: GeoPoint?
     var geoLocCountry: String?
     var geoLocCity: String?
+    var regCompletion: [String : Bool] = [
+        K.regPages.pageOne : false,
+        K.regPages.pageTwo : false,
+        K.regPages.pageThree : false,
+    ]
     
     mutating func writeFLD(_ firstname: String, lastname: String, dateOfBirth: Date){
         fname = firstname
@@ -38,8 +43,13 @@ struct UserInformation {
         self.location = location
         print("Latitude and Longitude were recorded")
     }
-    
-    //There exists the posibility to use this singleton to temporarily
+    mutating func completePage(_ key: String) {
+        regCompletion[key] = true
+    }
+    mutating func incompletePage(_ key: String) {
+        regCompletion[key] = false
+    }
+    // There exists the posibility to use this singleton to temporarily
     // store the data to be written in Firestore
-    static let userInfo = UserInformation()
+    //      static let userInfo = UserInformation()
 }

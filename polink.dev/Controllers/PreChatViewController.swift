@@ -9,17 +9,44 @@
 import UIKit
 
 class PreChatViewController: UIViewController {
+    @IBOutlet weak var checkPageOne: UIImageView!
+    @IBOutlet weak var checkPageTwo: UIImageView!
+    @IBOutlet weak var checkPageThree: UIImageView!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var nextButtonIcon: UIImageView!
+    
+    let userInfo = UserInformation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        checkPageOne.alpha = 0
+        checkPageTwo.alpha = 0
+        checkPageThree.alpha = 0
+//        nextButtonIcon.alpha = 0
+        progressBar.alpha = 0
+        
+        let nextButtonGestureRecogniser = UITapGestureRecognizer.init(target: self, action: #selector(nextPressed(_:)))
+        nextButtonIcon.addGestureRecognizer(nextButtonGestureRecogniser)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
-    @IBAction func nextPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: K.Segue.registrationToQuiz, sender: self)
+    @objc func nextPressed(_ sender: Any) {
+        let checks = userInfo.regCompletion.values
+        var boolArray : [Bool] = []
+        for value in checks {
+            boolArray.append(value)
+        }
+        if reduceBools(boolArray) == true {
+            self.performSegue(withIdentifier: K.Segue.registrationToQuiz, sender: self)
+        }
     }
-    
+    func reduceBools (_ values: [Bool]) -> Bool {
+        return !values.contains(false)
+    }
     /*
     // MARK: - Navigation
 

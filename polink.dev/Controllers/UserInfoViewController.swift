@@ -81,15 +81,18 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
                     userInfo.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
                     print("Wrote to file!")
                     animateIn(checkMark, delay: 2)
+                    userInfo.completePage(K.regPages.pageOne)
                 } else {
                     if checkMark.alpha > 0 {
                         animateOut(checkMark)
+                        userInfo.incompletePage(K.regPages.pageOne)
                     }
                 }
             } 
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
+                userInfo.incompletePage(K.regPages.pageOne)
             }
             return
         }

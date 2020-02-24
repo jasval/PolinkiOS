@@ -95,11 +95,16 @@ class UserGenderViewController: UIViewController {
         }
         checkIfComplete()
     }
+    
     func checkIfComplete() -> Void {
         if userInfo.gender != nil {
             animateIn(checkMark, delay: 0.5)
+            userInfo.completePage(K.regPages.pageTwo)
         } else {
-            return
+            if checkMark.alpha > 0 {
+                animateOut(checkMark)
+                userInfo.incompletePage(K.regPages.pageTwo)
+            }
         }
     }
 
