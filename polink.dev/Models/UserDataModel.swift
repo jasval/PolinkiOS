@@ -9,16 +9,19 @@
 import Foundation
 import UIKit
 import CoreLocation
+import FirebaseFirestore
 
 public struct UserDataModel: Codable {
     let uid: String
     var firstName: String?
     var lastName: String?
     var gender: String?
-    var location: CGPoint?
+    var location: GeoPoint?
+    var city: String?
+    var country: String?
     var email: String?
     let createdAt: Date?
-    var values: [String : Double]?
+    var ideology: [String : Double]?
     var dob: Date?
     
     enum CodingKeys: String, CodingKey {
@@ -27,21 +30,25 @@ public struct UserDataModel: Codable {
         case lastName
         case gender
         case location
+        case city
+        case country
         case email
         case createdAt
-        case values
+        case ideology
         case dob
     }
-    init(_ uid: String) {
+    init(_ uid: String, firstname: String, lastname: String, email: String, dob: Date, gender: String, ideology: [String : Double], location: GeoPoint, country: String, city: String) {
         self.uid = uid
-        createdAt = nil
-        firstName = nil
-        email = nil
-        values = nil
-        location = nil
-        lastName = nil
-        gender = nil
-        dob = nil
+        createdAt = Date.init()
+        self.firstName = firstname
+        self.lastName = lastname
+        self.email = email
+        self.dob = dob
+        self.gender = gender
+        self.ideology = ideology
+        self.location = location
+        self.country = country
+        self.city = city
     }
     
 }

@@ -23,6 +23,7 @@ class UserDS {
         K.regPages.pageTwo : false,
         K.regPages.pageThree : false,
     ]
+    var polinkIdeology: [String : Double] = [:]
     
     // Singleton to store all information
     static let user = UserDS()

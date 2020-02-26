@@ -65,6 +65,8 @@ class UserLocationViewController: UIViewController {
             self.semaphore.wait()
             let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
             let annotation = MKPointAnnotation()
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (Timer) in
+            }
             DispatchQueue.main.async {
                 self.updateUI(location, annotation: annotation)
             }
@@ -73,9 +75,9 @@ class UserLocationViewController: UIViewController {
     }
     
     func updateUI(_ location: CLLocationCoordinate2D, annotation: MKPointAnnotation) {
+        self.checkIfComplete()
         self.initialiseMap(location)
         self.initialiseAnnotation(annotation, location: location)
-        self.checkIfComplete()
     }
     
     func checkIfComplete() -> Void {
@@ -90,16 +92,6 @@ class UserLocationViewController: UIViewController {
             return
         }
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 // MARK: Core Location and Mapkit methods
 
