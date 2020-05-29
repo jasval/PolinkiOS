@@ -21,18 +21,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         let db = Firestore.firestore()
         print(db)
-
+        
         // Modify the appearance of the main tab bar
         UITabBar.appearance().barTintColor = .black
         UITabBar.appearance().tintColor = .red
         
+        
+        // Get the path for the user defaults path
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         
         
         return true
     }
 
     // MARK: UISceneSession Lifecycle
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("Application will resign")
+    }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("Application did enter background")
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        print("Application will enter foreground")
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        print("Application did become active")
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("Application will terminate")
+    }
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
@@ -92,4 +115,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 

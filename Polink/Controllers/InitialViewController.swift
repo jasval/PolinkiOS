@@ -12,6 +12,11 @@ class InitialViewController: UIViewController {
     
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet weak var mainTitleLabel: UILabel!
+    
+    // Creating an instance of the user defaults
+    let defaults = UserDefaults.standard
+    let testString = "This is a test string"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,7 +27,8 @@ class InitialViewController: UIViewController {
             button.layer.cornerRadius = button.frame.height / 5
             button.alpha = 0
         }
-
+        self.defaults.set(self.testString, forKey: "Test")
+        // Testing saving data in the user defaults
     }
 
     
