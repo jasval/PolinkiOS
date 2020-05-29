@@ -1,5 +1,5 @@
 //
-//  quizBrain.swift
+//  QuizBrain.swift
 //  Polink
 //
 //  Created by Jose Saldana on 05/02/2020.
@@ -20,24 +20,27 @@ struct QuizBrain {
     var maxGovt:Double = 0
     var maxScty:Double = 0
     
-    //    User scores initialised at 0
 
     
     //  Question Iterators
     var questionNo:Int = 0
     
     struct Answer {
-        var econ:Double = 0
-        var dipl:Double = 0
-        var govt:Double = 0
-        var scty:Double = 0
+        var econ = 0.0, dipl = 0.0, govt = 0.0, scty = 0.0
     }
+    
+    enum QuizError: Error {
+        case emptyScores
+        case badCalculation
+        case limitOutOfBounds
+    }
+    
     /*
      // MARK: Embedded struct for a stack of generics
      */
     
     // A stack to keep tabs on answers scores for easy backtracing
-    struct AnswerStack<Element> {
+    struct Stack<Element> {
         fileprivate var answerArray: [Element] = []
         
         var isEmpty: Bool {
@@ -61,18 +64,28 @@ struct QuizBrain {
         }
     }
     
-    var stack = AnswerStack<Answer>()
+    var answerStack = Stack<Answer>()
     
     /*
     // MARK: - Functions
      */
     mutating func nextQuestion(_ multiplier: Double) {
-        var newAnswer = Answer()
-        newAnswer.econ = multiplier * (quizList[questionNo].effect[K.ideologyAxes.econ] ?? 0)
-        newAnswer.dipl = multiplier * (quizList[questionNo].effect[K.ideologyAxes.dipl] ?? 0)
-        newAnswer.govt = multiplier * (quizList[questionNo].effect[K.ideologyAxes.govt] ?? 0)
-        newAnswer.scty = multiplier * (quizList[questionNo].effect[K.ideologyAxes.scty] ?? 0)
-        stack.push(newAnswer)
+        // logic to create an answer initialised to 0 if stack is empty or to previous scores otherwise
+        var newAnswer:Answer?
+        if answerStack.isEmpty {
+            newAnswer = Answer()
+        } else {
+            if let previousAnswer = answerStack.peek() {
+                newAnswer = Answer(econ: previousAnswer.econ, dipl: previousAnswer.dipl, govt: previousAnswer.govt, scty: previousAnswer.scty)
+            }
+        }
+        newAnswer?.econ += multiplier * (quizList[questionNo].effect[K.ideologyAxes.econ] ?? 0)
+        newAnswer?.dipl += multiplier * (quizList[questionNo].effect[K.ideologyAxes.dipl] ?? 0)
+        newAnswer?.govt += multiplier * (quizList[questionNo].effect[K.ideologyAxes.govt] ?? 0)
+        newAnswer?.scty += multiplier * (quizList[questionNo].effect[K.ideologyAxes.scty] ?? 0)
+        
+        answerStack.push(newAnswer!)
+        
         if questionNo < quizList.count {
             questionNo += 1
         } else {
@@ -80,7 +93,7 @@ struct QuizBrain {
         }
     }
     mutating func prevQuestion() {
-        _ = stack.pop()
+        _ = answerStack.pop()
         if questionNo > 0 {
             questionNo -= 1
         } else {
@@ -99,8 +112,17 @@ struct QuizBrain {
     }
     
 
-    func calcScores(_ userScore: Double, maxScore: Double) -> Double{
-        round(100*(100*(maxScore+userScore)/(2*maxScore)))/100
+    func calcScores() throws -> Answer {
+        //round(100*(100*(maxScore+userScore)/(2*maxScore)))/100
+        if var scores = answerStack.peek() {
+            scores.dipl = round( 100 * ( 100 * ( maxDipl + scores.dipl) / (2 * maxDipl))) / 100
+            scores.govt = round( 100 * ( 100 * ( maxGovt + scores.govt) / (2 * maxGovt))) / 100
+            scores.econ = round( 100 * ( 100 * ( maxEcon + scores.econ) / (2 * maxEcon))) / 100
+            scores.scty = round( 100 * ( 100 * ( maxScty + scores.scty) / (2 * maxScty))) / 100
+            return scores
+        } else {
+            throw QuizError.badCalculation
+        }
     }
     func getProgress(_ movement: Int) -> Float{
         Float(questionNo + movement) / Float(quizList.count)

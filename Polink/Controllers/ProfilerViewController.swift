@@ -123,29 +123,35 @@ class ProfilerViewController: UIViewController {
             titleLabel.text = "Question: \(quiz.questionNo + 1)"
             animateInQ()
         } else {
-            print("End of questions")
-            print("Max diplomacy score is \(quiz.maxDipl)")
-            print("Your raw diplomacy score is: \(quiz.dipl)")
-            print("Your calculated diplomacy score is: \(quiz.calcScores(quiz.dipl, maxScore: quiz.maxDipl))")
-            print("Max economy score is \(quiz.maxEcon)")
-            print("Your economy score is: \(quiz.econ)")
-            print("Your calculated economy score is: \(quiz.calcScores(quiz.econ, maxScore: quiz.maxEcon))")
-            print("Max government score is: \(quiz.maxGovt)")
-            print("Your government score is: \(quiz.govt)")
-            print("Your calculated government score is: \(quiz.calcScores(quiz.govt, maxScore: quiz.maxGovt))")
-            print("Max societal score is: \(quiz.maxScty)")
-            print("Your societal score is: \(quiz.scty)")
-            print("Your calculated societal score is: \(quiz.calcScores(quiz.scty, maxScore: quiz.maxScty))")
-            for button in buttons {
-                animateOut(button)
+            do{
+                let finalScore = try quiz.calcScores()
+                // Printing and declaration of lastScore for testing
+                let lastScore = quiz.answerStack.peek()
+                print("End of questions")
+                print("Max diplomacy score is \(quiz.maxDipl)")
+                print("Your raw diplomacy score is: \(lastScore!.dipl)")
+                print("Your calculated diplomacy score is: \(finalScore.dipl))")
+                print("Max economy score is \(quiz.maxEcon)")
+                print("Your raw economy score is: \(lastScore!.econ)")
+                print("Your calculated economy score is: \(finalScore.econ)")
+                print("Max government score is: \(quiz.maxGovt)")
+                print("Your raw government score is: \(lastScore!.govt)")
+                print("Your calculated government score is: \(finalScore.govt)")
+                print("Max societal score is: \(quiz.maxScty)")
+                print("Your raw societal score is: \(lastScore!.scty)")
+                print("Your calculated societal score is: \(finalScore.scty)")
+                for button in buttons {
+                    animateOut(button)
+                }
+                animateOut(quizProgress)
+                recordResults(econ: finalScore.econ, dipl: finalScore.dipl, govt: finalScore.govt, scty: finalScore.scty)
+                print(UserDS.user.polinkIdeology)
+                displayResults()
+                displayNextButton()
+            } catch {
+                print(error)
             }
-            animateOut(quizProgress)
-            recordResults()
-            print(UserDS.user.polinkIdeology)
-            displayResults()
-            displayNextButton()
         }
-        
     }
     
     func displayResults(){
@@ -177,11 +183,11 @@ class ProfilerViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextButtonPressed(_:)), for: .touchUpInside)
         animateIn(nextButton, delay: 3)
     }
-    func recordResults() {
-        UserDS.user.polinkIdeology[K.ideologyAxes.dipl] = quiz.calcScores(quiz.dipl, maxScore: quiz.maxDipl)
-        UserDS.user.polinkIdeology[K.ideologyAxes.econ] = quiz.calcScores(quiz.econ, maxScore: quiz.maxEcon)
-        UserDS.user.polinkIdeology[K.ideologyAxes.govt] = quiz.calcScores(quiz.govt, maxScore: quiz.maxGovt)
-        UserDS.user.polinkIdeology[K.ideologyAxes.scty] = quiz.calcScores(quiz.scty, maxScore: quiz.maxScty)
+    func recordResults(econ: Double, dipl: Double, govt: Double, scty: Double) {
+        UserDS.user.polinkIdeology[K.ideologyAxes.dipl] = dipl
+        UserDS.user.polinkIdeology[K.ideologyAxes.econ] = econ
+        UserDS.user.polinkIdeology[K.ideologyAxes.govt] = govt
+        UserDS.user.polinkIdeology[K.ideologyAxes.scty] = scty
     }
     func sendResults() {
         let uid = Auth.auth().currentUser?.uid
