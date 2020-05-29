@@ -55,7 +55,7 @@ class ProfilerViewController: UIViewController {
         
         titleLabel.text = "Hello, \(UserDS.user.fname ?? "New User")"
         titleLabel.alpha = 0.0
-        quizLabel.text = "We are going to ask you a few quetions so we can get to know you better. \nThere are no right or wrong answers, and how truthfully you respond to each statement will reflect on your personal experience."
+        quizLabel.text = "We are going to ask you a few quetions so we can get to know you better. \nThere are no right or wrong answers, just be honest and allow us to do the rest."
         quizLabel.alpha = 0
         
         
@@ -83,9 +83,18 @@ class ProfilerViewController: UIViewController {
     }
     
     @IBAction func answerButtonPressed(_ sender: AnswerButton){
+        // Backend tracking in QuizBrain
         quiz.nextQuestion(sender.effect!)
         loadQuestion()
         updateProgressBar()
+    }
+    
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        // Back Button
+        quiz.prevQuestion()
+        loadQuestion()
+        updateProgressBar(-1)
+        
     }
     
     func startQuiz () {
@@ -191,8 +200,7 @@ class ProfilerViewController: UIViewController {
     @IBAction func nextButtonPressed(_ sender: UIButton){
         self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
     }
-    @IBAction func backButtonPressed(_ sender: UIButton) {
-    }
+
     @IBAction func retryButtonPressed(_ sender: UIButton){
         sendResults()
     }
@@ -209,9 +217,9 @@ class ProfilerViewController: UIViewController {
             self.titleLabel.alpha = 0
         }, completion: nil)
     }
-    func updateProgressBar () {
+    func updateProgressBar (_ movement: Int = 1) {
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-            self.quizProgress.setProgress(self.quiz.getProgress(), animated: true)
+            self.quizProgress.setProgress(self.quiz.getProgress(movement), animated: true)
         }, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

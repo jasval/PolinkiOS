@@ -21,31 +21,73 @@ struct QuizBrain {
     var maxScty:Double = 0
     
     //    User scores initialised at 0
-    var econ:Double = 0
-    var dipl:Double = 0
-    var govt:Double = 0
-    var scty:Double = 0
+
     
     //  Question Iterators
     var questionNo:Int = 0
-    var prevQuestion:Int?
     
+    struct Answer {
+        var econ:Double = 0
+        var dipl:Double = 0
+        var govt:Double = 0
+        var scty:Double = 0
+    }
+    /*
+     // MARK: Embedded struct for a stack of generics
+     */
+    
+    // A stack to keep tabs on answers scores for easy backtracing
+    struct AnswerStack<Element> {
+        fileprivate var answerArray: [Element] = []
+        
+        var isEmpty: Bool {
+            answerArray.isEmpty
+        }
+        
+        var count: Int {
+            answerArray.count
+        }
+        
+        mutating func push(_ element: Element) {
+            answerArray.append(element)
+        }
+        
+        mutating func pop() -> Element? {
+            answerArray.popLast()
+        }
+        
+        func peek() -> Element? {
+            answerArray.last
+        }
+    }
+    
+    var stack = AnswerStack<Answer>()
     
     /*
     // MARK: - Functions
      */
     mutating func nextQuestion(_ multiplier: Double) {
-        econ += multiplier * (quizList[questionNo].effect[K.ideologyAxes.econ] ?? 0)
-        dipl += multiplier * (quizList[questionNo].effect[K.ideologyAxes.dipl] ?? 0)
-        govt += multiplier * (quizList[questionNo].effect[K.ideologyAxes.govt] ?? 0)
-        scty += multiplier * (quizList[questionNo].effect[K.ideologyAxes.scty] ?? 0)
+        var newAnswer = Answer()
+        newAnswer.econ = multiplier * (quizList[questionNo].effect[K.ideologyAxes.econ] ?? 0)
+        newAnswer.dipl = multiplier * (quizList[questionNo].effect[K.ideologyAxes.dipl] ?? 0)
+        newAnswer.govt = multiplier * (quizList[questionNo].effect[K.ideologyAxes.govt] ?? 0)
+        newAnswer.scty = multiplier * (quizList[questionNo].effect[K.ideologyAxes.scty] ?? 0)
+        stack.push(newAnswer)
         if questionNo < quizList.count {
-            prevQuestion = questionNo
             questionNo += 1
         } else {
-            print("No more elements in the array")
+            print("No more questions")
         }
     }
+    mutating func prevQuestion() {
+        _ = stack.pop()
+        if questionNo > 0 {
+            questionNo -= 1
+        } else {
+            print("This is already the first question")
+        }
+    }
+    
     mutating func initQuiz() {
         questionNo = 0
         for i in 0..<quizList.count {
@@ -55,11 +97,13 @@ struct QuizBrain {
             maxScty += abs(quizList[i].effect[K.ideologyAxes.scty] ?? 0)
         }
     }
+    
+
     func calcScores(_ userScore: Double, maxScore: Double) -> Double{
-        return round(100*(100*(maxScore+userScore)/(2*maxScore)))/100
+        round(100*(100*(maxScore+userScore)/(2*maxScore)))/100
     }
-    func getProgress() -> Float{
-        return Float(questionNo + 1) / Float(quizList.count)
+    func getProgress(_ movement: Int) -> Float{
+        Float(questionNo + movement) / Float(quizList.count)
     }
     /*
     // MARK: - Question List

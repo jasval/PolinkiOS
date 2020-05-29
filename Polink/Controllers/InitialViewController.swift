@@ -27,8 +27,8 @@ class InitialViewController: UIViewController {
             button.layer.cornerRadius = button.frame.height / 5
             button.alpha = 0
         }
-        self.defaults.set(self.testString, forKey: "Test")
         // Testing saving data in the user defaults
+        self.defaults.set(self.testString, forKey: "Test")
     }
 
     
