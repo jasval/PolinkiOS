@@ -9,8 +9,11 @@
 import UIKit
 import FirebaseAuth
 
+
+
 class RootPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    lazy var viewControllerList:[UIViewController] = {
+    
+    var viewControllerList:[UIViewController] = {
         let sb = UIStoryboard(name: "Registration", bundle: nil)
         
         let vc1 = sb.instantiateViewController(withIdentifier: "UserInfoViewController")
@@ -20,7 +23,7 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         return [vc1, vc2, vc3, vc4]
     }()
-
+    
     var pageControl = UIPageControl()
 
     
@@ -28,7 +31,22 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         super.viewDidLoad()
         //Assigns itself as the data source
         self.dataSource = self
-               
+        
+        
+        // Global rootPageViewController
+//        root = RootPageViewController()
+//        if root != nil {
+//            root?.dataSource = self
+//
+//            if let firstViewController = root?.viewControllers?.first {
+//                self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+//            }
+//
+//            root?.delegate = self
+//
+//            root?.configurePageControl()
+//        }
+        
         // It only sets the view controllers if there is at least one view controller stored in the array list
         if let firstViewController = viewControllerList.first {
             self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
@@ -36,6 +54,7 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         //Asigns itself as the delegate
         self.delegate = self
+        
         configurePageControl()
         
     }
@@ -44,16 +63,20 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 50 , width: UIScreen.main.bounds.width, height: 50))
         pageControl.numberOfPages = viewControllerList.count
         pageControl.currentPage = 0
-        pageControl.tintColor = UIColor.black
-        pageControl.pageIndicatorTintColor = UIColor.white
+        //pageControl.tintColor = UIColor.black
+        //pageControl.pageIndicatorTintColor = UIColor.white
+        pageControl.customPageControl(dotFillColor: .black, dotBorderColor: .black, dotBorderWidth: 0.1)
         pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
         
     }
     // Every time the current animation initiated by the user and managed by the page view controller finishes, the following function is called to update the page view control.
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = viewControllerList.firstIndex(of: pageContentViewController)!
+        
     }
     
     // Configures boundaries and basic navigation function moving in reverse
@@ -69,6 +92,7 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         return viewControllerList[previousIndex]
     }
+    
     // Configures boundaries and basic navigation function moving forward
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         

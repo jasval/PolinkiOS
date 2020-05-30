@@ -20,6 +20,9 @@
 		FE0CE33523E884FD002E5604 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33423E884FD002E5604 /* Main.storyboard */; };
 		FE0CE33723E88D1D002E5604 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */; };
 		FE0CE33923E8927E002E5604 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0CE33823E8927E002E5604 /* K.swift */; };
+		FE3561062481A133007E23C9 /* UIPageControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3561052481A133007E23C9 /* UIPageControl+Extension.swift */; };
+		FE3561082481A9A0007E23C9 /* UIPageViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3561072481A9A0007E23C9 /* UIPageViewController+Extension.swift */; };
+		FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE35610924829909007E23C9 /* UIButton+Extension.swift */; };
 		FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39868E23F5CADA0052C841 /* UserDataModel.swift */; };
 		FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39869023F5CF2A0052C841 /* CLLocation+CodableExtension.swift */; };
 		FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */; };
@@ -30,7 +33,7 @@
 		FE84F5C923F9810900312206 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84F5C823F9810900312206 /* UserInfoViewController.swift */; };
 		FE84F5CB23F9813200312206 /* UserGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84F5CA23F9813200312206 /* UserGenderViewController.swift */; };
 		FE84F5CD23F9814600312206 /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84F5CC23F9814600312206 /* UserLocationViewController.swift */; };
-		FECE475223FB611800594D19 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FECE475223FB611800594D19 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEE7083E23F2A55400E47E7B /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE7083D23F2A55400E47E7B /* SpinnerViewController.swift */; };
 		FEF69CE423F8AA07002C3524 /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF69CE323F8AA07002C3524 /* Tab.storyboard */; };
 		FEF69CEA23F8B98B002C3524 /* Chats.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF69CE923F8B98B002C3524 /* Chats.storyboard */; };
@@ -51,7 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FECE475223FB611800594D19 /* BuildFile in Embed Frameworks */,
+				FECE475223FB611800594D19 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +120,9 @@
 		FE2FC71323FAC92700C100E2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		FE2FC71523FAC98300C100E2 /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
 		FE2FC71623FAC98300C100E2 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		FE3561052481A133007E23C9 /* UIPageControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl+Extension.swift"; sourceTree = "<group>"; };
+		FE3561072481A9A0007E23C9 /* UIPageViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+Extension.swift"; sourceTree = "<group>"; };
+		FE35610924829909007E23C9 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FE39868E23F5CADA0052C841 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		FE39869023F5CF2A0052C841 /* CLLocation+CodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+CodableExtension.swift"; sourceTree = "<group>"; };
 		FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -244,7 +250,10 @@
 				FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */,
 				FE01AE8523E61242002F36FA /* Info.plist */,
 				FE0CE33823E8927E002E5604 /* K.swift */,
+				FE35610924829909007E23C9 /* UIButton+Extension.swift */,
 				FE6886B323EAF601001F1301 /* UIViewController+EasyAnimation.swift */,
+				FE3561072481A9A0007E23C9 /* UIPageViewController+Extension.swift */,
+				FE3561052481A133007E23C9 /* UIPageControl+Extension.swift */,
 				FE39869023F5CF2A0052C841 /* CLLocation+CodableExtension.swift */,
 				FEE7083D23F2A55400E47E7B /* SpinnerViewController.swift */,
 			);
@@ -428,13 +437,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE0CE33923E8927E002E5604 /* K.swift in Sources */,
+				FE3561082481A9A0007E23C9 /* UIPageViewController+Extension.swift in Sources */,
 				FEF69CFA23F8CC8A002C3524 /* RootPageViewController.swift in Sources */,
 				FE01AE7C23E61241002F36FA /* InitialViewController.swift in Sources */,
 				FEF69CF223F8BFD3002C3524 /* BaseTabBarController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */,
 				FE0C3BBD24015D2200ED8A3C /* UserDS.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
+				FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
+				FE3561062481A133007E23C9 /* UIPageControl+Extension.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,
 				FE6886B423EAF601001F1301 /* UIViewController+EasyAnimation.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,

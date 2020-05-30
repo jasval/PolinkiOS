@@ -17,6 +17,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var checkMark: UIImageView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var nextArrow: UIButton!
     
     var userPickedDate:Bool = false
     
@@ -39,9 +40,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         titleText.alpha = 0
         fieldStack.alpha = 0
         checkMark.alpha = 0
+        nextArrow.alpha = 0
         configureDateBoundaries()
         animateIn(titleText, delay: 1)
         animateIn(fieldStack, delay: 2)
+        
         
     }
     //MARK: Keyboard notification observer methods
@@ -70,17 +73,22 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    
     // A checker that visually calls the checkmark if all necessary fields have been completed
     func checkIfComplete(){
         //Checks if fname and lname are not null
         if let fname = firstNameTextField.text, let lname = lastNameTextField.text {
-            if userPickedDate == true {
-                if isValidName(fname) == true && isValidName(lname) == true {
+            if userPickedDate {
+                if isValidName(fname) && isValidName(lname) {
                     UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
                     print("Wrote to file!")
-                    animateIn(checkMark, delay: 2)
+                    animateIn(checkMark, delay: 0.2)
                     UserDS.user.completePage(K.regPages.pageOne)
+//                    let storyBoard:UIStoryboard = UIStoryboard(name: "Registration", bundle: nil)
+//                    let userGenderViewController = storyBoard.instantiateViewController(identifier: "UserGenderViewController") as! UserGenderViewController
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        self.present(userGenderViewController, animated: true, completion: nil)
+                    self.animateIn(nextArrow, delay: 0.8)
+                    self.nextArrow.shake()
                 } else {
                     if checkMark.alpha > 0 {
                         animateOut(checkMark)

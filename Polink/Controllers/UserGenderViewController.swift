@@ -16,6 +16,7 @@ class UserGenderViewController: UIViewController {
     @IBOutlet weak var transIcon: UIImageView!
     @IBOutlet weak var otherIcon: UIImageView!
     @IBOutlet weak var checkMark: UIImageView!
+    @IBOutlet weak var nextArrow: UIButton!
     
     var femaleImages: [UIImage] = []
     var maleImages: [UIImage] = []
@@ -29,7 +30,7 @@ class UserGenderViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         checkMark.alpha = 0
-        
+        nextArrow.alpha = 0
         
         let tapGestureRecogniserFemale = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecogniser:)))
         let tapGestureRecogniserMale = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecogniser:)))
@@ -95,8 +96,10 @@ class UserGenderViewController: UIViewController {
     
     func checkIfComplete() -> Void {
         if UserDS.user.gender != nil {
-            animateIn(checkMark, delay: 0.5)
+            animateIn(checkMark, delay: 0.2)
             UserDS.user.completePage(K.regPages.pageTwo)
+            animateIn(nextArrow, delay: 0.8)
+            nextArrow.shake()
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)

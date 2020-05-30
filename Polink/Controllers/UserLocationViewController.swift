@@ -13,8 +13,9 @@ import FirebaseFirestore
 
 class UserLocationViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var searchBar: UITextField!
+    @IBOutlet weak var locateButton: UIButton!
     @IBOutlet weak var checkMark: UIImageView!
+    @IBOutlet weak var nextArrow: UIButton!
     
     let manager = CLLocationManager()
     let semaphore = DispatchSemaphore(value: 1)
@@ -24,53 +25,58 @@ class UserLocationViewController: UIViewController {
         manager.delegate = self
         mapView.alpha = 0
         checkMark.alpha = 0
-        print("\(String(describing: UserDS.user.fname)) and \(String(describing: UserDS.user.gender))")
         
     }
     override func viewDidAppear(_ animated: Bool) {
-
+        print("\(String(describing: UserDS.user.fname)) and \(String(describing: UserDS.user.gender))")
     }
     
-    @IBAction func searchCompleted(_ sender: Any) {
-        if let searchTerms = searchBar.text {
-            let geoCoder = CLGeocoder()
-            geoCoder.geocodeAddressString(searchTerms) { (clPlacemark, error) in
-                if let place = clPlacemark!.first {
-                    if let country = place.country, let city = place.locality {
-                        UserDS.user.writegeoLoc(country, geoLocCity: city)
-                        let geoPoint = GeoPoint(latitude: place.location!.coordinate.latitude, longitude: place.location!.coordinate.longitude)
-                        UserDS.user.writeLocation(geoPoint)
-                        let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
-                        let annotation = MKPointAnnotation()
-                        self.initialiseMap(location)
-                        self.initialiseAnnotation(annotation, location: location)
-                    } else {
-                        print("City or/and Country could not be found: \(error!.localizedDescription)")
-                    }
-                    
-                } else {
-                    print("There has been an error: \(error!.localizedDescription)")
-                }
-            }
-        }
-        resignFirstResponder()
-    }
+//    @IBAction func searchCompleted(_ sender: Any) {
+//        if let searchTerms = searchBar.text {
+//            let geoCoder = CLGeocoder()
+//            geoCoder.geocodeAddressString(searchTerms) { (clPlacemark, error) in
+//                if let place = clPlacemark!.first {
+//                    if let country = place.country, let city = place.locality {
+//                        UserDS.user.writegeoLoc(country, geoLocCity: city)
+//                        let geoPoint = GeoPoint(latitude: place.location!.coordinate.latitude, longitude: place.location!.coordinate.longitude)
+//                        UserDS.user.writeLocation(geoPoint)
+//                        let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
+//                        let annotation = MKPointAnnotation()
+//                        self.initialiseMap(location)
+//                        self.initialiseAnnotation(annotation, location: location)
+//                    } else {
+//                        print("City or/and Country could not be found: \(error!.localizedDescription)")
+//                    }
+//
+//                } else {
+//                    print("There has been an error: \(error!.localizedDescription)")
+//                }
+//            }
+//        }
+//        resignFirstResponder()
+//    }
     
-    @IBAction func locateDevice(){
+    @IBAction func locateButtonPressed(_ sender: UIButton){
+        locateButton.pulsate()
         DispatchQueue.global(qos: .userInitiated).async {
             self.semaphore.wait()
             self.manager.requestLocation()
+        }
+        if let loc = UserDS.user.location {
+            print(loc)
+        } else {
+            print("nothing was written here")
         }
         DispatchQueue.global(qos: .userInitiated).async {
             self.semaphore.wait()
             let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
             let annotation = MKPointAnnotation()
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (Timer) in
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (Timer) in
             }
             DispatchQueue.main.async {
                 self.updateUI(location, annotation: annotation)
+                self.semaphore.signal()
             }
-            self.semaphore.signal()
         }
     }
     
@@ -93,6 +99,7 @@ class UserLocationViewController: UIViewController {
         }
     }
 }
+
 // MARK: Core Location and Mapkit methods
 
 extension UserLocationViewController: CLLocationManagerDelegate {
@@ -143,12 +150,12 @@ extension UserLocationViewController: CLLocationManagerDelegate {
     }
     
 }
-
-// MARK: Text Field Delegate Functions
-
-extension UserLocationViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-}
+//
+//// MARK: Text Field Delegate Functions
+//
+//extension UserLocationViewController: UITextFieldDelegate {
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return true
+//    }
+//
+//}
