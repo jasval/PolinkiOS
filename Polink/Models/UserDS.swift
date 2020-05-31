@@ -18,11 +18,12 @@ class UserDS {
     var location: GeoPoint?
     var geoLocCountry: String?
     var geoLocCity: String?
-    var regCompletion: [String : Bool] = [
-        K.regPages.pageOne : false,
-        K.regPages.pageTwo : false,
-        K.regPages.pageThree : false,
-    ]
+//    var regCompletion: [String : Bool] = [
+//        K.regPages.pageOne : false,
+//        K.regPages.pageTwo : false,
+//        K.regPages.pageThree : false,
+//    ]
+    var regCompletion: [Bool] = Array(repeating: false, count: 3)
     var polinkIdeology: [String : Double] = [:]
     
     // Singleton to store all information
@@ -48,11 +49,11 @@ class UserDS {
         self.location = location
         print("Latitude and Longitude were recorded")
     }
-    func completePage(_ key: String) {
-        regCompletion[key] = true
+    func completePage(index: Int) {
+        regCompletion[index] = true
     }
-    func incompletePage(_ key: String) {
-        regCompletion[key] = false
+    func incompletePage(index: Int) {
+        regCompletion[index] = false
     }
 
 }

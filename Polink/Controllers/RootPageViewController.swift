@@ -63,9 +63,9 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 50 , width: UIScreen.main.bounds.width, height: 50))
         pageControl.numberOfPages = viewControllerList.count
         pageControl.currentPage = 0
-        //pageControl.tintColor = UIColor.black
-        //pageControl.pageIndicatorTintColor = UIColor.white
-        pageControl.customPageControl(dotFillColor: .black, dotBorderColor: .black, dotBorderWidth: 0.1)
+        
+        // Using an extension to customise the color of page control
+        pageControl.customPageControl(dotFillColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), dotBorderColor: #colorLiteral(red: 0.3294117647, green: 0.3294117647, blue: 0.3450980392, alpha: 0.6), dotBorderWidth: 0.1)
         pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
         

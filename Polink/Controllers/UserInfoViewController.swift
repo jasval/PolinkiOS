@@ -82,7 +82,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
                     UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
                     print("Wrote to file!")
                     animateIn(checkMark, delay: 0.2)
-                    UserDS.user.completePage(K.regPages.pageOne)
+                    UserDS.user.completePage(index: 0)
 //                    let storyBoard:UIStoryboard = UIStoryboard(name: "Registration", bundle: nil)
 //                    let userGenderViewController = storyBoard.instantiateViewController(identifier: "UserGenderViewController") as! UserGenderViewController
 //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -92,14 +92,14 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     if checkMark.alpha > 0 {
                         animateOut(checkMark)
-                        UserDS.user.incompletePage(K.regPages.pageOne)
+                        UserDS.user.incompletePage(index: 0)
                     }
                 }
             } 
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                UserDS.user.incompletePage(K.regPages.pageOne)
+                UserDS.user.incompletePage(index: 0)
             }
             return
         }
