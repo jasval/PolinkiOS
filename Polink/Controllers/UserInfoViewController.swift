@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class UserInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var titleText: UILabel!

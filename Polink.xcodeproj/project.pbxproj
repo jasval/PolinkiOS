@@ -20,6 +20,7 @@
 		FE0CE33523E884FD002E5604 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33423E884FD002E5604 /* Main.storyboard */; };
 		FE0CE33723E88D1D002E5604 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */; };
 		FE0CE33923E8927E002E5604 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0CE33823E8927E002E5604 /* K.swift */; };
+		FE32EB092484258E00E8C2D5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE32EB082484258E00E8C2D5 /* ChatViewController.swift */; };
 		FE3561062481A133007E23C9 /* UIPageControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3561052481A133007E23C9 /* UIPageControl+Extension.swift */; };
 		FE3561082481A9A0007E23C9 /* UIPageViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3561072481A9A0007E23C9 /* UIPageViewController+Extension.swift */; };
 		FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE35610924829909007E23C9 /* UIButton+Extension.swift */; };
@@ -120,6 +121,7 @@
 		FE2FC71323FAC92700C100E2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		FE2FC71523FAC98300C100E2 /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
 		FE2FC71623FAC98300C100E2 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		FE32EB082484258E00E8C2D5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		FE3561052481A133007E23C9 /* UIPageControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl+Extension.swift"; sourceTree = "<group>"; };
 		FE3561072481A9A0007E23C9 /* UIPageViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+Extension.swift"; sourceTree = "<group>"; };
 		FE35610924829909007E23C9 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				FE84F5C823F9810900312206 /* UserInfoViewController.swift */,
 				FE84F5CA23F9813200312206 /* UserGenderViewController.swift */,
 				FE84F5CC23F9814600312206 /* UserLocationViewController.swift */,
+				FE32EB082484258E00E8C2D5 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				FE6886B823EB18F8001F1301 /* Question.swift in Sources */,
 				FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */,
 				FEE7083E23F2A55400E47E7B /* SpinnerViewController.swift in Sources */,
+				FE32EB092484258E00E8C2D5 /* ChatViewController.swift in Sources */,
 				FE01AE9523E618D6002F36FA /* ProfilerViewController.swift in Sources */,
 				FE84F5C923F9810900312206 /* UserInfoViewController.swift in Sources */,
 				FE84F5CD23F9814600312206 /* UserLocationViewController.swift in Sources */,
