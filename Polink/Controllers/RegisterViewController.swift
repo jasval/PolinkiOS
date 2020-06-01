@@ -39,6 +39,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signupButtonPressed(_ sender: Any?) {
         passwordField.endEditing(true)
         if let email = emailField.text, let password = passwordField.text {
+            checkSecurityConditions(email: email, password: password)
+            
             Auth.auth().createUser(withEmail: email, password: password) {authResult, error in
                 // In case of an error present a popup to inform the user of the failed attempt to register
                 if let e = error {
@@ -68,6 +70,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func checkSecurityConditions(email: String, password: String){
+        // Verify that the email is a valid email
+        
+        // Verify the password meet minimum security standards
+        
+    }
+    
     func createSpinnerView() {
         let child = SpinnerViewController()
 

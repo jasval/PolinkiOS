@@ -20,15 +20,20 @@ class ProfilerViewController: UIViewController {
     @IBOutlet weak var answerStack: UIStackView!
     @IBOutlet weak var backButton: UIButton!
     
-    //      Creating an instance of the QuizBrain
+    // creating an instance of the QuizBrain
     var quiz = QuizBrain()
-        
+    
+    // initialising the firestore database
     let db = Firestore.firestore()
+    
+    //handler of the auth state listener
+    var handle: AuthStateDidChangeListenerHandle?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //      Progress Bar Styling and Initialisation
+        // progress bar styling and initialisation
         
         quizProgress.progress = 0
         quizProgress.transform = quizProgress.transform.scaledBy(x: 1, y: 4)
@@ -36,7 +41,7 @@ class ProfilerViewController: UIViewController {
         quizProgress.layer.cornerRadius = quizProgress.frame.height / 2
         quizProgress.alpha = 0
         
-        //      Creating the Answer Buttons
+        // creating the answerButtons
         
         for i in 1...5 {
             let button = AnswerButton(position: i)
@@ -45,13 +50,13 @@ class ProfilerViewController: UIViewController {
             buttons.append(button)
         }
         
-        //      Initialising the back button
+        // initialising the backButton
         backButton.layer.masksToBounds = true
         backButton.layer.cornerRadius = backButton.frame.height / 5
         backButton.alpha = 0
         
         
-        //      Set up initial labels
+        // setting initial labels
         
         titleLabel.text = "Hello, \(UserDS.user.fname ?? "New User")"
         titleLabel.alpha = 0.0
@@ -61,6 +66,11 @@ class ProfilerViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+          // ...
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(withDuration: 2) {
@@ -80,6 +90,10 @@ class ProfilerViewController: UIViewController {
             self.startQuiz()
         })
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     @IBAction func answerButtonPressed(_ sender: AnswerButton){

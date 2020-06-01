@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 
 class RootPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -22,6 +22,9 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         return [vc1, vc2, vc3, vc4]
     }()
+    
+    // authentication listener
+    var handle: AuthStateDidChangeListenerHandle?
     
     var pageControl = UIPageControl()
 
@@ -57,6 +60,8 @@ class RootPageViewController: UIPageViewController, UIPageViewControllerDataSour
         configurePageControl()
         
     }
+    
+    
     // Configuring the page view control (The three dots indicating the current page)
     func configurePageControl() {
         pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 50 , width: UIScreen.main.bounds.width, height: 50))

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jose Saldana. All rights reserved.w
 //
 
-import Foundation
+import Firebase
 import MessageKit
 import FirebaseFirestore
 

@@ -46,7 +46,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         
         
     }
-    //MARK: Keyboard notification observer methods
+    //MARK: - Keyboard notification observer methods
     func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -82,10 +82,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
                     print("Wrote to file!")
                     animateIn(checkMark, delay: 0.2)
                     UserDS.user.completePage(index: 0)
-//                    let storyBoard:UIStoryboard = UIStoryboard(name: "Registration", bundle: nil)
-//                    let userGenderViewController = storyBoard.instantiateViewController(identifier: "UserGenderViewController") as! UserGenderViewController
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        self.present(userGenderViewController, animated: true, completion: nil)
                     self.animateIn(nextArrow, delay: 0.8)
                     self.nextArrow.shake()
                 } else {

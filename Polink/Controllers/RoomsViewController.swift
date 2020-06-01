@@ -27,7 +27,7 @@ class RoomsViewController: UIViewController {
         return db.collection("rooms")
     }
     
-    private var rooms = [Rooms]()
+    private var rooms = [Room]()
     private var roomListener: ListenerRegistration?
     
     deinit {
@@ -73,7 +73,7 @@ class RoomsViewController: UIViewController {
         guard let roomName = ac.textFields?.first?.text else {
             return
         }
-        let room = Room(name: roomName)
+//        let room = Room(name: roomName)
         
     }
     
