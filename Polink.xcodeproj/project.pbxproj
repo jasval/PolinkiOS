@@ -26,6 +26,10 @@
 		FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE35610924829909007E23C9 /* UIButton+Extension.swift */; };
 		FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39868E23F5CADA0052C841 /* UserDataModel.swift */; };
 		FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39869023F5CF2A0052C841 /* CLLocation+CodableExtension.swift */; };
+		FE4A037A2484FD3500228F88 /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A03792484FD3500228F88 /* RoomsViewController.swift */; };
+		FE4A037C24851B6D00228F88 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037B24851B6D00228F88 /* Room.swift */; };
+		FE4A037E24851DF300228F88 /* DatabaseRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */; };
+		FE4A038024851EC700228F88 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037F24851EC700228F88 /* Message.swift */; };
 		FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */; };
 		FE6886B423EAF601001F1301 /* UIViewController+EasyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B323EAF601001F1301 /* UIViewController+EasyAnimation.swift */; };
 		FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B523EB1865001F1301 /* QuizBrain.swift */; };
@@ -127,6 +131,10 @@
 		FE35610924829909007E23C9 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FE39868E23F5CADA0052C841 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		FE39869023F5CF2A0052C841 /* CLLocation+CodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+CodableExtension.swift"; sourceTree = "<group>"; };
+		FE4A03792484FD3500228F88 /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomsViewController.swift; path = Polink/Controllers/RoomsViewController.swift; sourceTree = SOURCE_ROOT; };
+		FE4A037B24851B6D00228F88 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepresentation.swift; sourceTree = "<group>"; };
+		FE4A037F24851EC700228F88 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		FE6886B323EAF601001F1301 /* UIViewController+EasyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+EasyAnimation.swift"; sourceTree = "<group>"; };
 		FE6886B523EB1865001F1301 /* QuizBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizBrain.swift; sourceTree = "<group>"; };
@@ -271,6 +279,9 @@
 				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
 				FE0C3BBC24015D2200ED8A3C /* UserDS.swift */,
+				FE4A037B24851B6D00228F88 /* Room.swift */,
+				FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */,
+				FE4A037F24851EC700228F88 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,6 +304,7 @@
 		FE01AE8D23E6127A002F36FA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FE4A03792484FD3500228F88 /* RoomsViewController.swift */,
 				FE01AE7B23E61241002F36FA /* InitialViewController.swift */,
 				FE01AE9023E61874002F36FA /* RegisterViewController.swift */,
 				FE01AE9223E61897002F36FA /* LoginViewController.swift */,
@@ -439,8 +451,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE4A037E24851DF300228F88 /* DatabaseRepresentation.swift in Sources */,
 				FE0CE33923E8927E002E5604 /* K.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageViewController+Extension.swift in Sources */,
+				FE4A037C24851B6D00228F88 /* Room.swift in Sources */,
 				FEF69CFA23F8CC8A002C3524 /* RootPageViewController.swift in Sources */,
 				FE01AE7C23E61241002F36FA /* InitialViewController.swift in Sources */,
 				FEF69CF223F8BFD3002C3524 /* BaseTabBarController.swift in Sources */,
@@ -454,6 +468,7 @@
 				FE6886B423EAF601001F1301 /* UIViewController+EasyAnimation.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
 				FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */,
+				FE4A037A2484FD3500228F88 /* RoomsViewController.swift in Sources */,
 				FE01AE9323E61897002F36FA /* LoginViewController.swift in Sources */,
 				FE84F5CB23F9813200312206 /* UserGenderViewController.swift in Sources */,
 				FEF69CFC23F961CE002C3524 /* PreChatViewController.swift in Sources */,
@@ -463,6 +478,7 @@
 				FEE7083E23F2A55400E47E7B /* SpinnerViewController.swift in Sources */,
 				FE32EB092484258E00E8C2D5 /* ChatViewController.swift in Sources */,
 				FE01AE9523E618D6002F36FA /* ProfilerViewController.swift in Sources */,
+				FE4A038024851EC700228F88 /* Message.swift in Sources */,
 				FE84F5C923F9810900312206 /* UserInfoViewController.swift in Sources */,
 				FE84F5CD23F9814600312206 /* UserLocationViewController.swift in Sources */,
 			);
