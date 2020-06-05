@@ -172,7 +172,7 @@ class ProfilerViewController: UIViewController {
 
                 animateOut(quizProgress)
                 displayResults()
-                displayNextButton()
+                sendResults()
             } catch {
                 print(error)
             }
@@ -216,16 +216,15 @@ class ProfilerViewController: UIViewController {
             let userR = UserDataModel(uid, firstname:  Registration.state.fname!, lastname:  Registration.state.lname!, email: email, dob:  Registration.state.dob!, gender:  Registration.state.gender!, ideology: Registration.state.polinkIdeology!, location:  Registration.state.location!, country:  Registration.state.geoLocCountry!, city:  Registration.state.geoLocCity!)
             do {
                 try db.collection("users").document(uid).setData(from: userR)
+                displayNextButton()
             } catch let error {
                 print("Error writing data to the database: \(error.localizedDescription)")
                 displayRetryButton()
             }
-            self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
         }
     }
     @IBAction func nextButtonPressed(_ sender: UIButton){
-        sendResults()
-        
+        self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
     }
 
     @IBAction func retryButtonPressed(_ sender: UIButton){
