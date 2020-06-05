@@ -24,8 +24,13 @@ class UserGenderViewController: UIViewController {
     var otherImages: [UIImage] = []
 
     var userpickedGender:Bool = false
+    
+    // Create an instance of our ModelController class
+    var userRegistrationModel: Registration!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
 
         // Do any additional setup after loading the view.
@@ -49,9 +54,7 @@ class UserGenderViewController: UIViewController {
         maleIcon.addGestureRecognizer(tapGestureRecogniserMale)
         transIcon.addGestureRecognizer(tapGestureRecogniserTrans)
         otherIcon.addGestureRecognizer(tapGestureRecogniserOther)
-//        femaleImages = createImageArray(total: 20, imagePrefix: "female")
-//        femaleIcon.animationImages = femaleImages
-//        createAnimation(femaleIcon)
+
     }
     
 
@@ -74,36 +77,39 @@ class UserGenderViewController: UIViewController {
     
     @objc func imageTapped(tapGestureRecogniser: UITapGestureRecognizer) {
         let icon = tapGestureRecogniser.view as! UIImageView
+        let x: String
         switch icon.tag {
         case 0:
-            UserDS.user.writeGender(K.userGenders.female)
-            print(K.userGenders.female)
+            x = K.userGenders.female
+            print(x)
         case 1:
-            UserDS.user.writeGender(K.userGenders.male)
-            print(K.userGenders.male)
+            x = K.userGenders.male
+            print(x)
         case 2:
-            UserDS.user.writeGender(K.userGenders.trans)
-            print(K.userGenders.trans)
+            x = K.userGenders.trans
+            print(x)
         case 3:
-            UserDS.user.writeGender(K.userGenders.other)
-            print(K.userGenders.other)
+            x = K.userGenders.other
+            print(x)
         default:
-            UserDS.user.writeGender(K.userGenders.other)
+            x = K.userGenders.other
             print("Defaulted")
         }
+        Registration.state.gender = x
         checkIfComplete()
     }
     
     func checkIfComplete() -> Void {
-        if UserDS.user.gender != nil {
+        if Registration.state.gender != nil {
             animateIn(checkMark, delay: 0.2)
-            UserDS.user.completePage(index: 1)
+            Registration.state.regCompletion[1] = true
             animateIn(nextArrow, delay: 0.8)
+            print(Registration.state.dob?.description ?? "None")
             nextArrow.shake()
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                UserDS.user.incompletePage(index: 1)
+                Registration.state.regCompletion[1] = false
             }
         }
     }

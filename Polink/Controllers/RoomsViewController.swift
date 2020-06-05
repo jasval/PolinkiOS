@@ -34,12 +34,12 @@ class RoomsViewController: UIViewController {
         roomListener?.remove()
     }
     
-    init(currentUser: User) {
-        self.currentUser = currentUser
-        super.init(style: .grouped)
-        
-        title = "Rooms"
-    }
+//    init(currentUser: User) {
+////        self.currentUser = currentUser
+////        super.init(style: .grouped)
+//        
+//        title = "Rooms"
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,7 +48,7 @@ class RoomsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        clearsSelectionOnViewWillAppear = true
+//        clearsSelectionOnViewWillAppear = true
 
         // Do any additional setup after loading the view.
     }
@@ -67,12 +67,12 @@ class RoomsViewController: UIViewController {
     // MARK: - Helpers
     
     private func createRoom() {
-        guard let ac = currentLobbyAlertController else {
-            return
-        }
-        guard let roomName = ac.textFields?.first?.text else {
-            return
-        }
+//        guard let ac = currentLobbyAlertController else {
+//            return
+//        }
+//        guard let roomName = ac.textFields?.first?.text else {
+//            return
+//        }
 //        let room = Room(name: roomName)
         
     }

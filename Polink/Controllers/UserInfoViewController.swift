@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class UserInfoViewController: UIViewController, UITextFieldDelegate {
+class UserInfoViewController: UIViewController {
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var fieldStack: UIStackView!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -21,15 +22,18 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     var userPickedDate:Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
         registerKeyboardNotifications()
         
+        //Do any additional assignments to our ModelController class if necessary
+//        firstNameTextField.text = userRegistration.fname
+//        lastNameTextField.text = userRegistration.lname
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         deRegisterKeyboardNotifications()
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,9 +48,90 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         animateIn(titleText, delay: 1)
         animateIn(fieldStack, delay: 2)
         
-        
     }
+    
+    // A checker that visually calls the checkmark if all necessary fields have been completed
+    func checkIfComplete(){
+        //Checks if fname and lname are not null
+        if let fname = firstNameTextField.text, let lname = lastNameTextField.text {
+            if userPickedDate {
+                if isValidName(fname) && isValidName(lname) {
+                    let date = datePicker.date
+                    var dateComponents = DateComponents()
+                    dateComponents.day = 1
+                    let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
+                    
+                    
+                    Registration.state.fname = fname
+                    Registration.state.lname = lname
+                    Registration.state.dob = newDate
+                    
+                    
+//                    UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
+                    
+                    
+                    
+                    
+                    print("Wrote to file!")
+                    print("\(Registration.state.dob!)")
+                    animateIn(checkMark, delay: 0.2)
+                    Registration.state.regCompletion[0] = true
+//                    UserDS.user.completePage(index: 0)
+                    self.animateIn(nextArrow, delay: 0.8)
+                    self.nextArrow.shake()
+                } else {
+                    if checkMark.alpha > 0 {
+                        animateOut(checkMark)
+                        Registration.state.regCompletion[0] = false
+//                        UserDS.user.incompletePage(index: 0)
+                    }
+                }
+            }
+        } else {
+            if checkMark.alpha > 0 {
+                animateOut(checkMark)
+                Registration.state.regCompletion[0] = false
+//                UserDS.user.incompletePage(index: 0)
+            }
+        }
+    }
+    
+    // Configure Maximum and minimum dates
+    func configureDateBoundaries() {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        var components = DateComponents()
+        components.calendar = calendar
+        
+        components.year = -18
+//        components.month = 12
+        
+        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+        
+        components.year = -150
+        let minDate = calendar.date(byAdding: components, to: currentDate)!
+        datePicker.maximumDate = maxDate
+        datePicker.minimumDate = minDate
+    }
+    
+    @IBAction func valueChanged(_ sender: Any) {
+        if userPickedDate == false {
+            userPickedDate = true
+        }
+        checkIfComplete()
+        return
+    }
+    // Validate First and Lastname user input to be at least length 2 each
+    func isValidName(_ name: String) -> Bool {
+        let stringRegex = "^.{2,}$"
+        return NSPredicate(format: "SELF MATCHES %@", stringRegex).evaluate(with: name)
+    }
+}
+    
+    
     //MARK: - Keyboard notification observer methods
+    
+extension UserInfoViewController: UITextFieldDelegate {
     func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -70,67 +155,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
     
-    
-    
-    // A checker that visually calls the checkmark if all necessary fields have been completed
-    func checkIfComplete(){
-        //Checks if fname and lname are not null
-        if let fname = firstNameTextField.text, let lname = lastNameTextField.text {
-            if userPickedDate {
-                if isValidName(fname) && isValidName(lname) {
-                    UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
-                    print("Wrote to file!")
-                    animateIn(checkMark, delay: 0.2)
-                    UserDS.user.completePage(index: 0)
-                    self.animateIn(nextArrow, delay: 0.8)
-                    self.nextArrow.shake()
-                } else {
-                    if checkMark.alpha > 0 {
-                        animateOut(checkMark)
-                        UserDS.user.incompletePage(index: 0)
-                    }
-                }
-            } 
-        } else {
-            if checkMark.alpha > 0 {
-                animateOut(checkMark)
-                UserDS.user.incompletePage(index: 0)
-            }
-            return
-        }
-    }
-    
-    // Configure Maximum and minimum dates
-    func configureDateBoundaries() {
-        let calendar = Calendar(identifier: .gregorian)
-        let currentDate = Date()
-        var components = DateComponents()
-        components.calendar = calendar
-        
-        components.year = -18
-        components.month = 12
-        let maxDate = calendar.date(byAdding: components, to: currentDate)!
-        
-        components.year = -150
-        let minDate = calendar.date(byAdding: components, to: currentDate)!
-        datePicker.maximumDate = maxDate
-        datePicker.minimumDate = minDate
-    }
-    
-    @IBAction func valueChanged(_ sender: Any) {
-        if userPickedDate == false {
-            userPickedDate = true
-        }
-        checkIfComplete()
-        return
-    }
-    // Validate First and Lastname user input to be at least length 2 each
-    func isValidName(_ name: String) -> Bool {
-        let stringRegex = "^.{2,}$"
-        return NSPredicate(format: "SELF MATCHES %@", stringRegex).evaluate(with: name)
-    }
-
-    
     // What happens when the user presses return on the keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == firstNameTextField {
@@ -145,15 +169,5 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         checkIfComplete()
     }
 
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

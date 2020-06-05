@@ -12,7 +12,7 @@ import UIKit
 
 struct QuizBrain {
     /*
-    // MARK: - Variables
+     // MARK: - Variables
      */
     //    Maximum scores of the test calculated in every initialisation
     var maxEcon:Double = 0
@@ -20,7 +20,7 @@ struct QuizBrain {
     var maxGovt:Double = 0
     var maxScty:Double = 0
     
-
+    
     
     //  Question Iterators
     var questionNo:Int = 0
@@ -35,9 +35,7 @@ struct QuizBrain {
         case limitOutOfBounds
     }
     
-    /*
-     // MARK: Embedded struct for a stack of generics
-     */
+    // MARK: - Embedded struct for a stack of generics
     
     // A stack to keep tabs on answers scores for easy backtracing
     struct Stack<Element> {
@@ -66,10 +64,10 @@ struct QuizBrain {
     
     var answerStack = Stack<Answer>()
     
-    /*
     // MARK: - Functions
-     */
+    
     mutating func nextQuestion(_ multiplier: Double) {
+        
         // logic to create an answer initialised to 0 if stack is empty or to previous scores otherwise
         var newAnswer:Answer?
         if answerStack.isEmpty {
@@ -111,7 +109,7 @@ struct QuizBrain {
         }
     }
     
-
+    
     func calcScores() throws -> Answer {
         //round(100*(100*(maxScore+userScore)/(2*maxScore)))/100
         if var scores = answerStack.peek() {
@@ -127,11 +125,9 @@ struct QuizBrain {
     func getProgress(_ movement: Int) -> Float{
         Float(questionNo + movement) / Float(quizList.count)
     }
-    /*
+    
     // MARK: - Question List
     //    List of essential profiling questions
-    }
-    */
     let quizList: [Question] = [
         Question("Oppression by corporations is more of a concern than oppression by governments.", econ: 10, dipl: 0, govt: 0, scty: 0),
         Question("It is necessary for the government to interviene in the economy to protect consumers", econ: 10, dipl: 0, govt: 0, scty: 0),

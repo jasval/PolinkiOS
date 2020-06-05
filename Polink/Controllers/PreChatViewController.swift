@@ -34,7 +34,7 @@ class PreChatViewController: UIViewController {
     }
     
     @objc func nextPressed(_ sender: Any) {
-        if reduceBools(UserDS.user.regCompletion) == true {
+        if reduceBools(Registration.state.regCompletion) == true {
             self.performSegue(withIdentifier: K.Segue.registrationToQuiz, sender: self)
             print("View will transition now")
         } else {
@@ -60,23 +60,24 @@ class PreChatViewController: UIViewController {
         
     }
     func updateUI() {
-        if UserDS.user.regCompletion[0] {
+        if Registration.state.regCompletion[0] {
             if checkPageOne.alpha == 0 {
                 animateIn(checkPageOne, delay: 0.2)
                 animateIn(progressBar, delay: 0.5)
             }
         }
-        if UserDS.user.regCompletion[1] {
+        if Registration.state.regCompletion[1] {
             if checkPageTwo.alpha == 0 {
                 animateIn(checkPageTwo, delay: 0.2)
             }
         }
-        if UserDS.user.regCompletion[0] {
+        if Registration.state.regCompletion[2] {
             if checkPageThree.alpha == 0 {
                 animateIn(checkPageThree, delay: 0.2)
+                animateIn(nextButtonIcon, delay: 0.5)
             }
         }
-        for i in UserDS.user.regCompletion {
+        for i in Registration.state.regCompletion {
             if i {
                 UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
                     let newProgress = self.progressBar.progress + 0.35

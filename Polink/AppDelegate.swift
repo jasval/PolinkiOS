@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure Firebase and Firestore extensions.
         FirebaseApp.configure()
@@ -30,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Get the path for the user defaults path
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         
+        
+        
+        // Create a shared instance of the registration StateController
         
         return true
     }

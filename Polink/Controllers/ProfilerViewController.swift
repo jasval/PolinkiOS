@@ -34,7 +34,8 @@ class ProfilerViewController: UIViewController {
         super.viewDidLoad()
         
         // progress bar styling and initialisation
-        
+        print(Registration.state.dob!.description as Any)
+        print(Registration.state.polinkIdeology?.description as Any)
         quizProgress.progress = 0
         quizProgress.transform = quizProgress.transform.scaledBy(x: 1, y: 4)
         quizProgress.layer.masksToBounds = true
@@ -58,7 +59,7 @@ class ProfilerViewController: UIViewController {
         
         // setting initial labels
         
-        titleLabel.text = "Hello, \(UserDS.user.fname ?? "New User")"
+        titleLabel.text = "Hello, \(Registration.state.fname ?? "New User")"
         titleLabel.alpha = 0.0
         quizLabel.text = "We are going to ask you a few quetions so we can get to know you better. \nThere are no right or wrong answers, just be honest and allow us to do the rest."
         quizLabel.alpha = 0
@@ -95,6 +96,10 @@ class ProfilerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         Auth.auth().removeStateDidChangeListener(handle!)
     }
+    
+    
+    
+    
     
     @IBAction func answerButtonPressed(_ sender: AnswerButton){
         // Backend tracking in QuizBrain
@@ -144,22 +149,28 @@ class ProfilerViewController: UIViewController {
                 print("End of questions")
                 print("Max diplomacy score is \(quiz.maxDipl)")
                 print("Your raw diplomacy score is: \(lastScore!.dipl)")
-                print("Your calculated diplomacy score is: \(finalScore.dipl))")
+                print("Your calculated diplomacy score is: \(finalScore.dipl)%")
                 print("Max economy score is \(quiz.maxEcon)")
                 print("Your raw economy score is: \(lastScore!.econ)")
-                print("Your calculated economy score is: \(finalScore.econ)")
+                print("Your calculated economy score is: \(finalScore.econ)%")
                 print("Max government score is: \(quiz.maxGovt)")
                 print("Your raw government score is: \(lastScore!.govt)")
-                print("Your calculated government score is: \(finalScore.govt)")
+                print("Your calculated government score is: \(finalScore.govt)%")
                 print("Max societal score is: \(quiz.maxScty)")
                 print("Your raw societal score is: \(lastScore!.scty)")
-                print("Your calculated societal score is: \(finalScore.scty)")
+                print("Your calculated societal score is: \(finalScore.scty)%")
                 for button in buttons {
                     animateOut(button)
                 }
+                var dictionary: [String: Double] = [:]
+                dictionary.updateValue(finalScore.dipl, forKey: K.ideologyAxes.dipl)
+                dictionary.updateValue(finalScore.econ, forKey: K.ideologyAxes.econ)
+                dictionary.updateValue(finalScore.govt, forKey: K.ideologyAxes.govt)
+                dictionary.updateValue(finalScore.scty, forKey: K.ideologyAxes.scty)
+                
+                Registration.state.polinkIdeology = dictionary
+
                 animateOut(quizProgress)
-                recordResults(econ: finalScore.econ, dipl: finalScore.dipl, govt: finalScore.govt, scty: finalScore.scty)
-                print(UserDS.user.polinkIdeology)
                 displayResults()
                 displayNextButton()
             } catch {
@@ -167,7 +178,7 @@ class ProfilerViewController: UIViewController {
             }
         }
     }
-    
+
     func displayResults(){
         let resultsLabel = UILabel()
         self.view.addSubview(resultsLabel)
@@ -179,7 +190,7 @@ class ProfilerViewController: UIViewController {
         resultsLabel.textAlignment = NSTextAlignment.center
         resultsLabel.numberOfLines = 0
         resultsLabel.alpha = 0
-        resultsLabel.text = "Diplomacy Score: \(UserDS.user.polinkIdeology[K.ideologyAxes.dipl] ?? 0)\nEconomy Score: \(UserDS.user.polinkIdeology[K.ideologyAxes.econ] ?? 0)\nGovernment Score: \(UserDS.user.polinkIdeology[K.ideologyAxes.govt] ?? 0)\nSociety Score: \(UserDS.user.polinkIdeology[K.ideologyAxes.scty] ?? 0)"
+        resultsLabel.text = "Diplomacy Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.dipl] ?? 0)\nEconomy Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.econ] ?? 0)\nGovernment Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.govt] ?? 0)\nSociety Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.scty] ?? 0)"
         animateIn(resultsLabel, delay: 1)
     }
     func displayNextButton() {
@@ -197,28 +208,24 @@ class ProfilerViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextButtonPressed(_:)), for: .touchUpInside)
         animateIn(nextButton, delay: 3)
     }
-    func recordResults(econ: Double, dipl: Double, govt: Double, scty: Double) {
-        UserDS.user.polinkIdeology[K.ideologyAxes.dipl] = dipl
-        UserDS.user.polinkIdeology[K.ideologyAxes.econ] = econ
-        UserDS.user.polinkIdeology[K.ideologyAxes.govt] = govt
-        UserDS.user.polinkIdeology[K.ideologyAxes.scty] = scty
-    }
+
     func sendResults() {
         let uid = Auth.auth().currentUser?.uid
         let email =  Auth.auth().currentUser?.email
         if let uid = uid, let email = email {
-            let userR = UserDataModel(uid, firstname: UserDS.user.fname!, lastname: UserDS.user.lname!, email: email, dob: UserDS.user.dob!, gender: UserDS.user.gender!, ideology: UserDS.user.polinkIdeology, location: UserDS.user.location!, country: UserDS.user.geoLocCountry!, city: UserDS.user.geoLocCity!)
+            let userR = UserDataModel(uid, firstname:  Registration.state.fname!, lastname:  Registration.state.lname!, email: email, dob:  Registration.state.dob!, gender:  Registration.state.gender!, ideology: Registration.state.polinkIdeology!, location:  Registration.state.location!, country:  Registration.state.geoLocCountry!, city:  Registration.state.geoLocCity!)
             do {
-                try db.collection("users").document("\(uid)").setData(from: userR)
+                try db.collection("users").document(uid).setData(from: userR)
             } catch let error {
                 print("Error writing data to the database: \(error.localizedDescription)")
                 displayRetryButton()
-                return
             }
+            self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
         }
     }
     @IBAction func nextButtonPressed(_ sender: UIButton){
-        self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
+        sendResults()
+        
     }
 
     @IBAction func retryButtonPressed(_ sender: UIButton){
@@ -242,9 +249,13 @@ class ProfilerViewController: UIViewController {
             self.quizProgress.setProgress(self.quiz.getProgress(movement), animated: true)
         }, completion: nil)
     }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
+    
+    
     func displayRetryButton() {
         let retryButton = UIButton(type: .custom)
         self.view.addSubview(retryButton)

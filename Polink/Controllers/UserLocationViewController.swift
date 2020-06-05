@@ -29,7 +29,7 @@ class UserLocationViewController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        print("\(String(describing: UserDS.user.fname)) and \(String(describing: UserDS.user.gender))")
+        print("\(String(describing: Registration.state.fname)) and \(String(describing: Registration.state.gender))")
     }
     
 //    @IBAction func searchCompleted(_ sender: Any) {
@@ -161,15 +161,16 @@ class UserLocationViewController: UIViewController {
     
     func recordUserLocation(_ location: CLLocation) {
         let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        UserDS.user.writeLocation(geoPoint)
-        print(UserDS.user.location ?? "None")
+        Registration.state.location = geoPoint
+        print(Registration.state.location ?? "None")
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { (placemark, Error) in
             if let geoLoc = placemark!.first {
                 let country = geoLoc.country
                 let city = geoLoc.locality
-                UserDS.user.writegeoLoc(country!, geoLocCity: city!)
-                print("\(UserDS.user.geoLocCountry ?? "No Country") and \(UserDS.user.geoLocCity ?? "No City")")
+                Registration.state.geoLocCity = city
+                Registration.state.geoLocCountry = country
+                print("\(Registration.state.geoLocCountry ?? "No Country") and \(Registration.state.geoLocCity ?? "No City")")
             } else {
                 print("Program threw an error geocoding localisation: \(Error!.localizedDescription)")
             }
@@ -178,13 +179,13 @@ class UserLocationViewController: UIViewController {
     
     
     func checkIfComplete() {
-        if UserDS.user.location != nil && UserDS.user.geoLocCity != nil && UserDS.user.geoLocCountry != nil{
+        if Registration.state.location != nil && Registration.state.geoLocCity != nil && Registration.state.geoLocCountry != nil{
             animateIn(checkMark, delay: 0.5)
-            UserDS.user.completePage(index: 2)
+            Registration.state.regCompletion[2] = true
         } else {
             if checkMark.alpha > 0 {
                 animateOut(checkMark)
-                UserDS.user.incompletePage(index: 2)
+                Registration.state.regCompletion[2] = false
             }
             return
         }

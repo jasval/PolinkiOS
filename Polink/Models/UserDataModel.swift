@@ -37,6 +37,7 @@ public struct UserDataModel: Codable {
         case ideology
         case dob
     }
+    
     init(_ uid: String, firstname: String, lastname: String, email: String, dob: Date, gender: String, ideology: [String : Double], location: GeoPoint, country: String, city: String) {
         self.uid = uid
         createdAt = Date.init()

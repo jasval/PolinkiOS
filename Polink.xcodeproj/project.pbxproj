@@ -30,6 +30,7 @@
 		FE4A037C24851B6D00228F88 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037B24851B6D00228F88 /* Room.swift */; };
 		FE4A037E24851DF300228F88 /* DatabaseRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */; };
 		FE4A038024851EC700228F88 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037F24851EC700228F88 /* Message.swift */; };
+		FE4A03822485BBEE00228F88 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A03812485BBEE00228F88 /* Registration.swift */; };
 		FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */; };
 		FE6886B423EAF601001F1301 /* UIViewController+EasyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B323EAF601001F1301 /* UIViewController+EasyAnimation.swift */; };
 		FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B523EB1865001F1301 /* QuizBrain.swift */; };
@@ -135,6 +136,7 @@
 		FE4A037B24851B6D00228F88 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepresentation.swift; sourceTree = "<group>"; };
 		FE4A037F24851EC700228F88 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		FE4A03812485BBEE00228F88 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		FE6886B323EAF601001F1301 /* UIViewController+EasyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+EasyAnimation.swift"; sourceTree = "<group>"; };
 		FE6886B523EB1865001F1301 /* QuizBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizBrain.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				FE4A037B24851B6D00228F88 /* Room.swift */,
 				FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */,
 				FE4A037F24851EC700228F88 /* Message.swift */,
+				FE4A03812485BBEE00228F88 /* Registration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				FEF69CF223F8BFD3002C3524 /* BaseTabBarController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */,
 				FE0C3BBD24015D2200ED8A3C /* UserDS.swift in Sources */,
+				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
