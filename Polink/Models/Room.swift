@@ -20,9 +20,11 @@ struct Room {
     
     init?(document: QueryDocumentSnapshot) {
         let data = document.data()
+        
         guard let name = data["name"] as? String else {
             return nil
         }
+        
         id = document.documentID
         self.name = name
     }
@@ -30,11 +32,12 @@ struct Room {
 }
 
 extension Room: DatabaseRepresentation {
+    
     var representation: [String : Any] {
         var rep = ["name" : name]
         
         if let id = id {
-            rep[id] = id
+            rep["id"] = id
         }
         
         return rep

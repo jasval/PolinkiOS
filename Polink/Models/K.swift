@@ -44,9 +44,5 @@ struct K {
         static let trans = "Transgender"
         static let other = "Other"
     }
-//    struct regPages {
-//        static let pageOne = "PageOneCompleted"
-//        static let pageTwo = "PageTwoCompleted"
-//        static let pageThree = "PageThreeCompleted"
-//    }
+
 }
