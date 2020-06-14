@@ -6,6 +6,7 @@ target 'Polink' do
   use_frameworks!
 
   # Pods for polink.dev
+  pod 'Fakery'
   pod 'MessageKit'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'

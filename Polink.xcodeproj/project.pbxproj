@@ -13,6 +13,8 @@
 		020C9CA52490234200A6BDE6 /* CustomCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */; };
 		020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */; };
 		020C9CA924903AB200A6BDE6 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA824903AB200A6BDE6 /* UICollectionView+Extension.swift */; };
+		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
+		02ADDAEA24964E970073039B /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* Participant.swift */; };
 		259D382C6644788B81A90C56 /* Pods_Polink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */; };
 		FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7723E61241002F36FA /* AppDelegate.swift */; };
 		FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7923E61241002F36FA /* SceneDelegate.swift */; };
@@ -79,6 +81,8 @@
 		020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellSizeCalculator.swift; sourceTree = "<group>"; };
 		020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessagesFlowLayout.swift; sourceTree = "<group>"; };
 		020C9CA824903AB200A6BDE6 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		02ADDAE924964E970073039B /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Polink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EA7193EDD4B5F8FAA43DAD /* Pods-Polink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.debug.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.debug.xcconfig"; sourceTree = "<group>"; };
 		79EE6A75AFBC42B481B3A336 /* Pods-Polink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.release.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.release.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +228,16 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		02ADDAE624951D390073039B /* Custom Cell Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				020C9CA22490229B00A6BDE6 /* CustomNewsCell.swift */,
+				020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */,
+				020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */,
+			);
+			path = "Custom Cell Implementation";
+			sourceTree = "<group>";
+		};
 		BF65BC598179D805D07BD414 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,11 +340,11 @@
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
 				FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */,
 				FE4A037B24851B6D00228F88 /* Room.swift */,
+				02ADDAE7249629130073039B /* Sender.swift */,
 				FE4A037F24851EC700228F88 /* Message.swift */,
 				FE4A03812485BBEE00228F88 /* Registration.swift */,
-				020C9CA22490229B00A6BDE6 /* CustomNewsCell.swift */,
-				020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */,
-				020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */,
+				02ADDAE624951D390073039B /* Custom Cell Implementation */,
+				02ADDAE924964E970073039B /* Participant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -486,10 +500,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02ADDAEA24964E970073039B /* Participant.swift in Sources */,
 				FE4A037E24851DF300228F88 /* DatabaseRepresentation.swift in Sources */,
 				020C9CA924903AB200A6BDE6 /* UICollectionView+Extension.swift in Sources */,
 				FE0CE33923E8927E002E5604 /* K.swift in Sources */,
 				020C9CA52490234200A6BDE6 /* CustomCellSizeCalculator.swift in Sources */,
+				02ADDAE8249629130073039B /* Sender.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageViewController+Extension.swift in Sources */,
 				FE4A037C24851B6D00228F88 /* Room.swift in Sources */,
 				FEF69CFA23F8CC8A002C3524 /* RootPageViewController.swift in Sources */,

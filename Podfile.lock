@@ -219,6 +219,7 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
   - DynamicBlurView (4.1.0)
+  - Fakery (4.1.1)
   - Firebase/Auth (6.26.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.3)
@@ -321,6 +322,7 @@ PODS:
   - PromisesObjC (1.2.9)
 
 DEPENDENCIES:
+  - Fakery
   - Firebase/Auth
   - Firebase/Firestore
   - FirebaseFirestoreSwift
@@ -332,6 +334,7 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - DynamicBlurView
+    - Fakery
     - Firebase
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -357,6 +360,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  Fakery: d3380c4aa1efe7631c0831d7e26aa9db4491f014
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   FirebaseAuth: 7047aec89c0b17ecd924a550c853f0c27ac6015e
   FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
@@ -378,6 +382,6 @@ SPEC CHECKSUMS:
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
 
-PODFILE CHECKSUM: 5f004c1d67da403d9b34555ce7f459f3c01bdfee
+PODFILE CHECKSUM: 4d9c3d546c3ce6525f9654e75f275f879f522ce5
 
 COCOAPODS: 1.9.3

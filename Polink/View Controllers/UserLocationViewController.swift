@@ -164,7 +164,7 @@ class UserLocationViewController: UIViewController {
         Registration.state.location = geoPoint
         print(Registration.state.location ?? "None")
         let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { (placemark, Error) in
+        geoCoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en_GB")) { (placemark, Error) in
             if let geoLoc = placemark!.first {
                 let country = geoLoc.country
                 let city = geoLoc.locality

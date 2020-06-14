@@ -23,6 +23,9 @@ public struct UserDataModel: Codable {
     let createdAt: Date?
     var ideology: [String : Double]?
     var dob: Date?
+    var chats: [String]?
+    var history: [String]?
+    var pendingChats: [String]?
     
     enum CodingKeys: String, CodingKey {
         case uid
@@ -36,6 +39,9 @@ public struct UserDataModel: Codable {
         case createdAt
         case ideology
         case dob
+        case chats
+        case history
+        case pendingChats
     }
     
     init(_ uid: String, firstname: String, lastname: String, email: String, dob: Date, gender: String, ideology: [String : Double], location: GeoPoint, country: String, city: String) {
@@ -50,6 +56,8 @@ public struct UserDataModel: Codable {
         self.location = location
         self.country = country
         self.city = city
+        self.chats = []
+        self.history = []
     }
     
 }

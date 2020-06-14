@@ -36,7 +36,7 @@ struct Message: MessageType {
     var downloadURL: URL? = nil
     
     init(user: User, content: String) {
-        sender = Sender(senderId: user.uid, displayName: user.displayName ?? "No name")
+        sender = Sender(senderId: user.uid, displayName: user.displayName ?? "None")
         self.content = content
         sentDate = Date()
         id = nil
@@ -53,20 +53,21 @@ struct Message: MessageType {
     init?(document: QueryDocumentSnapshot) {
         let data = document.data()
         
-        guard let sentDate = data["created"] as? Date else {
+        guard let sentDate = data["sentDate"] as? Date else {
             return nil
         }
-        guard let senderID = data["senderID"] as? String else {
+        guard let senderID = data["senderId"] as? String else {
             return nil
         }
-        guard let senderName = data["senderName"] as? String else {
+        guard let senderUsername = data["senderUsername"] as? String else {
             return nil
         }
         
         id = document.documentID
         
         self.sentDate = sentDate
-        sender = Sender(id: senderID, displayName: senderName)
+        sender = Sender(senderId: senderID, displayName: senderUsername)
+        
         
         if let content = data["content"] as? String {
             self.content = content
@@ -83,9 +84,9 @@ struct Message: MessageType {
 extension Message: DatabaseRepresentation {
     var representation: [String : Any] {
         var rep: [String : Any] = [
-            "created": sentDate,
+            "sentDate": sentDate,
             "senderID": sender.senderId,
-            "senderName": sender.displayName
+            "senderUsername": sender.displayName
         ]
         
         if let url = downloadURL {

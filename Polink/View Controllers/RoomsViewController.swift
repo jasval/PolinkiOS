@@ -24,9 +24,11 @@ class RoomsViewController: UITableViewController {
     
     private let db = Firestore.firestore()
     
-    private var roomReference: CollectionReference {
-        return db.collection("rooms")
+    // Before it was a CollectionReference with -- return db.collection("chats")
+    private var roomReference: DocumentReference {
+        return db.collection("chats").document(currentUser.uid).collection("private").document("userData")
     }
+    
     
     private var rooms = [Room]()
     private var roomListener: ListenerRegistration?
@@ -60,26 +62,39 @@ class RoomsViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startNewConversation)),
         ]
-        toolbarLabel.text = "Convos"
+        toolbarLabel.text = "Rooms"
         
-        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
+        roomListener = roomReference.addSnapshotListener(includeMetadataChanges: false, listener: { (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
-                print("Error listeneing for channel updates: \(error?.localizedDescription ?? "No error")")
+                print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
                 return
             }
-            snapshot.documentChanges.forEach { (change) in
-                self.handleDocumentChange(change)
+            guard let chats = snapshot.get("activeChats") as! Array<String>? else {
+                print("No active chats for this user!")
             }
+            
+            
+            
+            //        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
+            //            guard let snapshot = querySnapshot else {
+            //                print("Error listeneing for channel updates: \(error?.localizedDescription ?? "No error")")
+            //                return
+            //            }
+            //            snapshot.documentChanges.forEach { (change) in
+            //                self.handleDocumentChange(change)
+            //            }
         })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         navigationController?.isToolbarHidden = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         navigationController?.isToolbarHidden = true
     }
     

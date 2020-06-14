@@ -156,7 +156,7 @@ final class ChatViewController: MessagesViewController {
     }
     
     private func handleDocumentChange(_ change: DocumentChange) {
-        guard var message = Message(document: change.document) else {
+        guard let message = Message(document: change.document) else {
             return
         }
         
@@ -242,7 +242,7 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let name = message.sender.displayName
+        let name = message.sender.senderUsername
         
         // format the sender display name to lower its profile and avoid distracting the reader
         return NSAttributedString(
