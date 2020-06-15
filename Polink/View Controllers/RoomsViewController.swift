@@ -25,10 +25,9 @@ class RoomsViewController: UITableViewController {
     private let db = Firestore.firestore()
     
     // Before it was a CollectionReference with -- return db.collection("chats")
-    private var roomReference: DocumentReference {
-        return db.collection("chats").document(currentUser.uid).collection("private").document("userData")
+    private var roomReference: CollectionReference {
+        return db.collection("chats")
     }
-    
     
     private var rooms = [Room]()
     private var roomListener: ListenerRegistration?
@@ -64,26 +63,29 @@ class RoomsViewController: UITableViewController {
         ]
         toolbarLabel.text = "Rooms"
         
-        roomListener = roomReference.addSnapshotListener(includeMetadataChanges: false, listener: { (querySnapshot, error) in
-            guard let snapshot = querySnapshot else {
-                print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+        
+        roomListener = roomReference.whereField("participants", arrayContainsAny: [Participant.init(uid: currentUser.uid)]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+            guard let snapshot = QuerySnapshot else {
+                print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
                 return
             }
-            guard let chats = snapshot.get("activeChats") as! Array<String>? else {
-                print("No active chats for this user!")
+            
+            
+            snapshot.documentChanges.forEach { (change) in
+                self.handleDocumentChange(change)
             }
             
-            
-            
-            //        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
-            //            guard let snapshot = querySnapshot else {
-            //                print("Error listeneing for channel updates: \(error?.localizedDescription ?? "No error")")
-            //                return
-            //            }
-            //            snapshot.documentChanges.forEach { (change) in
-            //                self.handleDocumentChange(change)
-            //            }
         })
+        
+//            //        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
+//            //            guard let snapshot = querySnapshot else {
+//            //                print("Error listeneing for channel updates: \(error?.localizedDescription ?? "No error")")
+//            //                return
+//            //            }
+//            //            snapshot.documentChanges.forEach { (change) in
+//            //                self.handleDocumentChange(change)
+//            //            }
+//        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -189,5 +191,25 @@ extension RoomsViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: roomCellIdentifier, for: indexPath)
+        
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = rooms[indexPath.row].name
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let room = rooms[indexPath.row]
+        let vc = ChatViewController(user: currentUser, room: room)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

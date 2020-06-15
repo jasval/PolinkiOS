@@ -180,7 +180,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     
     // 2. To remove the header from each message we return false although it can be used to return a timestamp
     //    func messageHeaderView(for indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageReusableView {
-    //        <#code#>
+    //
     //    }
     
     // 3. Change the bubble style based on who sent the message
@@ -242,7 +242,7 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let name = message.sender.senderUsername
+        let name = message.sender.displayName
         
         // format the sender display name to lower its profile and avoid distracting the reader
         return NSAttributedString(

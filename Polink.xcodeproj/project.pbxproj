@@ -340,11 +340,11 @@
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
 				FE4A037D24851DF300228F88 /* DatabaseRepresentation.swift */,
 				FE4A037B24851B6D00228F88 /* Room.swift */,
+				02ADDAE924964E970073039B /* Participant.swift */,
 				02ADDAE7249629130073039B /* Sender.swift */,
 				FE4A037F24851EC700228F88 /* Message.swift */,
 				FE4A03812485BBEE00228F88 /* Registration.swift */,
 				02ADDAE624951D390073039B /* Custom Cell Implementation */,
-				02ADDAE924964E970073039B /* Participant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
