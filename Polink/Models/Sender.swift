@@ -15,9 +15,9 @@ struct Sender: SenderType {
     
     var displayName: String
     
-    init(senderId: String, displayName: String) {
+    init(senderId: String, displayName: String?) {
         self.senderId = senderId
-        self.displayName = displayName
+        self.displayName = displayName ?? "Anonymous"
     }
     
 }

@@ -221,8 +221,15 @@ extension RoomsViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let room = rooms[indexPath.row]
+        
+        // Create a sender from participants data
+        let rootSender = room.participants.first { (Participant) -> Bool in
+            Participant.uid == currentUser.uid
+        }
+        
+        let sender = Sender(senderId: rootSender?.uid ?? currentUser.uid, displayName: rootSender?.randomUsername)
         // Push view controller passing the user and the room in question
-        let vc = ChatViewController(user: currentUser, room: room)
+        let vc = ChatViewController(user: sender, room: room)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

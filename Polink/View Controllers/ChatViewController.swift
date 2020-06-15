@@ -20,16 +20,16 @@ final class ChatViewController: MessagesViewController {
     private let db = Firestore.firestore()
     private var reference: CollectionReference?
     
-    private let user: User
+    private let user: Sender
     private let room: Room
     
-    init(user: User, room: Room) {
+    init(user: Sender, room: Room) {
         self.user = user
         self.room = room
         super.init(nibName: nil, bundle: nil)
         
         let interlocutor = room.participants.first { (Participant) -> Bool in
-            Participant.uid != user.uid
+            Participant.uid != user.senderId
         }
         
         title = interlocutor?.randomUsername
@@ -50,13 +50,11 @@ final class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let id = room.id
-        
+                
         // SECURITY CHECK
         // if it doesn't include a participant with the users uid pop the view controller
         if !(room.participants.contains{ (Participant) in
-            Participant.uid == user.uid
+            Participant.uid == user.senderId
             }) {
             navigationController?.popViewController(animated: true)
             return
@@ -65,7 +63,7 @@ final class ChatViewController: MessagesViewController {
         // Connecting to the database that holds the messages
 //        reference = db.collection(["rooms", id, "thread"].joined(separator: "/"))
         
-        reference = db.collection(["chats",id,"messages"].joined(separator: "/"))
+        reference = db.collection(["chats",room.id,"messages"].joined(separator: "/"))
         
         messageListener = reference?.addSnapshotListener { (querySnapshot , error) in
             guard let snapshot = querySnapshot else {
@@ -136,16 +134,27 @@ final class ChatViewController: MessagesViewController {
     // MARK: - Helpers
     
     // Save message using the model specified in DatabaseRepresentation and the reference defined and the beginning of this document.
+//    private func save(_ message: Message) {
+//        reference?.addDocument(data: message.representation) { error in
+//            if let e = error {
+//                print("Error sending message \(e.localizedDescription)")
+//                return
+//            }
+//
+//            self.messagesCollectionView.scrollToBottom()
+//        }
+//    }
+    
     private func save(_ message: Message) {
-        reference?.addDocument(data: message.representation) { error in
-            if let e = error {
-                print("Error sending message \(e.localizedDescription)")
-                return
-            }
-            
-            self.messagesCollectionView.scrollToBottom()
+        // reevaluate implementation if fails
+        do {
+            let result = try reference?.addDocument(from: message)
+            print("Document reference: \(result?.documentID ?? "Couldn't be written to database")")
+        } catch {
+            print("Error writing to database: \(error.localizedDescription)")
         }
     }
+    
     
     private func insertNewMessage(_ message: Message) {
         guard !messages.contains(message) else {
@@ -167,17 +176,28 @@ final class ChatViewController: MessagesViewController {
     }
     
     private func handleDocumentChange(_ change: DocumentChange) {
-        guard let message = Message(document: change.document) else {
-            return
+//        guard let message = Message(document: change.document) else {
+//            return
+//        }
+        do {
+            let message:Message = try change.document.decoded()
+            
+            switch change.type {
+            case .added:
+                insertNewMessage(message)
+            default:
+                break
+            }
+        } catch {
+            print("There was an error decoding a message: \(error.localizedDescription)")
         }
-        
-        switch change.type {
-        case .added:
-            // we won't implement any image sending for now but this is the place where you would check for any type of content that is not text, for example a news message (custom)
-            insertNewMessage(message)
-        default:
-            break
-        }
+//        switch change.type {
+//        case .added:
+//            // we won't implement any image sending for now but this is the place where you would check for any type of content that is not text, for example a news message (custom)
+//            insertNewMessage(message)
+//        default:
+//            break
+//        }
     }
 }
 
@@ -231,10 +251,10 @@ extension ChatViewController: MessagesLayoutDelegate {
 
 extension ChatViewController: MessagesDataSource {
     
-    // 1. A sender a simple structure created from the authenticated user id and name
+    // 1. A sender a simple structure created from the user values for user participant in room  passed by tableviewcontroller
     func currentSender() -> SenderType {
         // Use the authenticated user displayName or the default "Bob" Name
-        return Sender(senderId: user.uid, displayName: user.displayName ?? "Bob")
+        return user
     }
     //
     
@@ -293,7 +313,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             print("Autocompleted: `", substring, "` with context", context ?? [])
         }
         
-        let message = Message(user: user, content: text)
+        let message = Message(sender: user, content: text)
         messageInputBar.inputTextView.text = String()
         messageInputBar.invalidatePlugins()
         
@@ -308,6 +328,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.sendButton.stopAnimating()
                 self?.messageInputBar.inputTextView.placeholder = ""
+                
+                // Sends inserts the message in our local document, when Firestore notices the change it will update the database
                 self?.insertNewMessage(message)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
