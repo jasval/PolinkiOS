@@ -18,15 +18,25 @@ struct Room {
     var pending: Bool
     
     
-    init?(document: QueryDocumentSnapshot) {
-        try document.data(as: Room) else {
-            print("Couldn't decode the room data into room object on iOS")
-        }
-    }
+//    init?(document: QueryDocumentSnapshot) {
+//
+//    }
 }
 
 extension Room: Codable {
+
+}
+
+
+extension Room: Comparable {
     
+    static func == (lhs: Room, rhs: Room) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    static func < (lhs: Room, rhs: Room) -> Bool {
+        return lhs.createdAt < rhs.createdAt
+    }
 }
 //struct Room {
 //    let id: String?
@@ -92,17 +102,5 @@ extension Room: Codable {
 //        }
 //
 //        return rep
-//    }
-//}
-//
-//
-//extension Room: Comparable {
-//
-//    static func == (lhs: Room, rhs: Room) -> Bool {
-//        return lhs.id == rhs.id
-//    }
-//
-//    static func < (lhs: Room, rhs: Room) -> Bool {
-//        return lhs.createdAt < rhs.createdAt
 //    }
 //}

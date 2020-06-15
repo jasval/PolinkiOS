@@ -110,22 +110,23 @@ class RoomsViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    // Needs to be revised in order to implement
     private func createRoom() {
-        guard let ac = currentRoomAlertController else {
-            return
-        }
-        guard let roomName = ac.textFields?.first?.text else {
-            return
-        }
-        
-        let room = Room(name: roomName)
-        roomReference.addDocument(data: room.representation) {
-            error in
-            if let e = error {
-                print("Error saving room: \(e.localizedDescription)")
-            }
-        }
-        
+//        guard let ac = currentRoomAlertController else {
+//            return
+//        }
+//        guard let roomName = ac.textFields?.first?.text else {
+//            return
+//        }
+//
+//        let room = Room(name: roomName)
+//        roomReference.addDocument(data: room.representation) {
+//            error in
+//            if let e = error {
+//                print("Error saving room: \(e.localizedDescription)")
+//            }
+//        }
+//
     }
     
     // Adding a new chatroom to table
@@ -165,21 +166,26 @@ class RoomsViewController: UITableViewController {
     
     // handling any change to our rooms in order to update the UI
     private func handleDocumentChange(_ change: DocumentChange) {
-      guard let room = Room(document: change.document) else {
-        return
-      }
-
-      switch change.type {
-        
-      case .added:
-        addRoomToTable(room)
-        
-      case .modified:
-        updateRoomInTable(room)
-      
-      case .removed:
-        removeRoomFromTable(room)
-      }
+        //      guard let room = Room(document: change.document) else {
+        //        return
+        //      }
+        do {
+            guard let room:Room = try change.document.decoded() else {return}
+            
+            switch change.type {
+                
+            case .added:
+                addRoomToTable(room)
+                
+            case .modified:
+                updateRoomInTable(room)
+                
+            case .removed:
+                removeRoomFromTable(room)
+            }
+        } catch {
+            print("There was a problem handling the document change and decoding into room object: \(error.localizedDescription)")
+        }
     }
 }
 // MARK: - TableViewDelegate
@@ -202,7 +208,13 @@ extension RoomsViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: roomCellIdentifier, for: indexPath)
         
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = rooms[indexPath.row].name
+        
+        // Name to be shown in the table is the randomised name of the other participant
+        let interlocutor: Participant? = rooms[indexPath.row].participants.first { (Participant) -> Bool in
+            Participant.uid != currentUser.uid
+            }
+        
+        cell.textLabel?.text = interlocutor?.randomUsername
         
         return cell
     }

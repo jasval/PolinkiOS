@@ -15,6 +15,7 @@
 		020C9CA924903AB200A6BDE6 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA824903AB200A6BDE6 /* UICollectionView+Extension.swift */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* Participant.swift */; };
+		02ADDAEC249765680073039B /* Snapshot+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAEB249765680073039B /* Snapshot+Extensions.swift */; };
 		259D382C6644788B81A90C56 /* Pods_Polink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */; };
 		FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7723E61241002F36FA /* AppDelegate.swift */; };
 		FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7923E61241002F36FA /* SceneDelegate.swift */; };
@@ -83,6 +84,7 @@
 		020C9CA824903AB200A6BDE6 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
+		02ADDAEB249765680073039B /* Snapshot+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snapshot+Extensions.swift"; sourceTree = "<group>"; };
 		0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Polink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EA7193EDD4B5F8FAA43DAD /* Pods-Polink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.debug.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.debug.xcconfig"; sourceTree = "<group>"; };
 		79EE6A75AFBC42B481B3A336 /* Pods-Polink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.release.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				FE35610924829909007E23C9 /* UIButton+Extension.swift */,
 				020C9C9E248FDFC300A6BDE6 /* Date+Extension.swift */,
 				020C9CA824903AB200A6BDE6 /* UICollectionView+Extension.swift */,
+				02ADDAEB249765680073039B /* Snapshot+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				FEF69CF223F8BFD3002C3524 /* BaseTabBarController.swift in Sources */,
 				020C9CA32490229B00A6BDE6 /* CustomNewsCell.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodableExtension.swift in Sources */,
+				02ADDAEC249765680073039B /* Snapshot+Extensions.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Extension.swift in Sources */,
