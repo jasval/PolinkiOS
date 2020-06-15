@@ -28,7 +28,11 @@ final class ChatViewController: MessagesViewController {
         self.room = room
         super.init(nibName: nil, bundle: nil)
         
-        title = room.name
+        let interlocutor = room.participants.first { (Participant) -> Bool in
+            Participant.uid != user.uid
+        }
+        
+        title = interlocutor?.randomUsername
     }
     
     private var messages: [Message] = []
@@ -47,14 +51,21 @@ final class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let id = room.id else {
+        let id = room.id
+        
+        // SECURITY CHECK
+        // if it doesn't include a participant with the users uid pop the view controller
+        if !(room.participants.contains{ (Participant) in
+            Participant.uid == user.uid
+            }) {
             navigationController?.popViewController(animated: true)
             return
         }
-        
+
         // Connecting to the database that holds the messages
-        reference = db.collection(["rooms", id, "thread"].joined(separator: "/"))
+//        reference = db.collection(["rooms", id, "thread"].joined(separator: "/"))
         
+        reference = db.collection(["chats",id,"messages"].joined(separator: "/"))
         
         messageListener = reference?.addSnapshotListener { (querySnapshot , error) in
             guard let snapshot = querySnapshot else {

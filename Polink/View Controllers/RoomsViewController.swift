@@ -221,6 +221,7 @@ extension RoomsViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let room = rooms[indexPath.row]
+        // Push view controller passing the user and the room in question
         let vc = ChatViewController(user: currentUser, room: room)
         navigationController?.pushViewController(vc, animated: true)
     }
