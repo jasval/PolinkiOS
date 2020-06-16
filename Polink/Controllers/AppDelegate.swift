@@ -14,6 +14,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var navigationController: UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure Firebase and Firestore extensions.
@@ -21,10 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let db = Firestore.firestore()
         print(db)
         
-        // Modify the appearance of the main tab bar
-        UITabBar.appearance().barTintColor = .black
-        UITabBar.appearance().tintColor = .red
+        // Set window for programmatic views
+        window = UIWindow(frame: UIScreen.main.bounds)
         
+        if let window = window {
+            let mainSB = UIStoryboard(name: "Main", bundle: nil)
+            let mainVC = mainSB.instantiateViewController(withIdentifier: "initialViewController") as! InitialViewController
+            
+            // Set the navigation controller
+            navigationController = UINavigationController(rootViewController: mainVC)
+            window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+        }
         
         // Get the path for the user defaults path
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)

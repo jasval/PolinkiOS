@@ -13,12 +13,12 @@ import FirebaseFirestoreSwift
 
 struct Message: MessageType {
     
-    let id: String?
     let content: String?
     let sentDate: Date
     let sender: SenderType
     var downloadURL: URL?
-
+    // generate own id
+    let messageId: String
     
 //    let news: UIButton?
 
@@ -30,10 +30,7 @@ struct Message: MessageType {
 //        }
     }
     
-    // If there is an assigned id already return that id, otherwise generate own id
-    var messageId: String {
-        return id ?? UUID().uuidString
-    }
+
 
 
     init(sender: Sender, content: String) {
@@ -41,9 +38,7 @@ struct Message: MessageType {
         self.sender = sender
         self.content = content
         self.sentDate = Date()
-        
-        // do not assign an id manually as it will be assigned by Firestore by document when reloading the data
-        id = nil
+        self.messageId = UUID().uuidString
     }
     
 //    init(user: User, news: UIButton) {
@@ -54,41 +49,12 @@ struct Message: MessageType {
 //        id = nil
 //    }
     
-//    init?(document: QueryDocumentSnapshot) {
-//        let data = document.data()
-//
-//        guard let sentDate = data["sentDate"] as? Date else {
-//            return nil
-//        }
-//        guard let senderID = data["senderId"] as? String else {
-//            return nil
-//        }
-//        guard let senderUsername = data["senderUsername"] as? String else {
-//            return nil
-//        }
-//
-//        id = document.documentID
-//
-//        self.sentDate = sentDate
-//        sender = Sender(senderId: senderID, displayName: senderUsername)
-//
-//
-//        if let content = data["content"] as? String {
-//            self.content = content
-//            downloadURL = nil
-//        } else if let urlString =  data["url"] as? String, let url = URL(string: urlString) {
-//            downloadURL = url
-//            content = ""
-//        } else {
-//            return nil
-//        }
-//    }
+
 }
 
 extension Message: Codable {
     
     enum CodingKeys: String, CodingKey {
-        case id
         case messageId
         case senderId
         case senderUsername
@@ -109,7 +75,7 @@ extension Message: Codable {
         
         self.sender = Sender(senderId: senderId, displayName: username)
         
-        self.id = try container.decode(String.self, forKey: .id)
+        self.messageId = try container.decode(String.self, forKey: .messageId)
         self.downloadURL = try container.decode(URL.self, forKey: .downloadURL)
         self.sentDate = try container.decode(Date.self, forKey: .sentDate)
         
@@ -121,7 +87,7 @@ extension Message: Codable {
         // Learn how to use it
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(id, forKey: .id)
+        try container.encode(messageId, forKey: .messageId)
         try container.encode(sender.senderId, forKey: .senderId)
         try container.encode(sender.displayName, forKey: .senderUsername)
         

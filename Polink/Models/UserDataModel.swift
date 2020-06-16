@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import UIKit
-import CoreLocation
 import FirebaseFirestore
 
 public struct UserDataModel: Codable {
@@ -16,7 +14,6 @@ public struct UserDataModel: Codable {
     var firstName: String?
     var lastName: String?
     var gender: String?
-    var location: GeoPoint?
     var city: String?
     var country: String?
     var email: String?
@@ -25,14 +22,12 @@ public struct UserDataModel: Codable {
     var dob: Date?
     var chats: [String]?
     var history: [String]?
-    var pendingChats: [String]?
     
     enum CodingKeys: String, CodingKey {
         case uid
         case firstName
         case lastName
         case gender
-        case location
         case city
         case country
         case email
@@ -41,7 +36,6 @@ public struct UserDataModel: Codable {
         case dob
         case chats
         case history
-        case pendingChats
     }
     
     init(_ uid: String, firstname: String, lastname: String, email: String, dob: Date, gender: String, ideology: [String : Double], location: GeoPoint, country: String, city: String) {
@@ -53,7 +47,6 @@ public struct UserDataModel: Codable {
         self.dob = dob
         self.gender = gender
         self.ideology = ideology
-        self.location = location
         self.country = country
         self.city = city
         self.chats = []

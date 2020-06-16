@@ -26,9 +26,6 @@ class UserInfoViewController: UIViewController {
         
         registerKeyboardNotifications()
         
-        //Do any additional assignments to our ModelController class if necessary
-//        firstNameTextField.text = userRegistration.fname
-//        lastNameTextField.text = userRegistration.lname
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,17 +58,10 @@ class UserInfoViewController: UIViewController {
                     dateComponents.day = 1
                     let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
                     
-                    
                     Registration.state.fname = fname
                     Registration.state.lname = lname
                     Registration.state.dob = newDate
-                    
-                    
-//                    UserDS.user.writeFLD(fname, lastname: lname, dateOfBirth: datePicker.date)
-                    
-                    
-                    
-                    
+                                        
                     print("Wrote to file!")
                     print("\(Registration.state.dob!)")
                     animateIn(checkMark, delay: 0.2)

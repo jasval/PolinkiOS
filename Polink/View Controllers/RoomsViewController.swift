@@ -25,6 +25,7 @@ class RoomsViewController: UITableViewController {
     private let db = Firestore.firestore()
     
     // Before it was a CollectionReference with -- return db.collection("chats")
+    
     private var roomReference: CollectionReference {
         return db.collection("chats")
     }
@@ -45,9 +46,10 @@ class RoomsViewController: UITableViewController {
         title = "Rooms"
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,18 +66,18 @@ class RoomsViewController: UITableViewController {
         toolbarLabel.text = "Rooms"
         
         
-        roomListener = roomReference.whereField("participants", arrayContainsAny: [Participant.init(uid: currentUser.uid)]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
-            guard let snapshot = QuerySnapshot else {
-                print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
-                return
-            }
-            
-            
-            snapshot.documentChanges.forEach { (change) in
-                self.handleDocumentChange(change)
-            }
-            
-        })
+//        roomListener = roomReference.whereField("participants", arrayContainsAny: [Participant.init(uid: currentUser.uid)]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+//            guard let snapshot = QuerySnapshot else {
+//                print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
+//                return
+//            }
+//            
+//            
+//            snapshot.documentChanges.forEach { (change) in
+//                self.handleDocumentChange(change)
+//            }
+//            
+//        })
         
 //            //        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
 //            //            guard let snapshot = querySnapshot else {

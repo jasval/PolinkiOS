@@ -8,11 +8,18 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class BaseTabBarController: UITabBarController {
-    @IBInspectable var defaultIndex: Int = 2
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedIndex = defaultIndex
+        
+        // setup our custom view controllers
+        let user = Auth.auth().currentUser
+        let roomController = RoomsViewController(currentUser: user!)
+        let lobbyNavController = UINavigationController(rootViewController: roomController)
+        lobbyNavController.tabBarItem.title = "Lobby"
+        
+        viewControllers = [lobbyNavController]
     }
 }

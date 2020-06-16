@@ -56,31 +56,36 @@ class LoginViewController: UIViewController {
                     
                     // Present the formatted popup
                     self.present(popup, animated: true, completion: nil)
+                    
                 } else {
+                    
                     let uid:String = Auth.auth().currentUser!.uid
                     let usersRef = self.db.collection("users").document(uid)
+                    
                     usersRef.getDocument { (document, error) in
                         if let document = document, document.exists {
-                            let dataDescription = document.data().map(String.init(describing:)) ?? nil
-                            print("Document data: \(dataDescription ?? "null")")
-                            self.performSegue(withIdentifier: K.Segue.loginToTab, sender: self)
+                            // Debug description of Firestore document
+                            print(document.description)
+                            
+                            let vc = BaseTabBarController()
+                            vc.modalPresentationStyle = .fullScreen
+                            vc.modalTransitionStyle = .crossDissolve
+                            
+                            self.present(vc, animated: true, completion: nil)
                         } else {
                             print("User with uid: \(uid) has not completed his profile")
-                            self.performSegue(withIdentifier: K.Segue.loginToRegistration, sender: self)
+                            let sb = UIStoryboard(name: "Registration", bundle: nil)
+                            let vc = sb.instantiateViewController(withIdentifier: "RegistrationController") as! RootPageViewController
+                            vc.modalPresentationStyle = .fullScreen
+                            self.present(vc, animated: true) {
+                                print("Presented to registration pages")
+                            }
+                            
                         }
                     }
                 }
             }
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

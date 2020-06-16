@@ -32,38 +32,12 @@ class UserLocationViewController: UIViewController {
         print("\(String(describing: Registration.state.fname)) and \(String(describing: Registration.state.gender))")
     }
     
-//    @IBAction func searchCompleted(_ sender: Any) {
-//        if let searchTerms = searchBar.text {
-//            let geoCoder = CLGeocoder()
-//            geoCoder.geocodeAddressString(searchTerms) { (clPlacemark, error) in
-//                if let place = clPlacemark!.first {
-//                    if let country = place.country, let city = place.locality {
-//                        UserDS.user.writegeoLoc(country, geoLocCity: city)
-//                        let geoPoint = GeoPoint(latitude: place.location!.coordinate.latitude, longitude: place.location!.coordinate.longitude)
-//                        UserDS.user.writeLocation(geoPoint)
-//                        let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
-//                        let annotation = MKPointAnnotation()
-//                        self.initialiseMap(location)
-//                        self.initialiseAnnotation(annotation, location: location)
-//                    } else {
-//                        print("City or/and Country could not be found: \(error!.localizedDescription)")
-//                    }
-//
-//                } else {
-//                    print("There has been an error: \(error!.localizedDescription)")
-//                }
-//            }
-//        }
-//        resignFirstResponder()
-//    }
-    
     func updateUI() {
         if let location = location {
             // TODO: populate the location map with coordinate info
             recordUserLocation(location)
             initialiseMap(location.coordinate)
             checkIfComplete()
-//            initialiseAnnotation(location: location.coordinate)
         } else {
             mapView.alpha = 0
             checkMark.alpha = 0
@@ -95,36 +69,13 @@ class UserLocationViewController: UIViewController {
             lastLocationError = nil
             startLocationManager()
         }
-//        updateUI()
-        
-//        locateButton.pulsate()
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            self.semaphore.wait()
-//            self.manager.requestLocation()
-//        }
-//        if let loc = UserDS.user.location {
-//            print(loc)
-//        } else {
-//            print("nothing was written here")
-//        }
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            self.semaphore.wait()
-//            let location = CLLocationCoordinate2DMake(UserDS.user.location!.latitude, UserDS.user.location!.longitude)
-//            let annotation = MKPointAnnotation()
-//            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (Timer) in
-//            }
-//            DispatchQueue.main.async {
-//                self.updateUI(location, annotation: annotation)
-//                self.semaphore.signal()
-//            }
-//        }
     }
     
     
     func startLocationManager() {
         if CLLocationManager.locationServicesEnabled() {
             manager.delegate = self
-            // We don't require accuracy as we are trying to determine if the peole are in the same country or not.
+            // We don't require accuracy as we are trying to determine if the people are in the same country or not.
             manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
             manager.startUpdatingLocation()
             isUpdatingLocation = true
@@ -151,18 +102,8 @@ class UserLocationViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
     }
-    
-//
-//    func updateUI(_ location: CLLocationCoordinate2D, annotation: MKPointAnnotation) {
-//        self.checkIfComplete()
-//        self.initialiseMap(location)
-//        self.initialiseAnnotation(annotation, location: location)
-//    }
-    
+
     func recordUserLocation(_ location: CLLocation) {
-        let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        Registration.state.location = geoPoint
-        print(Registration.state.location ?? "None")
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en_GB")) { (placemark, Error) in
             if let geoLoc = placemark!.first {
@@ -179,7 +120,8 @@ class UserLocationViewController: UIViewController {
     
     
     func checkIfComplete() {
-        if Registration.state.location != nil && Registration.state.geoLocCity != nil && Registration.state.geoLocCountry != nil{
+        // Registration.state.location != nil && 
+        if Registration.state.geoLocCity != nil && Registration.state.geoLocCountry != nil{
             animateIn(checkMark, delay: 0.5)
             Registration.state.regCompletion[2] = true
         } else {
@@ -204,7 +146,7 @@ extension UserLocationViewController: CLLocationManagerDelegate {
             // this is not a system error and as such we should just return
             return
         }
-        // if it is a system error
+        // System error
         lastLocationError = error
         stopLocationManager()
         updateUI()
@@ -215,24 +157,6 @@ extension UserLocationViewController: CLLocationManagerDelegate {
         location = locations.last!
         print("Location manager did update locations: \(String(describing: location))")
         updateUI()
-//        if let location = locations.first {
-//            print("Found user's location: \(location)")
-//            let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//            UserDS.user.writeLocation(geoPoint)
-//            print(UserDS.user.location ?? "None")
-//            let geoCoder = CLGeocoder()
-//            geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { (placemark, Error) in
-//                if let geoLoc = placemark!.first {
-//                    let country = geoLoc.country
-//                    let city = geoLoc.locality
-//                    UserDS.user.writegeoLoc(country!, geoLocCity: city!)
-//                    print("\(UserDS.user.geoLocCountry ?? "No Country") and \(UserDS.user.geoLocCity ?? "No City")")
-//                } else {
-//                    print("Program threw an error geocoding localisation: \(Error!.localizedDescription)")
-//                }
-//            }
-//        }
-//        self.semaphore.signal()
     }
     
 
@@ -246,16 +170,5 @@ extension UserLocationViewController: CLLocationManagerDelegate {
         if mapView.alpha == 0 {
             animateIn(mapView, delay: 0.5)
         }
-        
     }
-    
-//    func initialiseAnnotation(location: CLLocationCoordinate2D) {
-//        // Set annotation coordinates for the center of the region
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = location
-//        annotation.title = UserDS.user.geoLocCity
-//        annotation.subtitle = UserDS.user.geoLocCountry
-//        mapView.addAnnotation(annotation)
-//    }
-    
 }

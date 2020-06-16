@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bLE-Bz-46M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bLE-Bz-46M">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chats-->
-        <scene sceneID="GFb-d3-xCC">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Chats" id="L5U-VK-J1t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chats" image="bubble.left.and.bubble.right" catalog="system" id="G5A-ii-zI2"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eqg-1D-zSe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2499" y="-708"/>
-        </scene>
         <!--Feed-->
         <scene sceneID="Ij9-YX-bzg">
             <objects>
@@ -46,10 +36,10 @@
             </objects>
             <point key="canvasLocation" x="3000" y="-708"/>
         </scene>
-        <!--Base Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="6YL-Q5-cyy">
             <objects>
-                <tabBarController autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="bLE-Bz-46M" customClass="BaseTabBarController" customModule="polink_dev" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="bLE-Bz-46M" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="puz-5n-g0n">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -57,7 +47,6 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="L5U-VK-J1t" kind="relationship" relationship="viewControllers" id="qDb-nu-ddI"/>
                         <segue destination="PIi-pW-KBh" kind="relationship" relationship="viewControllers" id="Vab-34-cnX"/>
                         <segue destination="u1i-vO-aAQ" kind="relationship" relationship="viewControllers" id="RZy-aG-jEE"/>
                         <segue destination="kRa-Fy-FZe" kind="relationship" relationship="viewControllers" id="aY9-Na-83e"/>
@@ -69,9 +58,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bubble.left.and.bubble.right" catalog="system" width="64" height="48"/>
-        <image name="house" catalog="system" width="64" height="54"/>
-        <image name="list.bullet.below.rectangle" catalog="system" width="64" height="56"/>
-        <image name="person.crop.circle" catalog="system" width="64" height="60"/>
+        <image name="house" catalog="system" width="128" height="110"/>
+        <image name="list.bullet.below.rectangle" catalog="system" width="128" height="112"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="121"/>
     </resources>
 </document>

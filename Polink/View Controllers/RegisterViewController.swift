@@ -64,7 +64,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     // Register name to user and Navigate to Homepage
                     self.createSpinnerView()
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (Timer) in
-                        self.performSegue(withIdentifier: K.Segue.signupToRegistration, sender: self)
+                        let sb = UIStoryboard(name: "Registration", bundle: nil)
+                        let vc = sb.instantiateViewController(withIdentifier: "RegistrationController") as! RootPageViewController
+                        vc.modalPresentationStyle = .fullScreen
+                        self.present(vc, animated: true, completion: nil)
                     }
                 }
             }
@@ -95,8 +98,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             child.removeFromParent()
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
     
     // What happens when the user presses return on the keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -121,14 +122,4 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             resignFirstResponder()
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

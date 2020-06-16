@@ -19,7 +19,6 @@ class Registration {
     var lname: String?
     var dob: Date?
     var gender: String?
-    var location: GeoPoint?
     var geoLocCountry: String?
     var geoLocCity: String?
     

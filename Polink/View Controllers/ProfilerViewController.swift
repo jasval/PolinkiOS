@@ -122,15 +122,9 @@ class ProfilerViewController: UIViewController {
         var delayCounter:Double = 1
         for button in buttons {
             animateIn(button, delay: 1 + delayCounter)
-            //            UIView.animate(withDuration: 1, delay: 1 + delayCounter, animations: {
-            //                button.alpha = 1
-            //            }, completion: nil)
             delayCounter += 0.5
         }
         animateIn(quizProgress, delay: 5)
-        //        UIView.animate(withDuration: 1, delay: 5, options: .curveLinear, animations: {
-        //            self.quizProgress.alpha = 1
-        //        }, completion: nil)
         animateIn(backButton, delay: 6)
         
     }
@@ -210,12 +204,34 @@ class ProfilerViewController: UIViewController {
     }
 
     func sendResults() {
-        let uid = Auth.auth().currentUser?.uid
-        let email =  Auth.auth().currentUser?.email
-        if let uid = uid, let email = email {
-            let userR = UserDataModel(uid, firstname:  Registration.state.fname!, lastname:  Registration.state.lname!, email: email, dob:  Registration.state.dob!, gender:  Registration.state.gender!, ideology: Registration.state.polinkIdeology!, location:  Registration.state.location!, country:  Registration.state.geoLocCountry!, city:  Registration.state.geoLocCity!)
+        let userId = Auth.auth().currentUser?.uid
+        let userEmail =  Auth.auth().currentUser?.email
+        let r = Registration.state
+        if let userId = userId, let userEmail = userEmail {
+            let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: r.polinkIdeology)
+            let userPrivate = ProfilePrivate(email: userEmail, firstName: r.fname!, lastName: r.lname!, gender: r.gender!, dateOfBirth: r.dob!)
             do {
-                try db.collection("users").document(uid).setData(from: userR)
+                // Create a write batch
+                let batch = db.batch()
+                
+                // Set values for user's public profile
+                let publicRef = db.collection("users").document(userId)
+                try batch.setData(from: userPublic, forDocument: publicRef)
+                
+                // Set values for user's private profile
+                let privateRef = db.collection("users/\(userId)/private").document("userData")
+                try batch.setData(from: userPrivate, forDocument: privateRef)
+                
+                // Commit the batch
+                batch.commit() { error in
+                    if let error = error {
+                        print("Error writing batch: \(error.localizedDescription)")
+                    } else {
+                        print("Batch write succeeded")
+                    }
+                }
+
+//                try db.collection("users").document(uid).setData(from: userR)
                 displayNextButton()
             } catch let error {
                 print("Error writing data to the database: \(error.localizedDescription)")
@@ -224,6 +240,10 @@ class ProfilerViewController: UIViewController {
         }
     }
     @IBAction func nextButtonPressed(_ sender: UIButton){
+        let vc = BaseTabBarController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        self.present(vc, animated: true, completion: nil)
         self.performSegue(withIdentifier: K.Segue.quizToTab, sender: self)
     }
 
@@ -248,12 +268,7 @@ class ProfilerViewController: UIViewController {
             self.quizProgress.setProgress(self.quiz.getProgress(movement), animated: true)
         }, completion: nil)
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-    }
-    
     
     func displayRetryButton() {
         let retryButton = UIButton(type: .custom)
@@ -269,16 +284,5 @@ class ProfilerViewController: UIViewController {
         animateIn(retryButton, delay: 0)
     }
 
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 

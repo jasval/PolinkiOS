@@ -35,7 +35,10 @@ class PreChatViewController: UIViewController {
     
     @objc func nextPressed(_ sender: Any) {
         if reduceBools(Registration.state.regCompletion) == true {
-            self.performSegue(withIdentifier: K.Segue.registrationToQuiz, sender: self)
+            let sb = UIStoryboard(name: "Quiz", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "profilerViewController")
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
             print("View will transition now")
         } else {
             reportIncompleteRegistration()
@@ -91,15 +94,6 @@ class PreChatViewController: UIViewController {
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -44,7 +44,7 @@ final class ChatViewController: MessagesViewController {
     }
     
     
-    required init?(coder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -150,6 +150,8 @@ final class ChatViewController: MessagesViewController {
         do {
             let result = try reference?.addDocument(from: message)
             print("Document reference: \(result?.documentID ?? "Couldn't be written to database")")
+            
+            self.messagesCollectionView.scrollToBottom()
         } catch {
             print("Error writing to database: \(error.localizedDescription)")
         }

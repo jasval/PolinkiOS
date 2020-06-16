@@ -45,10 +45,14 @@ class InitialViewController: UIViewController {
     
     // Actions performed
     @IBAction func signUpPressed(_ sender: Any) {
-        performSegue(withIdentifier: K.Segue.firstToRegister, sender: self)
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "registerViewController") as! RegisterViewController
+        self.present(vc, animated: true)
     }
     @IBAction func signInPressed(_ sender: Any) {
-        performSegue(withIdentifier: K.Segue.firstToLogin, sender: self)
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "loginViewController")
+        self.present(vc, animated: true)
     }
     
 
