@@ -1,5 +1,5 @@
 //
-//  Snapshot+Extensions.swift
+//  Snapshot+Ext.swift
 //  Polink
 //
 //  Created by Josh Valdivia on 15/06/2020.

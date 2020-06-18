@@ -1,5 +1,5 @@
 //
-//  SpinnerViewController.swift
+//  SpinnerVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 11/02/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpinnerViewController: UIViewController {
+class SpinnerVC: UIViewController {
 
     var spinner = UIActivityIndicatorView(style: .large)
 

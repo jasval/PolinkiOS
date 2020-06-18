@@ -87,7 +87,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	func createSpinnerView() {
-		let child = SpinnerViewController()
+		let child = SpinnerVC()
 		
 		// add the spinner view controller
 		addChild(child)

@@ -1,5 +1,5 @@
 //
-//  RootPageViewController.swift
+//  PageNavController.swift
 //  Polink
 //
 //  Created by Jose Saldana on 16/02/2020.
@@ -11,15 +11,15 @@ import FirebaseAuth
 
 
 
-class RootPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class PageNavController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var viewControllerList:[UIViewController] = {
          let sb = UIStoryboard(name: "Registration", bundle: nil)
          
-         let vc1 = sb.instantiateViewController(withIdentifier: "UserInfoViewController")
-         let vc2 = sb.instantiateViewController(withIdentifier: "UserGenderViewController")
-         let vc3 = sb.instantiateViewController(withIdentifier: "UserLocationViewController")
-         let vc4 = sb.instantiateViewController(withIdentifier: "PreChatViewController")
+         let vc1 = sb.instantiateViewController(withIdentifier: "UserInfoVC")
+         let vc2 = sb.instantiateViewController(withIdentifier: "GenderVC")
+         let vc3 = sb.instantiateViewController(withIdentifier: "LocationVC")
+         let vc4 = sb.instantiateViewController(withIdentifier: "RegistrationCheckVC")
          
          return [vc1, vc2, vc3, vc4]
      }()

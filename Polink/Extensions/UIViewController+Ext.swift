@@ -1,5 +1,5 @@
 //
-//  UIViewController+EasyAnimation.swift
+//  UIVC+Ext.swift
 //  Polink
 //
 //  Created by Jose Saldana on 05/02/2020.

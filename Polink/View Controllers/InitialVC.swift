@@ -36,7 +36,7 @@ class InitialVC: UIViewController {
 		let regSB = UIStoryboard(name: "Registration", bundle: nil)
 		let quizSB = UIStoryboard(name: "Quiz", bundle: nil)
 		regVC = regSB.instantiateViewController(withIdentifier: "RegistrationController")
-		quizVC = quizSB.instantiateViewController(withIdentifier: "QuizViewController")
+		quizVC = quizSB.instantiateViewController(withIdentifier: "QuizVC")
 		
 		navigationController?.viewControllers.append(contentsOf: [regVC!, quizVC!])
 		navigationController?.popToRootViewController(animated: false)

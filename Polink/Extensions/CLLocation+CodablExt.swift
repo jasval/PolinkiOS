@@ -1,5 +1,5 @@
 //
-//  CLLocation+CodableExtension.swift
+//  CLLocation+CodablExt.swift
 //  Polink
 //
 //  Created by Jose Saldana on 13/02/2020.

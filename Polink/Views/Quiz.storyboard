@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profiler View Controller-->
+        <!--QuizVC-->
         <scene sceneID="IEl-Ms-Bdh">
             <objects>
-                <viewController storyboardIdentifier="profilerViewController" modalPresentationStyle="fullScreen" id="faI-Uy-gqX" customClass="ProfilerViewController" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="faI-Uy-gqX" customClass="QuizVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yAc-Fw-Cub">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,22 +82,11 @@
                         <outlet property="quizLabel" destination="Xbl-Jt-Ldr" id="7KY-2Z-IOq"/>
                         <outlet property="quizProgress" destination="oU4-EU-ngL" id="a1l-Bc-7Qd"/>
                         <outlet property="titleLabel" destination="cZI-Eb-jJm" id="z3c-p0-6NS"/>
-                        <segue destination="Bho-iy-Hxy" kind="show" identifier="quizToTab" id="nEl-ng-mfL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-Jx-fD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="965" y="-344"/>
-        </scene>
-        <!--Tab-->
-        <scene sceneID="JaJ-HU-cLD">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Tab" id="Bho-iy-Hxy" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="2uK-T4-go6"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qPS-XW-CUv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1626" y="-344"/>
         </scene>
     </scenes>
     <resources>

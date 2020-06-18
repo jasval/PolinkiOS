@@ -1,5 +1,5 @@
 //
-//  ChatViewController.swift
+//  ChatVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 31/05/2020.
@@ -14,7 +14,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import InputBarAccessoryView
 
-final class ChatViewController: MessagesViewController {
+final class ChatVC: MessagesViewController {
     
     
     private let db = Firestore.firestore()
@@ -205,7 +205,7 @@ final class ChatViewController: MessagesViewController {
 
 // MARK: - MessagesDisplayDelegate
 
-extension ChatViewController: MessagesDisplayDelegate {
+extension ChatVC: MessagesDisplayDelegate {
     // 1. Change the background of each message depending if it is from the sender or the receiver
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ?  #colorLiteral(red: 0.5666330068, green: 1, blue: 0.5678768113, alpha: 1):#colorLiteral(red: 0.6398960133, green: 0.8511446251, blue: 1, alpha: 1)
@@ -230,7 +230,7 @@ extension ChatViewController: MessagesDisplayDelegate {
 
 // MARK: - MessagesLayoutDelegate
 
-extension ChatViewController: MessagesLayoutDelegate {
+extension ChatVC: MessagesLayoutDelegate {
     
     // 1. Hiding users avatar - there are none to display anyways
     func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
@@ -251,7 +251,7 @@ extension ChatViewController: MessagesLayoutDelegate {
 
 // MARK: - MessagesDataSource
 
-extension ChatViewController: MessagesDataSource {
+extension ChatVC: MessagesDataSource {
     
     // 1. A sender a simple structure created from the user values for user participant in room  passed by tableviewcontroller
     func currentSender() -> SenderType {
@@ -303,7 +303,7 @@ extension ChatViewController: MessagesDataSource {
 
 // MARK: MessageInputBarDelegate
 
-extension ChatViewController: InputBarAccessoryViewDelegate {
+extension ChatVC: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let attributedText = messageInputBar.inputTextView.attributedText!

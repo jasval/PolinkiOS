@@ -1,5 +1,5 @@
 //
-//  UserLocationViewController.swift
+//  LocationVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 16/02/2020.
@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import FirebaseFirestore
 
-class UserLocationViewController: UIViewController {
+class LocationVC: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var checkMark: UIImageView!
     @IBOutlet weak var nextArrow: UIButton!
@@ -138,7 +138,7 @@ class UserLocationViewController: UIViewController {
 // MARK: Core Location and Mapkit methods
 // If we want to implement a set of methods is better to set up an extension to organise your code.
 
-extension UserLocationViewController: CLLocationManagerDelegate {
+extension LocationVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
         

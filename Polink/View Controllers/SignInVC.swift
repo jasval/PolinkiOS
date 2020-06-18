@@ -1,5 +1,5 @@
 //
-//  LoginVC.swift
+//  SignInVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 01/02/2020.
@@ -16,7 +16,7 @@ protocol LoginDelegate {
 	func userIsIncomplete()
 }
 
-class LoginVC: UIViewController {
+class SignInVC: UIViewController {
 	
 	@IBOutlet weak var passwordField: UITextField!
 	@IBOutlet weak var emailField: UITextField!

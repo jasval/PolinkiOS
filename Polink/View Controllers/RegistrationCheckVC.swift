@@ -1,5 +1,5 @@
 //
-//  PreChatViewController.swift
+//  RegistrationCheckVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 16/02/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreChatViewController: UIViewController {
+class RegistrationCheckVC: UIViewController {
     @IBOutlet weak var checkPageOne: UIImageView!
     @IBOutlet weak var checkPageTwo: UIImageView!
     @IBOutlet weak var checkPageThree: UIImageView!
@@ -35,11 +35,10 @@ class PreChatViewController: UIViewController {
     
     @objc func nextPressed(_ sender: Any) {
         if reduceBools(Registration.state.regCompletion) == true {
-            let sb = UIStoryboard(name: "Quiz", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "profilerViewController")
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
-            print("View will transition now")
+			let sb = UIStoryboard(name: "Quiz", bundle: nil)
+			let vc = sb.instantiateViewController(withIdentifier: "profilerViewController")
+			navigationController?.viewControllers.append(vc)
+			print("View will transition now")
         } else {
             reportIncompleteRegistration()
             print("Set up has not been completed")

@@ -1,5 +1,5 @@
 //
-//  UIPageViewController+Extension.swift
+//  UIPageVC+Ext.swift
 //  Polink
 //
 //  Created by Jose Saldana on 29/05/2020.

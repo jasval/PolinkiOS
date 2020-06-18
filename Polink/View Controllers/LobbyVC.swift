@@ -1,5 +1,5 @@
 //
-//  RoomsViewController.swift
+//  LobbyVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 01/06/2020.
@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class RoomsViewController: UITableViewController {
+class LobbyVC: UITableViewController {
 
     private let toolbarLabel: UILabel = {
         let label = UILabel()
@@ -23,9 +23,7 @@ class RoomsViewController: UITableViewController {
     private var currentRoomAlertController: UIAlertController?
     
     private let db = Firestore.firestore()
-    
-    // Before it was a CollectionReference with -- return db.collection("chats")
-    
+        
     private var roomReference: CollectionReference {
         return db.collection("chats")
     }
@@ -66,18 +64,18 @@ class RoomsViewController: UITableViewController {
         toolbarLabel.text = "Rooms"
         
         
-//        roomListener = roomReference.whereField("participants", arrayContainsAny: [Participant.init(uid: currentUser.uid)]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
-//            guard let snapshot = QuerySnapshot else {
-//                print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
-//                return
-//            }
-//            
-//            
-//            snapshot.documentChanges.forEach { (change) in
-//                self.handleDocumentChange(change)
-//            }
-//            
-//        })
+        roomListener = roomReference.whereField("participants", arrayContainsAny: [Participant.init(uid: currentUser.uid)]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+            guard let snapshot = QuerySnapshot else {
+                print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
+                return
+            }
+            
+            
+            snapshot.documentChanges.forEach { (change) in
+                self.handleDocumentChange(change)
+            }
+            
+        })
         
 //            //        roomListener = roomReference.addSnapshotListener({ querySnapshot, error in
 //            //            guard let snapshot = querySnapshot else {
@@ -192,7 +190,7 @@ class RoomsViewController: UITableViewController {
 }
 // MARK: - TableViewDelegate
 
-extension RoomsViewController {
+extension LobbyVC {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -231,7 +229,7 @@ extension RoomsViewController {
         
         let sender = Sender(senderId: rootSender?.uid ?? currentUser.uid, displayName: rootSender?.randomUsername)
         // Push view controller passing the user and the room in question
-        let vc = ChatViewController(user: sender, room: room)
+        let vc = ChatVC(user: sender, room: room)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

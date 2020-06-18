@@ -1,5 +1,5 @@
 //
-//  UIColor+Extension.swift
+//  UIColor+Ext.swift
 //  Polink
 //
 //  Created by Josh Valdivia on 15/06/2020.

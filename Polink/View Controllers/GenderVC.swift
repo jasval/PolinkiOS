@@ -1,5 +1,5 @@
 //
-//  UserGenderViewController.swift
+//  GenderVC.swift
 //  Polink
 //
 //  Created by Jose Saldana on 16/02/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserGenderViewController: UIViewController {
+class GenderVC: UIViewController {
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var genderHero: UIImageView!
     @IBOutlet weak var femaleIcon: UIImageView!

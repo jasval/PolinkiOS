@@ -1,5 +1,5 @@
 //
-//  UIPageControl+Extension.swift
+//  UIPageControl+Ext.swift
 //  Polink
 //
 //  Created by Jose Saldana on 29/05/2020.

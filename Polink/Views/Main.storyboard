@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Initial View Controller-->
+        <!--InitialVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initialViewController" id="BYZ-38-t0r" customClass="InitialViewController" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialViewController" id="BYZ-38-t0r" customClass="InitialVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="-940" y="1"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Sign InVC-->
         <scene sceneID="NO9-3x-Tkp">
             <objects>
-                <viewController storyboardIdentifier="loginViewController" id="TPM-ca-X99" customClass="LoginViewController" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewController" id="TPM-ca-X99" customClass="SignInVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHz-Jc-GLe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,18 +144,16 @@
                         <outlet property="signInButton" destination="y8s-Fo-Xhy" id="YGr-iL-gmU"/>
                         <outletCollection property="fields" destination="0FM-ua-KqS" collectionClass="NSMutableArray" id="KRy-Yd-ZIU"/>
                         <outletCollection property="fields" destination="aKp-vC-WPl" collectionClass="NSMutableArray" id="aJh-7y-1xF"/>
-                        <segue destination="qOi-Jm-M0D" kind="show" identifier="loginToTab" id="wOq-GD-vlu"/>
-                        <segue destination="yfF-8C-Jbu" kind="show" identifier="loginToRegistration" id="LsU-HE-asB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIi-1b-lgJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="82" y="415"/>
         </scene>
-        <!--Register View Controller-->
+        <!--Sign UpVC-->
         <scene sceneID="VXE-RA-eyE">
             <objects>
-                <viewController storyboardIdentifier="registerViewController" id="ZNc-QO-VfV" customClass="RegisterViewController" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerViewController" id="ZNc-QO-VfV" customClass="SignUpVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="scG-wu-VvA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -218,42 +216,11 @@
                         <outlet property="signupButton" destination="o1U-qU-SgW" id="njL-v2-1Th"/>
                         <outletCollection property="fields" destination="GPL-68-c9Y" collectionClass="NSMutableArray" id="xaM-XC-crZ"/>
                         <outletCollection property="fields" destination="Tdl-mY-mWB" collectionClass="NSMutableArray" id="nCY-Db-6by"/>
-                        <segue destination="rZ9-5A-hA3" kind="modal" identifier="signupToRegistration" modalPresentationStyle="fullScreen" id="v8j-tB-Cx7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WS8-xw-zjt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="81" y="-361"/>
-        </scene>
-        <!--Registration-->
-        <scene sceneID="5xx-iI-fls">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Registration" id="rZ9-5A-hA3" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="RnV-fW-u02"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bag-iM-fDs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="874" y="-361"/>
-        </scene>
-        <!--Registration-->
-        <scene sceneID="wpV-r4-66Y">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Registration" id="yfF-8C-Jbu" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="zro-hN-nlY"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LiA-qq-vSG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="874" y="349"/>
-        </scene>
-        <!--Tab-->
-        <scene sceneID="rFO-KL-eMh">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Tab" id="qOi-Jm-M0D" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="A0O-zi-kQc"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IAz-vg-Ihe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="843" y="415"/>
         </scene>
     </scenes>
 </document>
