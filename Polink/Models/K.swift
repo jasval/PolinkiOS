@@ -25,12 +25,14 @@ struct K {
         static let firstToRegister = "firstToRegister"
         static let firstToLogin = "firstToLogin"
     }
+	
     struct ideologyAxes {
         static let econ = "Economy"
         static let dipl = "Diplomacy"
         static let govt = "Government"
         static let scty = "Society"
     }
+	
     struct answerStrength {
         static let stronglyAgree = "Strongly Agree"
         static let agree = "Agree"
@@ -38,6 +40,7 @@ struct K {
         static let disagree = "Disagree"
         static let stronglyDisagree = "Strongly Disagree"
     }
+	
     struct userGenders {
         static let male = "Male"
         static let female = "Female"

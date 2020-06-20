@@ -10,9 +10,9 @@ import Foundation
 
 // The public profile structure in the database
 struct ProfilePublic: Codable {
-    let uid: String
-    var country: String
-    var city: String
-    var ideology: [String : Double]?
-    
+	let uid: String
+	var country: String
+	var city: String
+	var ideology: [String : Double]?
+	var listening: Bool
 }

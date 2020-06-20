@@ -16,63 +16,57 @@ class TabBarController: UITabBarController {
 		
 		// setup our custom view controllers
 		let user = Auth.auth().currentUser
-		let roomNavController = createRoomNC(user: user)
-		let homeNavController = createHomeNC()
-		let profileNavController = createProfileNC()
-		let settingsNavController = createSettingsNC()
-		let boardNavController = createBoardNC()
-		
-		viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
-		self.selectedIndex = 2
+		if let user = user {
+			let roomNavController = createLobbyNC(user: user)
+			let homeNavController = createHomeNC(user: user)
+			let profileNavController = createProfileNC(user: user)
+			let settingsNavController = createSettingsNC(user: user)
+			let boardNavController = createBoardNC(user: user)
+			viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
+			self.selectedIndex = 2
+		}
 	}
 }
 
 extension TabBarController {
 	
-	func createHomeNC() -> UINavigationController {
-		let homeVC = HomeVC()
+	func createHomeNC(user: User) -> UINavigationController {
+		let homeVC = HomeVC(user: user)
 		homeVC.title = "Home"
 		homeVC.tabBarItem = UITabBarItem(title: homeVC.title, image: UIImage(systemName: "house.fill"), tag: 2)
 		
-		return UINavigationController(rootViewController: homeVC)
+		return NavigationController(homeVC)
 	}
 	
-	func createRoomNC(user: User?) -> UINavigationController {
-		let roomVC = LobbyVC(currentUser: user!)
+	func createLobbyNC(user: User) -> UINavigationController {
+		let roomVC = LobbyVC(user: user)
 		roomVC.title = "Lobby"
 		roomVC.tabBarItem = UITabBarItem(title: roomVC.title, image: UIImage(systemName: "bubble.left.and.bubble.right.fill"), tag: 0)
 		
-		return UINavigationController(rootViewController: roomVC)
+		return NavigationController(roomVC)
 	}
 	
-	func createProfileNC() -> UINavigationController {
-		let profileVC = ProfileVC()
+	func createProfileNC(user: User) -> UINavigationController {
+		let profileVC = ProfileVC(user: user)
 		profileVC.title = "Profile"
 		profileVC.tabBarItem = UITabBarItem(title: profileVC.title, image: UIImage(systemName: "person.crop.circle.fill"), tag: 3)
 		
-		return UINavigationController(rootViewController: profileVC)
+		return NavigationController(profileVC)
 	}
 	
-	func createBoardNC() -> UINavigationController {
-		let boardVC = BoardVC()
+	func createBoardNC(user: User) -> UINavigationController {
+		let boardVC = BoardVC(user: user)
 		boardVC.title = "Board"
 		boardVC.tabBarItem = UITabBarItem(title: boardVC.title, image: UIImage(systemName: "rosette"), tag: 1)
 		
-		return UINavigationController(rootViewController: boardVC)
+		return NavigationController(boardVC)
 	}
 	
-	func createSettingsNC() -> UINavigationController {
-		let settingsVC = SettingsVC()
+	func createSettingsNC(user: User) -> UINavigationController {
+		let settingsVC = SettingsVC(user: user)
 		settingsVC.title = "Settings"
 		settingsVC.tabBarItem = UITabBarItem(title: settingsVC.title, image: UIImage(systemName: "gear"), tag: 4)
 		
-		return UINavigationController(rootViewController: settingsVC)
-	}
-	
-	func createTabBar(user: User?) -> UITabBarController {
-		let tabbar = UITabBarController()
-		UITabBar.appearance().tintColor = .systemGreen
-		tabbar.viewControllers = [createHomeNC(), createRoomNC(user: user)]
-		return tabbar
+		return NavigationController(settingsVC)
 	}
 }

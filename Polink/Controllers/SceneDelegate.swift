@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			if UserDefaults.standard.bool(forKey: "LOGGED_IN") {
 				let mainVC = TabBarController()
 				navigationController = UINavigationController(rootViewController: mainVC)
+				
+				navigationController?.setNavigationBarHidden(true, animated: false)
 				navigationController?.isToolbarHidden = true
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()

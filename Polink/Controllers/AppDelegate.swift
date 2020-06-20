@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// Get the path for the user defaults path
 		print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-		UserDefaults.standard.set(false, forKey: "LOGGED_IN")
+//		UserDefaults.standard.set(false, forKey: "LOGGED_IN")
 		
 		return true
 	}
