@@ -113,7 +113,7 @@ class QuizVC: UIViewController {
 	func startQuiz () {
 		quiz.initQuiz()
 		loadQuestion()
-		var delayCounter:Double = 1
+		var delayCounter:Float = 1
 		for button in buttons {
 			animateIn(button, delay: 1 + delayCounter)
 			delayCounter += 0.5

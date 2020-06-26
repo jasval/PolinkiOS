@@ -28,7 +28,7 @@ final class ChatVC: MessagesViewController {
         self.room = room
         super.init(nibName: nil, bundle: nil)
         
-        let interlocutor = room.participants.first { (Participant) -> Bool in
+        let interlocutor = room.participantFeedbacks.first { (Participant) -> Bool in
             Participant.uid != user.senderId
         }
         
@@ -53,7 +53,7 @@ final class ChatVC: MessagesViewController {
                 
         // SECURITY CHECK
         // if it doesn't include a participant with the users uid pop the view controller
-        if !(room.participants.contains{ (Participant) in
+        if !(room.participantFeedbacks.contains{ (Participant) in
             Participant.uid == user.senderId
             }) {
             navigationController?.popViewController(animated: true)

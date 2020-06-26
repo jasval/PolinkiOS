@@ -12,20 +12,13 @@ import FirebaseFirestore
 
 class LobbyVC: UITableViewController {
 	
-//	private let toolbarLabel: UILabel = {
-//		let label = UILabel()
-//		label.textAlignment = .center
-//		label.font = UIFont.systemFont(ofSize: 15)
-//		return label
-//	}()
-	
 	private let roomCellIdentifier = "roomCell"
 	private var currentRoomAlertController: UIAlertController?
 	
 	private let db = Firestore.firestore()
 	
 	private var roomReference: CollectionReference {
-		return db.collection("chats")
+		return db.collection("rooms")
 	}
 	
 	private var rooms = [Room]()
@@ -56,7 +49,7 @@ class LobbyVC: UITableViewController {
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: roomCellIdentifier)
 		
 		
-		roomListener = roomReference.whereField("ids", arrayContainsAny: [currentUser.uid]).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
 			guard let snapshot = QuerySnapshot else {
 				print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
 				return
@@ -73,13 +66,13 @@ class LobbyVC: UITableViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-//		navigationController?.isToolbarHidden = true
+		//		navigationController?.isToolbarHidden = true
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-//		navigationController?.isToolbarHidden = true
+		//		navigationController?.isToolbarHidden = true
 	}
 	
 	// MARK: - Actions
@@ -93,22 +86,22 @@ class LobbyVC: UITableViewController {
 	// MARK: - Helpers
 	
 	// Needs to be revised in order to implement
-	private func createRoom() {
-		//        guard let ac = currentRoomAlertController else {
-		//            return
-		//        }
-		//        guard let roomName = ac.textFields?.first?.text else {
-		//            return
-		//        }
-		//
-		//        let room = Room(name: roomName)
-		//        roomReference.addDocument(data: room.representation) {
-		//            error in
-		//            if let e = error {
-		//                print("Error saving room: \(e.localizedDescription)")
-		//            }
-		//        }
-		//
+	private func createRoom(id: String, ownId: String, matchedId: String) {
+//		guard let ac = currentRoomAlertController else {
+//			return
+//		}
+	print("Creating room")
+		
+		let room = Room(id: id, ownId: ownId, matchedId: matchedId)
+		
+		do {
+			try roomReference.document(id).setData(from: room)
+			print("New room with reference: \(id) was created succesfully")
+		} catch {
+			print("There was an error creating the new room: \(error.localizedDescription)")
+			return
+		}
+		
 	}
 	
 	// Adding a new chatroom to table
@@ -148,21 +141,23 @@ class LobbyVC: UITableViewController {
 	
 	// handling any change to our rooms in order to update the UI
 	private func handleDocumentChange(_ change: DocumentChange) {
-		//      guard let room = Room(document: change.document) else {
-		//        return
-		//      }
 		do {
-			guard let room:Room = try change.document.decoded() else {return}
+			guard let room: Room = try change.document.data(as: Room.self) else {return}
+//			
+//			guard let room:Room = try change.document.decoded() else {return}
 			
 			switch change.type {
 				
 			case .added:
+				print("We add")
 				addRoomToTable(room)
 				
 			case .modified:
+				print("We modify")
 				updateRoomInTable(room)
 				
 			case .removed:
+				print("We remove")
 				removeRoomFromTable(room)
 			}
 		} catch {
@@ -192,7 +187,7 @@ extension LobbyVC {
 		cell.accessoryType = .disclosureIndicator
 		
 		// Name to be shown in the table is the randomised name of the other participant
-		let interlocutor: Participant? = rooms[indexPath.row].participants.first { (Participant) -> Bool in
+		let interlocutor: Participant? = rooms[indexPath.row].participantFeedbacks.first { (Participant) -> Bool in
 			Participant.uid != currentUser.uid
 		}
 		
@@ -205,7 +200,7 @@ extension LobbyVC {
 		let room = rooms[indexPath.row]
 		
 		// Create a sender from participants data
-		let rootSender = room.participants.first { (Participant) -> Bool in
+		let rootSender = room.participantFeedbacks.first { (Participant) -> Bool in
 			Participant.uid == currentUser.uid
 		}
 		
@@ -213,5 +208,44 @@ extension LobbyVC {
 		// Push view controller passing the user and the room in question
 		let vc = ChatVC(user: sender, room: room)
 		navigationController?.pushViewController(vc, animated: true)
+	}
+}
+
+extension LobbyVC: HomeVCDelegate {
+	
+	
+	func matchingDataIsPassed(userProfiles: [(String, Double)]) {
+		print("Matching began")
+		for profile in userProfiles {
+			print(profile)
+			if profile.0 > currentUser.uid {
+				let roomId = profile.0 + currentUser.uid
+				print("Matched profile is bigger, then: \(roomId)")
+				for room in rooms {
+					if room.id != roomId {
+						print("Room is not the same")
+						continue
+					} else {
+						print("A room already exist between these two users")
+						break
+					}
+				}
+				createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
+				return
+			} else {
+				let roomId = currentUser.uid + profile.0
+				print("Matched profile is smaller, then: \(roomId)")
+				for room in rooms {
+					if room.id != roomId {
+						continue
+					} else {
+						print("A room already exist between these two users")
+						break
+					}
+				}
+				createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
+				return
+			}
+		}
 	}
 }

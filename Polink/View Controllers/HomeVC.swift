@@ -11,6 +11,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
 
+protocol HomeVCDelegate: UITableViewController {
+	func matchingDataIsPassed(userProfiles: [(String, Double)])
+}
+
 class HomeVC: UIViewController {
 	
 	let matchButton = UIButton(type: .roundedRect)
@@ -20,10 +24,14 @@ class HomeVC: UIViewController {
 	// Initialising the firestore database
 	let db = Firestore.firestore()
 	private let currentUser : User
-	var userRef : DocumentReference?
-	var userProfile : ProfilePublic?
-	var userProfileListener: ListenerRegistration?
-	var userHandler: AuthStateDidChangeListenerHandle?
+	private var userRef : DocumentReference?
+	private var userProfile : ProfilePublic?
+	private var userProfileListener: ListenerRegistration?
+	private var userHandler: AuthStateDidChangeListenerHandle?
+	private var profileDistances: [(String,Double)]?
+	
+	// Delegate for passing information to LobbyVC
+	weak var delegate : HomeVCDelegate?
 	
 	init(user: User) {
 		self.currentUser = user
@@ -78,12 +86,7 @@ class HomeVC: UIViewController {
 		matchButton.pulsate()
 		print(userRef?.path as Any)
 		do {
-			let users = try getUsersInArea()
-			if users.first == nil {
-				print("Users are empty!")
-			} else {
-				print(users)
-			}
+			try getUsersInArea()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -161,32 +164,66 @@ class HomeVC: UIViewController {
 	
 	// MARK: - Helpers
 	
-	func getUsersInArea() throws -> [ProfilePublic]{
+	func getUsersInArea() throws -> Void {
 		// Create Spinner View to block user interactions
-		let spinnerView = createSpinnerView()
+		guard let userProfile = userProfile else { return }
 		
-		//	db.collectionGroup("users").whereField("country", isEqualTo: user.country)
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-			// Remove the Spinner view
-			self.removeSpinnerView(spinnerView: spinnerView)
+		db.collectionGroup("users")
+			.whereField("country", isEqualTo: userProfile.country)
+			.whereField("listening", isEqualTo: true).getDocuments { (QuerySnapshot, error) in
+				guard let documents = QuerySnapshot else {
+					print("There was an error retrieving the user profiles from the database: \(String(describing: error?.localizedDescription))")
+					return
+				}
+				do {
+					let decodedDocuments: [ProfilePublic] = try documents.decoded()
+					var distanceCalculator = DistanceCalculator(user: userProfile)
+					for profile in decodedDocuments {
+						if profile.uid == userProfile.uid {continue}		// If profile matches user id -> skip it
+						print(String(describing: profile.ideology))
+						// Store the results and keep a copy
+						let distancePoint = DistancePoint(source: profile)
+						distanceCalculator.addDistancePointToCollection(point: distancePoint)
+					}
+					distanceCalculator.calculateDistances()
+					// Get the array of distances from the DistanceCalculator
+					self.profileDistances = distanceCalculator.getProfileDistances()
+					// Call a delegate method to send the information to LobbyVC and present that view
+					self.matchUsers()
+				} catch {
+					print("Something went wrong whilst decoding the information stored in the database:\(error.localizedDescription)")
+				}
 		}
 		
-		return []
+		//		let spinnerView = createSpinnerView()
+		//
+		//		//	db.collectionGroup("users").whereField("country", isEqualTo: user.country)
+		//
+		//		DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+		//			// Remove the Spinner view
+		//			self.removeSpinnerView(spinnerView: spinnerView)
+		//		}
+		//
 	}
 	
-	func updateUI() {
+	func matchUsers() {
+		if profileDistances == nil {
+			return
+		}
+		print("Matching users")
+		guard let nc = (tabBarController?.viewControllers?[0])! as? NavigationController else {
+			return
+		}
+		guard let vc = nc.viewControllers[0] as? LobbyVC else {return}
+		
+		self.delegate = vc
+		
+		// Pass data to LobbyVC
+		delegate?.matchingDataIsPassed(userProfiles: profileDistances!)
+		
+		// Switch to LobbyVC
+		tabBarController?.selectedIndex = 0		
 
 	}
-	
-	/*
-	// MARK: - Navigation
-	
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	// Get the new view controller using segue.destination.
-	// Pass the selected object to the new view controller.
-	}
-	*/
 	
 }

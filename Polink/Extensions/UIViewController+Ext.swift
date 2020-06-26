@@ -11,8 +11,8 @@ import UIKit
 
 extension UIViewController {
     // Animate function for UIView visibility specifying object and delay
-    func animateIn(_ item: UIView, delay: Double) {
-        UIView.animate(withDuration: 1, delay: delay, options: .curveEaseInOut, animations: {
+    func animateIn(_ item: UIView, delay: Float) {
+		UIView.animate(withDuration: 1, delay: TimeInterval(delay), options: .curveEaseInOut, animations: {
             item.alpha = 1
         }, completion: nil)
     }

@@ -11,32 +11,62 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 struct Room {
-    let id: String
-    let createdAt: Date
-    let createdBy: String
-    var participants: [Participant]
-    var pending: Bool
-    
-    
-//    init?(document: QueryDocumentSnapshot) {
-//
-//    }
+	let id: String
+	let createdAt: Date
+	let createdBy: String
+	var participantFeedbacks: [Participant]
+	var pending: Bool
+	var participants: [String]
+	
+	
+	init(id: String, ownId: String, matchedId: String) {
+		self.id = id
+		self.createdAt = Date()
+		self.createdBy = ownId
+		self.pending = true
+		let ownPersona = Participant(uid: ownId)
+		let otherPersona = Participant(uid: matchedId)
+		self.participantFeedbacks = [ownPersona, otherPersona]
+		self.participants = [ownId,matchedId]
+	}
 }
 
 extension Room: Codable {
-
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		id = try container.decode(String.self, forKey: .id)
+		createdBy = try container.decode(String.self, forKey: .createdBy)
+		var participanFeedbacktContainer = try container
+			.nestedUnkeyedContainer(forKey: .participantFeedbacks)
+		participantFeedbacks = Array<Participant>()
+		while !participanFeedbacktContainer.isAtEnd {
+			let participantFeedback: Participant = try participanFeedbacktContainer.decode(Participant.self)
+			participantFeedbacks.append(participantFeedback)
+		}
+		pending = try container.decode(Bool.self, forKey: .pending)
+		var participantContainer = try container
+			.nestedUnkeyedContainer(forKey: .participants)
+		participants = Array<String>()
+		while !participantContainer.isAtEnd {
+			let participant = try participantContainer.decode(String.self)
+			participants.append(participant)
+		}
+		print("Previous timestamp decoding")
+		createdAt = try container.decode(Date.self, forKey: .createdAt)
+		print("After timestamp decoding")
+	} 
 }
 
 
 extension Room: Comparable {
-    
-    static func == (lhs: Room, rhs: Room) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    static func < (lhs: Room, rhs: Room) -> Bool {
-        return lhs.createdAt < rhs.createdAt
-    }
+	
+	static func == (lhs: Room, rhs: Room) -> Bool {
+		return lhs.id == rhs.id
+	}
+	
+	static func < (lhs: Room, rhs: Room) -> Bool {
+		return lhs.createdAt < rhs.createdAt
+	}
 }
 //struct Room {
 //    let id: String?
@@ -46,14 +76,7 @@ extension Room: Comparable {
 //    let createdBy: String
 //
 //    // Review the creation of the room as the only way to create a new one will be through the matching algorithm.
-//    init(name: String) {
-//        self.id = nil
-//        self.name = name
-//        self.createdAt = Date()
-//        self.country = nil
-//        let userId = Auth.auth().currentUser?.uid
-//        self.createdBy = userId!
-//    }
+
 //
 //    init?(document: QueryDocumentSnapshot) {
 //        let data = document.data()

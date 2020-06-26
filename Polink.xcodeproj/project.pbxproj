@@ -15,6 +15,8 @@
 		020C9CA924903AB200A6BDE6 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA824903AB200A6BDE6 /* UICollectionView+Ext.swift */; };
 		023A84D5249D0FA500202D87 /* NSLayoutContraint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D4249D0FA500202D87 /* NSLayoutContraint+Ext.swift */; };
 		023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D6249D72E300202D87 /* UIView+Ext.swift */; };
+		023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D8249EA98800202D87 /* DistancePoint.swift */; };
+		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* Participant.swift */; };
 		02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAEB249765680073039B /* Snapshot+Ext.swift */; };
@@ -88,6 +90,8 @@
 		020C9CA824903AB200A6BDE6 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
 		023A84D4249D0FA500202D87 /* NSLayoutContraint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutContraint+Ext.swift"; sourceTree = "<group>"; };
 		023A84D6249D72E300202D87 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		023A84D8249EA98800202D87 /* DistancePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePoint.swift; sourceTree = "<group>"; };
+		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		02ADDAEB249765680073039B /* Snapshot+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snapshot+Ext.swift"; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 				02ADDAE7249629130073039B /* Sender.swift */,
 				FE4A037F24851EC700228F88 /* Message.swift */,
 				FE4A03812485BBEE00228F88 /* Registration.swift */,
+				023A84DA249ED17C00202D87 /* DistanceCalculator.swift */,
+				023A84D8249EA98800202D87 /* DistancePoint.swift */,
 				02ADDAE624951D390073039B /* Custom Cell Implementation */,
 			);
 			path = Models;
@@ -526,9 +532,11 @@
 				02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */,
 				02ADDB91249B10C00073039B /* BoardVC.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
+				023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */,
 				02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
+				023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Ext.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
 				FE3561062481A133007E23C9 /* UIPageControl+Ext.swift in Sources */,

@@ -14,7 +14,7 @@ class AnswerButton: UIButton {
     var effect: Double? = 0
     
     //Setter function for effect
-    func setEffect(_ effect: Double) {
+	func setEffect(_ effect: Double) {
         self.effect = effect
     }
 
