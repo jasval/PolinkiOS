@@ -218,12 +218,13 @@ class HomeVC: UIViewController {
 		
 		self.delegate = vc
 		
-		// Pass data to LobbyVC
-		delegate?.matchingDataIsPassed(userProfiles: profileDistances!)
-		
 		// Switch to LobbyVC
-		tabBarController?.selectedIndex = 0		
-
+		tabBarController?.selectedIndex = 0
+		
+		// Pass data to LobbyVC
+		Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (Timer) in
+			self.delegate?.matchingDataIsPassed(userProfiles: self.profileDistances!)
+		}
 	}
 	
 }

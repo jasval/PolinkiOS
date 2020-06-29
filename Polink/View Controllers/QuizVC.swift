@@ -202,8 +202,8 @@ class QuizVC: UIViewController {
 		let userEmail =  Auth.auth().currentUser?.email
 		let r = Registration.state
 		if let userId = userId, let userEmail = userEmail {
-			let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: r.polinkIdeology, listening: true)
-			let userPrivate = ProfilePrivate(email: userEmail, firstName: r.fname!, lastName: r.lname!, gender: r.gender!, dateOfBirth: r.dob!)
+			let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: r.polinkIdeology, listening: true, redFlags: 0)
+			let userPrivate = ProfilePrivate(email: userEmail, firstName: r.fname!, lastName: r.lname!, gender: r.gender!, createdAt: Date(), dateOfBirth: r.dob!)
 			do {
 				// Create a write batch
 				let batch = db.batch()

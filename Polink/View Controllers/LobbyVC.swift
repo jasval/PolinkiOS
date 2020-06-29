@@ -20,14 +20,20 @@ class LobbyVC: UITableViewController {
 	private var roomReference: CollectionReference {
 		return db.collection("rooms")
 	}
+	private var privateProfileReference: DocumentReference {
+		return db.collection("users").document(currentUser.uid).collection("private").document("userData")
+	}
 	
 	private var rooms = [Room]()
+	private var history = [Room]()
 	private var roomListener: ListenerRegistration?
+	private var privateProfileListener: ListenerRegistration?
 	
 	private let currentUser: User
 	
 	deinit {
 		roomListener?.remove()
+		privateProfileListener?.remove()
 	}
 	
 	init(user: User) {
@@ -59,6 +65,21 @@ class LobbyVC: UITableViewController {
 				print("There are changes")
 				self.handleDocumentChange(change)
 			}
+		})
+		
+		privateProfileListener = privateProfileReference.addSnapshotListener({ (DocumentSnapshot, error) in
+			guard let snapshot = DocumentSnapshot else {
+				print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
+				return
+			}
+			do {
+				let privateProfile = try snapshot.data(as: ProfilePrivate.self)
+				guard let storedHistory = privateProfile?.history else {return}
+				print("Synchronising database history with local history")
+				self.history = storedHistory
+			} catch {
+				print("error: \(error.localizedDescription)")
+			}
 			
 		})
 	}
@@ -77,19 +98,11 @@ class LobbyVC: UITableViewController {
 	
 	// MARK: - Actions
 	
-	// Run same method to start a conversation as defined in a super duper manager class
-	@objc func startNewConversation() {
-		print("Starting a new conversation")
-		return
-	}
 	
 	// MARK: - Helpers
 	
 	// Needs to be revised in order to implement
 	private func createRoom(id: String, ownId: String, matchedId: String) {
-//		guard let ac = currentRoomAlertController else {
-//			return
-//		}
 	print("Creating room")
 		
 		let room = Room(id: id, ownId: ownId, matchedId: matchedId)
@@ -143,7 +156,7 @@ class LobbyVC: UITableViewController {
 	private func handleDocumentChange(_ change: DocumentChange) {
 		do {
 			guard let room: Room = try change.document.data(as: Room.self) else {return}
-//			
+//
 //			guard let room:Room = try change.document.decoded() else {return}
 			
 			switch change.type {
@@ -211,12 +224,15 @@ extension LobbyVC {
 	}
 }
 
+// MARK: - Matching Delegate
+
 extension LobbyVC: HomeVCDelegate {
 	
 	
 	func matchingDataIsPassed(userProfiles: [(String, Double)]) {
 		print("Matching began")
 		for profile in userProfiles {
+			var roomExistsAlready: Bool = false
 			print(profile)
 			if profile.0 > currentUser.uid {
 				let roomId = profile.0 + currentUser.uid
@@ -224,27 +240,50 @@ extension LobbyVC: HomeVCDelegate {
 				for room in rooms {
 					if room.id != roomId {
 						print("Room is not the same")
-						continue
 					} else {
 						print("A room already exist between these two users")
-						break
+						roomExistsAlready = true
 					}
 				}
-				createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
-				return
+				for room in history {
+					if room.id != roomId {
+						print("Room is not the same in history")
+					} else {
+						print("A room already exist between these two users in history")
+						roomExistsAlready = true
+					}
+				}
+				if roomExistsAlready {
+					continue
+				} else {
+					createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
+					return
+				}
 			} else {
 				let roomId = currentUser.uid + profile.0
 				print("Matched profile is smaller, then: \(roomId)")
 				for room in rooms {
 					if room.id != roomId {
-						continue
+						print("Room is not the same")
 					} else {
 						print("A room already exist between these two users")
-						break
+						roomExistsAlready = true
 					}
 				}
-				createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
-				return
+				for room in history {
+					if room.id != roomId {
+						print("Room is not the same in history")
+					} else {
+						print("A room already exist between these two users in history")
+						roomExistsAlready = true
+					}
+				}
+				if roomExistsAlready {
+					continue
+				} else {
+					createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
+					return
+				}
 			}
 		}
 	}

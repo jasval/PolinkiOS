@@ -15,4 +15,5 @@ struct ProfilePublic: Codable {
 	var city: String
 	var ideology: [String : Double]?
 	var listening: Bool
+	var redFlags: Int
 }

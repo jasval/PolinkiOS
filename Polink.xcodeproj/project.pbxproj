@@ -17,6 +17,14 @@
 		023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D6249D72E300202D87 /* UIView+Ext.swift */; };
 		023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D8249EA98800202D87 /* DistancePoint.swift */; };
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
+		02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542CF24AA558100A03A81 /* LanguageModeration.swift */; };
+		02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */; };
+		02A542D424AA55AF00A03A81 /* LanguageModerationResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */; };
+		02A542D624AA58B500A03A81 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D524AA58B500A03A81 /* String+Ext.swift */; };
+		02A542D824AA5B7400A03A81 /* NSString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D724AA5B7400A03A81 /* NSString+Ext.swift */; };
+		02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */; };
+		02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */; };
+		02A542DE24AA5F3B00A03A81 /* CensoredWordsList in Resources */ = {isa = PBXBuildFile; fileRef = 02A542DD24AA5F3B00A03A81 /* CensoredWordsList */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* Participant.swift */; };
 		02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAEB249765680073039B /* Snapshot+Ext.swift */; };
@@ -92,6 +100,14 @@
 		023A84D6249D72E300202D87 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		023A84D8249EA98800202D87 /* DistancePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePoint.swift; sourceTree = "<group>"; };
 		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
+		02A542CF24AA558100A03A81 /* LanguageModeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModeration.swift; sourceTree = "<group>"; };
+		02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModerationDictionary.swift; sourceTree = "<group>"; };
+		02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModerationResources.swift; sourceTree = "<group>"; };
+		02A542D524AA58B500A03A81 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		02A542D724AA5B7400A03A81 /* NSString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Ext.swift"; sourceTree = "<group>"; };
+		02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+Ext.swift"; sourceTree = "<group>"; };
+		02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = "<group>"; };
+		02A542DD24AA5F3B00A03A81 /* CensoredWordsList */ = {isa = PBXFileReference; lastKnownFileType = text; path = CensoredWordsList; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		02ADDAEB249765680073039B /* Snapshot+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snapshot+Ext.swift"; sourceTree = "<group>"; };
@@ -214,6 +230,10 @@
 				02ADDB96249BD3DE0073039B /* CGRect+Ext.swift */,
 				023A84D4249D0FA500202D87 /* NSLayoutContraint+Ext.swift */,
 				023A84D6249D72E300202D87 /* UIView+Ext.swift */,
+				02A542D524AA58B500A03A81 /* String+Ext.swift */,
+				02A542D724AA5B7400A03A81 /* NSString+Ext.swift */,
+				02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */,
+				02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,6 +390,10 @@
 				023A84DA249ED17C00202D87 /* DistanceCalculator.swift */,
 				023A84D8249EA98800202D87 /* DistancePoint.swift */,
 				02ADDAE624951D390073039B /* Custom Cell Implementation */,
+				02A542CF24AA558100A03A81 /* LanguageModeration.swift */,
+				02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */,
+				02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */,
+				02A542DD24AA5F3B00A03A81 /* CensoredWordsList */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -458,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				020C9C9D248FC36300A6BDE6 /* Default-568h@2x.png in Resources */,
+				02A542DE24AA5F3B00A03A81 /* CensoredWordsList in Resources */,
 				FEF69CF423F8C430002C3524 /* Registration.storyboard in Resources */,
 				FEF69CF823F8CA70002C3524 /* Quiz.storyboard in Resources */,
 				FE01AE8123E61242002F36FA /* Assets.xcassets in Resources */,
@@ -523,15 +548,18 @@
 				02ADDAE8249629130073039B /* Sender.swift in Sources */,
 				023A84D5249D0FA500202D87 /* NSLayoutContraint+Ext.swift in Sources */,
 				02ADDB6D249ADBDE0073039B /* HomeVC.swift in Sources */,
+				02A542D424AA55AF00A03A81 /* LanguageModerationResources.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageVC+Ext.swift in Sources */,
 				FE4A037C24851B6D00228F88 /* Room.swift in Sources */,
 				FEF69CFA23F8CC8A002C3524 /* PageNavController.swift in Sources */,
 				FE01AE7C23E61241002F36FA /* InitialVC.swift in Sources */,
 				FEF69CF223F8BFD3002C3524 /* TabBarController.swift in Sources */,
 				020C9CA32490229B00A6BDE6 /* CustomNewsCell.swift in Sources */,
+				02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */,
 				02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */,
 				02ADDB91249B10C00073039B /* BoardVC.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
+				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
 				023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */,
 				02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
@@ -547,8 +575,11 @@
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
 				FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */,
 				FE4A037A2484FD3500228F88 /* LobbyVC.swift in Sources */,
+				02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */,
 				FE01AE9323E61897002F36FA /* SignInVC.swift in Sources */,
+				02A542D824AA5B7400A03A81 /* NSString+Ext.swift in Sources */,
 				FE84F5CB23F9813200312206 /* GenderVC.swift in Sources */,
+				02A542D624AA58B500A03A81 /* String+Ext.swift in Sources */,
 				023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */,
 				FEF69CFC23F961CE002C3524 /* RegistrationCheckVC.swift in Sources */,
 				FE01AE9123E61874002F36FA /* SignUpVC.swift in Sources */,
@@ -556,6 +587,7 @@
 				FE6886B823EB18F8001F1301 /* Question.swift in Sources */,
 				02ADDB93249B11D60073039B /* SettingsVC.swift in Sources */,
 				020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */,
+				02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */,
 				FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */,
 				FEE7083E23F2A55400E47E7B /* SpinnerVC.swift in Sources */,
 				FE32EB092484258E00E8C2D5 /* ChatVC.swift in Sources */,
