@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import CoreData
 
 class LobbyVC: UITableViewController {
 	
@@ -30,6 +31,9 @@ class LobbyVC: UITableViewController {
 	private var privateProfileListener: ListenerRegistration?
 	
 	private let currentUser: User
+	
+	// Call the stack of persistent storage for the model Rooms.
+	lazy var coreDataContainer = NSPersistentContainer(name: "RoomChatModel")
 	
 	deinit {
 		roomListener?.remove()
@@ -54,6 +58,15 @@ class LobbyVC: UITableViewController {
 		clearsSelectionOnViewWillAppear = true
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: roomCellIdentifier)
 		
+		// Load the database if it exists, if not create it.
+		coreDataContainer.loadPersistentStores { (storeDescription, error) in
+			// resolve portential conflict by using NSMergePolicy
+			self.coreDataContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+			
+			if let error = error {
+				print("Unresolved error \(error.localizedDescription)")
+			}
+		}
 		
 		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
 			guard let snapshot = QuerySnapshot else {

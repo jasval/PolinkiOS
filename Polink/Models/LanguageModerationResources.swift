@@ -11,6 +11,7 @@ import Foundation
 class LanguageModerationResources {
 	
 	class func censoredWordsURL() -> URL? {
-		return Bundle(for: LanguageModerationResources.self).url(forResource: "CensoredWordsList", withExtension: "json")
+		return Bundle.main.url(forResource: "CensoredWordsList", withExtension: "json")
 	}
+	
 }

@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
+import FirebaseFunctions
 
 protocol HomeVCDelegate: UITableViewController {
 	func matchingDataIsPassed(userProfiles: [(String, Double)])
@@ -20,6 +21,9 @@ class HomeVC: UIViewController {
 	let matchButton = UIButton(type: .roundedRect)
 	let listeningSwitch = UISwitch()
 	let switchTitle = UILabel()
+	
+	// Lazy var for Firebase functions
+	fileprivate lazy var functions = Functions.functions()
 	
 	// Initialising the firestore database
 	let db = Firestore.firestore()
@@ -53,6 +57,11 @@ class HomeVC: UIViewController {
 		setUpSwitch()
 		userRef = db.collection("users").document(currentUser.uid)
 		
+		let httpTestButton = UIButton(frame: CGRect(0, 40, 100, 100))
+		httpTestButton.backgroundColor = .red
+		httpTestButton.addTarget(self, action: #selector(callCloudFunction), for: .touchUpInside)
+		view.addSubview(httpTestButton)
+		
 		navigationController?.setNavigationBarHidden(true, animated: false)
 		// Do any additional setup after loading the view.
 		
@@ -70,6 +79,25 @@ class HomeVC: UIViewController {
 			}
 		})
 		
+	}
+	
+	@objc func callCloudFunction() {
+		// Call the firebase cloud function
+		functions.httpsCallable("sayHello").call([]) { (result, error) in
+			if let error = error as NSError? {
+				if error.domain == FunctionsErrorDomain {
+					let code = FunctionsErrorCode(rawValue: error.code)
+					let message = error.localizedDescription
+					let details = error.userInfo[FunctionsErrorDetailsKey]
+					print(code)
+					print(message)
+					print(details)
+				}
+			}
+			if let text = (result?.data as? String) {
+				print(text)
+			}
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

@@ -9,15 +9,24 @@
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import CoreData
 
-struct Room {
+class Room: Codable {
 	let id: String
 	let createdAt: Date
 	let createdBy: String
 	var participantFeedbacks: [Participant]
 	var pending: Bool
+	private var reported: Bool
 	var participants: [String]
 	
+	// Core Data Managed Object
+//	@NSManaged var id: String
+//	@NSManaged var createdAt: Date
+//	@NSManaged var createdBy: String
+//	@NSManaged var participantFeedbacks: [Participant]
+//	@NSManaged var pending: Bool
+//	@NSManaged var participants: [String]
 	
 	init(id: String, ownId: String, matchedId: String) {
 		self.id = id
@@ -28,11 +37,10 @@ struct Room {
 		let otherPersona = Participant(uid: matchedId)
 		self.participantFeedbacks = [ownPersona, otherPersona]
 		self.participants = [ownId,matchedId]
+		self.reported = false
 	}
-}
-
-extension Room: Codable {
-	init(from decoder: Decoder) throws {
+	
+	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		id = try container.decode(String.self, forKey: .id)
 		createdBy = try container.decode(String.self, forKey: .createdBy)
@@ -54,9 +62,14 @@ extension Room: Codable {
 		print("Previous timestamp decoding")
 		createdAt = try container.decode(Date.self, forKey: .createdAt)
 		print("After timestamp decoding")
-	} 
+		reported = try container.decode(Bool.self, forKey: .reported)
+	}
+	
+	func report() {
+		reported = true
+	}
+	
 }
-
 
 extension Room: Comparable {
 	

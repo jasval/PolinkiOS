@@ -10,15 +10,24 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Fakery
+import CoreData
 
-struct Participant: Codable {
+class Participant: Codable {
     let uid: String
     var agreement: Bool
     var conversationRating: Int
     var engagementRating: Int
     var informativeRating: Int
     var randomUsername: String
-    
+  
+//	@NSManaged var uid: String
+//	@NSManaged var agreement: Bool
+//	@NSManaged var conversationRating: Int
+//	@NSManaged var engagementRating: Int
+//	@NSManaged var informativeRating: Int
+//	@NSManaged var randomUsername: String
+
+	
     enum CodingKeys: String, CodingKey {
         case uid
         case agreement
@@ -27,7 +36,7 @@ struct Participant: Codable {
         case informativeRating
         case randomUsername
     }
-    
+	
     init(uid: String) {
         self.uid = uid
         self.agreement = false

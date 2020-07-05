@@ -15,10 +15,16 @@ import InputBarAccessoryView
 
 final class ChatVC: MessagesViewController {
 	
+	fileprivate lazy var functions = Functions.functions()
 	
 	private let db = Firestore.firestore()
+	
 	private var messagesReference: CollectionReference {
 		return db.collection("rooms").document(room.id).collection("messages")
+	}
+	
+	private var documentReference: DocumentReference {
+		return db.collection("rooms").document(room.id)
 	}
 	
 	private let user: Sender
@@ -187,11 +193,27 @@ final class ChatVC: MessagesViewController {
 	@objc private func reportUser() {
 		let ac = UIAlertController(title: nil, message: "Are you sure you want to report this user?", preferredStyle: .alert)
 		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-		ac.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { _ in
+		ac.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [weak self] _ in
+			
+			// Copy current room data change the var to reported and write to history
+			let currentRoom = self?.room
+			currentRoom?.report()
+			
+			
 			// Remove room from Lobby and add to history with negative views
+			self?.documentReference.getDocument { (document, error) in
+				if let document = document, document.exists {
+					do {
+						
+					} catch {
+						print("Couldn't decode into room data from the current document.")
+					}
+				}
+				
+			}
 			
 			// Pop current view controller and revert back to Lobby
-			self.navigationController?.popViewController(animated: true)
+			self?.navigationController?.popViewController(animated: true)
 		}))
 		present(ac, animated: true, completion: nil)
 		print("User reported!")
@@ -393,8 +415,12 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 			let context = substring.attribute(.autocompleted, at: 0, effectiveRange: nil)
 			print("Autocompleted: `", substring, "` with context", context ?? [])
 		}
+		// Censor the users input
+		var cleanText = text
+		cleanText.censor()
 		
-		let message = Message(sender: user, content: text)
+		print(cleanText)
+		let message = Message(sender: user, content: cleanText)
 		messageInputBar.inputTextView.text = String()
 		//		messageInputBar.invalidatePlugins()
 		

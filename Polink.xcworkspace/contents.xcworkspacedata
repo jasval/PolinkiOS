@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Polink/Models/Room+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:Polink/Models/Room+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Polink.xcodeproj">
    </FileRef>
    <FileRef

@@ -24,7 +24,9 @@
 		02A542D824AA5B7400A03A81 /* NSString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D724AA5B7400A03A81 /* NSString+Ext.swift */; };
 		02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */; };
 		02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */; };
-		02A542DE24AA5F3B00A03A81 /* CensoredWordsList in Resources */ = {isa = PBXBuildFile; fileRef = 02A542DD24AA5F3B00A03A81 /* CensoredWordsList */; };
+		02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */; };
+		02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */; };
+		02AC8CF524AE27B600C4D120 /* RoomChatModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02AC8CF324AE27B600C4D120 /* RoomChatModel.xcdatamodeld */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* Participant.swift */; };
 		02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAEB249765680073039B /* Snapshot+Ext.swift */; };
@@ -58,7 +60,6 @@
 		FE4A037C24851B6D00228F88 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037B24851B6D00228F88 /* Room.swift */; };
 		FE4A038024851EC700228F88 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A037F24851EC700228F88 /* Message.swift */; };
 		FE4A03822485BBEE00228F88 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A03812485BBEE00228F88 /* Registration.swift */; };
-		FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */; };
 		FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B323EAF601001F1301 /* UIViewController+Ext.swift */; };
 		FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B523EB1865001F1301 /* QuizBrain.swift */; };
 		FE6886B823EB18F8001F1301 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6886B723EB18F8001F1301 /* Question.swift */; };
@@ -107,7 +108,9 @@
 		02A542D724AA5B7400A03A81 /* NSString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Ext.swift"; sourceTree = "<group>"; };
 		02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+Ext.swift"; sourceTree = "<group>"; };
 		02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = "<group>"; };
-		02A542DD24AA5F3B00A03A81 /* CensoredWordsList */ = {isa = PBXFileReference; lastKnownFileType = text; path = CensoredWordsList; sourceTree = "<group>"; };
+		02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CensoredWordsList.json; sourceTree = "<group>"; };
+		02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		02AC8CF424AE27B600C4D120 /* RoomChatModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoomChatModel.xcdatamodel; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		02ADDAEB249765680073039B /* Snapshot+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snapshot+Ext.swift"; sourceTree = "<group>"; };
@@ -186,7 +189,6 @@
 		FE4A037B24851B6D00228F88 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE4A037F24851EC700228F88 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		FE4A03812485BBEE00228F88 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
-		FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		FE6886B323EAF601001F1301 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		FE6886B523EB1865001F1301 /* QuizBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizBrain.swift; sourceTree = "<group>"; };
 		FE6886B723EB18F8001F1301 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -374,7 +376,8 @@
 		FE01AE8B23E61254002F36FA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */,
+				02ADDAE624951D390073039B /* Custom Cell Implementation */,
+				02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */,
 				FE0CE33823E8927E002E5604 /* K.swift */,
 				FE6886B523EB1865001F1301 /* QuizBrain.swift */,
 				FE6886B723EB18F8001F1301 /* Question.swift */,
@@ -389,11 +392,10 @@
 				FE4A03812485BBEE00228F88 /* Registration.swift */,
 				023A84DA249ED17C00202D87 /* DistanceCalculator.swift */,
 				023A84D8249EA98800202D87 /* DistancePoint.swift */,
-				02ADDAE624951D390073039B /* Custom Cell Implementation */,
 				02A542CF24AA558100A03A81 /* LanguageModeration.swift */,
 				02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */,
 				02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */,
-				02A542DD24AA5F3B00A03A81 /* CensoredWordsList */,
+				02AC8CF324AE27B600C4D120 /* RoomChatModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -416,6 +418,7 @@
 				FEF69CF123F8BFD3002C3524 /* TabBarController.swift */,
 				FEF69CF923F8CC8A002C3524 /* PageNavController.swift */,
 				02ADDB94249BB75C0073039B /* NavigationController.swift */,
+				02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -482,7 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				020C9C9D248FC36300A6BDE6 /* Default-568h@2x.png in Resources */,
-				02A542DE24AA5F3B00A03A81 /* CensoredWordsList in Resources */,
+				02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */,
 				FEF69CF423F8C430002C3524 /* Registration.storyboard in Resources */,
 				FEF69CF823F8CA70002C3524 /* Quiz.storyboard in Resources */,
 				FE01AE8123E61242002F36FA /* Assets.xcassets in Resources */,
@@ -567,13 +570,14 @@
 				023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Ext.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
+				02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */,
 				FE3561062481A133007E23C9 /* UIPageControl+Ext.swift in Sources */,
 				020C9C9F248FDFC300A6BDE6 /* Date+Ext.swift in Sources */,
+				02AC8CF524AE27B600C4D120 /* RoomChatModel.xcdatamodeld in Sources */,
 				02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
-				FE643BEE2407F618002F9A29 /* DataModel.xcdatamodeld in Sources */,
 				FE4A037A2484FD3500228F88 /* LobbyVC.swift in Sources */,
 				02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */,
 				FE01AE9323E61897002F36FA /* SignInVC.swift in Sources */,
@@ -781,14 +785,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FE643BEC2407F618002F9A29 /* DataModel.xcdatamodeld */ = {
+		02AC8CF324AE27B600C4D120 /* RoomChatModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */,
+				02AC8CF424AE27B600C4D120 /* RoomChatModel.xcdatamodel */,
 			);
-			currentVersion = FE643BED2407F618002F9A29 /* DataModel.xcdatamodel */;
-			name = DataModel.xcdatamodeld;
-			path = ../DataModel.xcdatamodeld;
+			currentVersion = 02AC8CF424AE27B600C4D120 /* RoomChatModel.xcdatamodel */;
+			path = RoomChatModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

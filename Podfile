@@ -12,6 +12,6 @@ target 'Polink' do
   pod 'Firebase/Auth'
   pod 'FirebaseFirestoreSwift'
   pod 'PopupDialog'
-
+  pod 'Firebase/Functions'
 end
 

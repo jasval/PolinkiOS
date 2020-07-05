@@ -11,7 +11,7 @@ import MessageKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Message: MessageType {
+class Message: MessageType {
 	
 	let content: String?
 	let sentDate: Date
@@ -35,6 +35,25 @@ struct Message: MessageType {
 		self.messageId = UUID().uuidString
 	}
 	
+	required init(from decoder: Decoder) throws {
+		//learn how to use it
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		self.content = try container.decode(String.self, forKey: .content)
+		
+		let username = try container.decode(String.self, forKey: .senderUsername)
+		let senderId = try container.decode(String.self, forKey: .senderId)
+		
+		self.sender = Sender(senderId: senderId, displayName: username)
+		
+		self.messageId = try container.decode(String.self, forKey: .messageId)
+		//		self.downloadURL = try container.decode(String.self, forKey: .downloadURL)
+		self.sentDate = try container.decode(Date.self, forKey: .sentDate)
+		
+		// MessageKind is only get so its populating automatically
+		
+	}
+
 	//    init(user: User, news: UIButton) {
 	//        sender = Sender(senderId: user.uid, displayName: user.displayName ?? "No name")
 	//        self.news = news
@@ -56,24 +75,6 @@ extension Message: Codable {
 		case kind
 	}
 	
-	init(from decoder: Decoder) throws {
-		//learn how to use it
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		self.content = try container.decode(String.self, forKey: .content)
-		
-		let username = try container.decode(String.self, forKey: .senderUsername)
-		let senderId = try container.decode(String.self, forKey: .senderId)
-		
-		self.sender = Sender(senderId: senderId, displayName: username)
-		
-		self.messageId = try container.decode(String.self, forKey: .messageId)
-//		self.downloadURL = try container.decode(String.self, forKey: .downloadURL)
-		self.sentDate = try container.decode(Date.self, forKey: .sentDate)
-		
-		// MessageKind is only get so its populating automatically
-		
-	}
 	
 	func encode(to encoder: Encoder) throws {
 		// Learn how to use it

@@ -11,8 +11,18 @@ import UIKit
 import FirebaseAuth
 
 class TabBarController: UITabBarController {
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		
+		let defaults = UserDefaults.standard
+
+		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+		
+		if !defaults.bool(forKey: "LOGGED_IN") {
+				defaults.set(true, forKey: "LOGGED_IN")
+		}
 		
 		// setup our custom view controllers
 		let user = Auth.auth().currentUser
@@ -20,12 +30,14 @@ class TabBarController: UITabBarController {
 			let roomNavController = createLobbyNC(user: user)
 			let homeNavController = createHomeNC(user: user)
 			let profileNavController = createProfileNC(user: user)
-			let settingsNavController = createSettingsNC(user: user)
-			let boardNavController = createBoardNC(user: user)
-			viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
-			self.selectedIndex = 2
+//			let settingsNavController = createSettingsNC(user: user)
+//			let boardNavController = createBoardNC(user: user)
+//			viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
+			viewControllers = [roomNavController, homeNavController, profileNavController]
+			self.selectedIndex = 1
 		}
 	}
+	
 }
 
 extension TabBarController {
