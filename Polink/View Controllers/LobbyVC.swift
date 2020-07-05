@@ -68,7 +68,8 @@ class LobbyVC: UITableViewController {
 			}
 		}
 		
-		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false)
+			.addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
 			guard let snapshot = QuerySnapshot else {
 				print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
 				return

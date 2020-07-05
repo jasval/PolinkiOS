@@ -193,27 +193,41 @@ final class ChatVC: MessagesViewController {
 	@objc private func reportUser() {
 		let ac = UIAlertController(title: nil, message: "Are you sure you want to report this user?", preferredStyle: .alert)
 		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-		ac.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [weak self] _ in
+		ac.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [unowned self] _ in
 			
-			// Copy current room data change the var to reported and write to history
-			let currentRoom = self?.room
-			currentRoom?.report()
+			//report current room
+			self.room.report()
 			
-			
-			// Remove room from Lobby and add to history with negative views
-			self?.documentReference.getDocument { (document, error) in
-				if let document = document, document.exists {
-					do {
-						
-					} catch {
-						print("Couldn't decode into room data from the current document.")
-					}
+			// Write current room and messages to a new location in the database
+			let batch = self.db.batch()
+			do {
+				try batch.setData(from: self.room, forDocument: self.db.collection("history").document(self.room.id))
+				for message in self.messages {
+					try batch.setData(from: message, forDocument: self.db.collection("history").document(self.room.id).collection("messages").document(message.messageId))
 				}
-				
+			} catch {
+				print("There was an error sending the data \(error.localizedDescription)")
+				return
 			}
 			
-			// Pop current view controller and revert back to Lobby
-			self?.navigationController?.popViewController(animated: true)
+			batch.commit() { err in
+				if let err = err {
+					print("There was an error commiting the batch write: \(err.localizedDescription)")
+					return
+				} else {
+					print("Batch write succeded")
+					
+					// Call the callable function to delete the subcollection and the document
+					let path = self.db.collection("rooms").document(self.room.id).path
+					print(path)
+					self.deleteAtPath(pathToDelete: path)
+					// Pop current view controller and revert back to Lobby
+					self.navigationController?.popViewController(animated: true)
+				}
+			}
+			// Remove room from Lobby and add to history with negative views
+				
+			
 		}))
 		present(ac, animated: true, completion: nil)
 		print("User reported!")
@@ -224,6 +238,29 @@ final class ChatVC: MessagesViewController {
 		
 	}
 	
+	func deleteAtPath(pathToDelete: String) {
+		let jsonObject : [String: Any] = ["path" : pathToDelete]
+		if JSONSerialization.isValidJSONObject(jsonObject) {
+			print(true)
+		} else {
+			print(false)
+		}
+
+		print(jsonObject.description as Any)
+		
+		let deleteFunction = functions.httpsCallable("recursiveDelete")
+		deleteFunction.call(jsonObject) { (result, error) in
+			if let error = error {
+				print(error.localizedDescription)
+				return
+			}
+			if let result = result {
+				print(String(describing: result.data))
+				print("Completed!")
+			}
+			
+		}
+	}
 	
 	
 	// MARK: - Helpers
