@@ -8,13 +8,12 @@
 
 import UIKit
 import MessageKit
-import Firebase
+import FirebaseFunctions
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import InputBarAccessoryView
 
 final class ChatVC: MessagesViewController {
-	
 	fileprivate lazy var functions = Functions.functions()
 	
 	private let db = Firestore.firestore()
@@ -26,13 +25,14 @@ final class ChatVC: MessagesViewController {
 	private var documentReference: DocumentReference {
 		return db.collection("rooms").document(room.id)
 	}
-	
+		
 	private let user: Sender
 	private let room: Room
 	
-	init(user: Sender, room: Room) {
+	init(user: Sender, room: Room, delegate: LobbyViewControllerDelegate) {
 		self.user = user
 		self.room = room
+		self.lobbyDelegate = delegate
 		super.init(nibName: nil, bundle: nil)
 		
 		let interlocutor = room.participantFeedbacks.first { (Participant) -> Bool in
@@ -42,8 +42,15 @@ final class ChatVC: MessagesViewController {
 		title = interlocutor?.randomUsername
 	}
 	
-	private var messages: [Message] = []
+	// Moving to LobbyVC
+	private var availableNews : [News]  = []
+	//
+	
+	private var messages : [Message] = []
 	private var messagesListener: ListenerRegistration?
+	private var lobbyDelegate: LobbyViewControllerDelegate
+	
+	private var presentationAnimationController: PopupPresentationAnimationController?
 	
 	let formatter: DateFormatter = {
 		let formatter = DateFormatter()
@@ -77,6 +84,8 @@ final class ChatVC: MessagesViewController {
 				configueMessageInputBar()
 				addListeners()
 				configureMessageCollectionView()
+				// Get latest news moving to LobbyVC
+				//
 			}
 		} else {
 			if !(room.participantFeedbacks.contains{ (Participant) in
@@ -86,7 +95,7 @@ final class ChatVC: MessagesViewController {
 			}
 			if room.pending {
 				let alert = UIAlertController(title: nil, message: "Do you agree to start a conversation with: \(title ?? "this new user")", preferredStyle: .alert)
-				alert.addAction(UIAlertAction(title: "Yes!", style: .default, handler: { (UIAlertAction) in
+				alert.addAction(UIAlertAction(title: "Yes!", style: .default, handler: { [unowned self](UIAlertAction) in
 					// Allow the conversation to start ...
 					self.db.collection("rooms").document(self.room.id).updateData(["pending" : false])
 					self.becomeFirstResponder()
@@ -94,6 +103,10 @@ final class ChatVC: MessagesViewController {
 					self.configueMessageInputBar()
 					self.addListeners()
 					self.configureMessageCollectionView()
+					self.presentPromptPicker()
+					// Moving to LobbyVC
+//					self.getLatestNews()
+					//
 				}))
 				alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (UIAlertAction) in
 					// Dismiss the conversation ...
@@ -189,7 +202,7 @@ final class ChatVC: MessagesViewController {
 	
 	// MARK: - Actions
 	
-	// Action to report user (NEEDS TO BE COMPLETED)
+	// Action to report user
 	@objc private func reportUser() {
 		let ac = UIAlertController(title: nil, message: "Are you sure you want to report this user?", preferredStyle: .alert)
 		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -234,9 +247,62 @@ final class ChatVC: MessagesViewController {
 		return
 	}
 	
+	// News button to present the collection of views for the day
 	@objc func newsButtonPressed() {
-		
+		// Get current date and prep it for manipulation
+		presentPromptPicker()
 	}
+	
+	func presentPromptPicker(isInitialPrompt: Bool = false) {
+		print("Receiving news from delegate...")
+		let newsViewController = lobbyDelegate.retrieveNewsInformation(delegate: self, isInitial: isInitialPrompt)
+		newsViewController.transitioningDelegate = self
+		newsViewController.modalPresentationStyle = .custom
+		newsViewController.layoutEmphasis = .content
+		print(newsViewController.contentView)
+		self.present(newsViewController, animated: true)
+	}
+	
+	
+//	func getLatestNews() {
+//		let todayStr = Date().getFormattedDate(format: "yyy-MM-dd")
+//
+//		db.collection("news").document(todayStr).getDocument { [weak self](documentSnapshot, error) in
+//			guard let document = documentSnapshot else {return}
+//			if document.exists {
+//				self?.db.collection("news").document(todayStr).collection("articles").getDocuments { (querySnapshot, error) in
+//					guard let query = querySnapshot else {return}
+//					if query.documents.count > 0 {
+//						do {
+//							self?.availableNews = try query.decoded()
+//						} catch {
+//							print("An error ocurred parsing the news from \(todayStr)")
+//							return
+//						}
+//					}
+//				}
+//			} else {
+//				var dayComponent = DateComponents()
+//				dayComponent.day = -1
+//				let calendarComponent = Calendar.current
+//				let yesterdayStr = calendarComponent.date(byAdding: dayComponent, to: Date())?.getFormattedDate(format: "yyy-MM-dd")
+//
+//				self?.db.collection("news").document(yesterdayStr!).collection("articles").getDocuments(completion: { (querySnapshot, error) in
+//					guard let query = querySnapshot else {return}
+//
+//					do {
+//						self?.availableNews = try query.decoded()
+//					} catch {
+//						print("An error ocurred parsing the news from \(yesterdayStr!)  specifically \(error.localizedDescription)")
+//						return
+//					}
+//				})
+//			}
+//		}
+//		for news in availableNews {
+//			print(news.title + "  " + String(describing: news.publishedAt))
+//		}
+//	}
 	
 	func deleteAtPath(pathToDelete: String) {
 		let jsonObject : [String: Any] = ["path" : pathToDelete]
@@ -488,3 +554,23 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 	
 }
 
+extension ChatVC: NewsViewControllerDelegate {
+	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
+		newsViewController.dismiss(animated: true, completion: nil)
+	}
+	
+}
+
+extension ChatVC: UIViewControllerTransitioningDelegate {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		let animationController = PopupPresentationAnimationController()
+		self.presentationAnimationController = animationController
+		return animationController
+	}
+	
+	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		let overlayView = presentationAnimationController?.overlayView
+		presentationAnimationController = nil
+		return PopupDismissalAnimationController(overlayView: overlayView)
+	}
+}

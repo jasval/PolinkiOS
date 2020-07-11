@@ -17,6 +17,8 @@ protocol HomeVCDelegate: UITableViewController {
 }
 
 class HomeVC: UIViewController {
+
+	private var presentationAnimationController: PopupPresentationAnimationController?
 	
 	let matchButton = UIButton(type: .roundedRect)
 	let listeningSwitch = UISwitch()
@@ -59,7 +61,7 @@ class HomeVC: UIViewController {
 		
 		let httpTestButton = UIButton(frame: CGRect(0, 40, 100, 100))
 		httpTestButton.backgroundColor = .red
-		httpTestButton.addTarget(self, action: #selector(callCloudFunction), for: .touchUpInside)
+		httpTestButton.addTarget(self, action: #selector(callTestunction), for: .touchUpInside)
 		view.addSubview(httpTestButton)
 		
 		navigationController?.setNavigationBarHidden(true, animated: false)
@@ -81,23 +83,14 @@ class HomeVC: UIViewController {
 		
 	}
 	
-	@objc func callCloudFunction() {
-		// Call the firebase cloud function
-		functions.httpsCallable("sayHello").call([]) { (result, error) in
-			if let error = error as NSError? {
-				if error.domain == FunctionsErrorDomain {
-					let code = FunctionsErrorCode(rawValue: error.code)
-					let message = error.localizedDescription
-					let details = error.userInfo[FunctionsErrorDetailsKey]
-					print(code)
-					print(message)
-					print(details)
-				}
-			}
-			if let text = (result?.data as? String) {
-				print(text)
-			}
-		}
+	@objc func callTestunction() {
+		// Call the function that is being tested
+//		let testVC = NewsViewController(delegate: self, viewsToDisplay: [])
+//		testVC.transitioningDelegate = self
+//		testVC.modalPresentationStyle = .custom
+//		testVC.layoutEmphasis = .text
+//		self.present(testVC, animated: true)
+		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -253,6 +246,29 @@ class HomeVC: UIViewController {
 		Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (Timer) in
 			self.delegate?.matchingDataIsPassed(userProfiles: self.profileDistances!)
 		}
+	}
+	
+}
+extension HomeVC:  NewsViewControllerDelegate {
+	
+	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
+//		UserDefaults.standard.set(true, forKey: GlobalKeys.HasShownContextMenuIntro)
+//		UserDefaults.standard.synchronize()
+		newsViewController.dismiss(animated: true, completion: nil)
+	}
+}
+
+extension HomeVC: UIViewControllerTransitioningDelegate {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		let animationController = PopupPresentationAnimationController()
+		self.presentationAnimationController = animationController
+		return animationController
+	}
+	
+	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		let overlayView = presentationAnimationController?.overlayView
+		presentationAnimationController = nil
+		return PopupDismissalAnimationController(overlayView: overlayView)
 	}
 	
 }

@@ -11,6 +11,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import CoreData
 
+protocol LobbyViewControllerDelegate {
+	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController
+}
+
 class LobbyVC: UITableViewController {
 	
 	private let roomCellIdentifier = "roomCell"
@@ -27,12 +31,23 @@ class LobbyVC: UITableViewController {
 	
 	private var rooms = [Room]()
 	private var history = [Room]()
+	
+	
+	// Store the news here.
+	private var availableNews = [News]()
+	private var newsReference: CollectionReference {
+		return db.collection("news")
+	}
+	private var newsListener: ListenerRegistration?
+	//
+	
+	
 	private var roomListener: ListenerRegistration?
 	private var privateProfileListener: ListenerRegistration?
 	
 	private let currentUser: User
 	
-	// Call the stack of persistent storage for the model Rooms.
+	// Call the stack of persistent storage for the model Rooms. --> Needs work.
 	lazy var coreDataContainer = NSPersistentContainer(name: "RoomChatModel")
 	
 	deinit {
@@ -69,7 +84,7 @@ class LobbyVC: UITableViewController {
 		}
 		
 		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false)
-			.addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+			.addSnapshotListener(includeMetadataChanges: false, listener: { [weak self] (QuerySnapshot, error) in
 			guard let snapshot = QuerySnapshot else {
 				print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
 				return
@@ -77,11 +92,11 @@ class LobbyVC: UITableViewController {
 			
 			snapshot.documentChanges.forEach { (change) in
 				print("There are changes")
-				self.handleDocumentChange(change)
+				self?.handleDocumentChange(change)
 			}
 		})
 		
-		privateProfileListener = privateProfileReference.addSnapshotListener({ (DocumentSnapshot, error) in
+		privateProfileListener = privateProfileReference.addSnapshotListener({ [weak self] (DocumentSnapshot, error) in
 			guard let snapshot = DocumentSnapshot else {
 				print("Error listening for room updates: \(error?.localizedDescription ?? "No error")")
 				return
@@ -90,12 +105,71 @@ class LobbyVC: UITableViewController {
 				let privateProfile = try snapshot.data(as: ProfilePrivate.self)
 				guard let storedHistory = privateProfile?.history else {return}
 				print("Synchronising database history with local history")
-				self.history = storedHistory
+				self?.history = storedHistory
 			} catch {
 				print("error: \(error.localizedDescription)")
 			}
-			
 		})
+		
+		// Listen for news changes in news and call function to get latest ones ==> REGISTRATION
+		// Create custom date for retrieval of news.
+		newsListener = newsReference.addSnapshotListener(includeMetadataChanges: false, listener: { [weak self] (querySnapshot, error) in
+			guard querySnapshot != nil else {
+				print("Error listening for news updates: \(error?.localizedDescription ?? "No error")")
+				return
+			}
+			do {
+				print("Getting latest news...")
+				try self?.getLatestNews()
+			} catch {
+				print("An error ocurred parsing the news from the server, specifically \(error.localizedDescription)")
+				return
+			}
+		})
+		
+	}
+	
+	func getLatestNews() throws {
+		let todayStr = Date().getFormattedDate(format: "yyy-MM-dd")
+		print(todayStr)
+		db.collection("news").document(todayStr).getDocument { [weak self](documentSnapshot, error) in
+			guard let document = documentSnapshot else {return}
+			if document.exists {
+				self?.db.collection("news").document(todayStr).collection("articles").getDocuments { (querySnapshot, error) in
+					guard let query = querySnapshot else {return}
+					if query.documents.count > 0 {
+						do {
+							print("Updating Available news from today...")
+							self?.availableNews = try query.decoded()
+						} catch {
+							print("An error ocurred parsing the news from \(todayStr)")
+							print(error.localizedDescription)
+							return
+						}
+					}
+				}
+			} else {
+				var dayComponent = DateComponents()
+				dayComponent.day = -1
+				let calendarComponent = Calendar.current
+				let yesterdayStr = calendarComponent.date(byAdding: dayComponent, to: Date())?.getFormattedDate(format: "yyy-MM-dd")
+				
+				self?.db.collection("news").document(yesterdayStr!).collection("articles").getDocuments(completion: { (querySnapshot, error) in
+					guard let query = querySnapshot else {return}
+					
+					do {
+						print("Updating Available news from yesterday...")
+						self?.availableNews = try query.decoded()
+					} catch {
+						print("An error ocurred parsing the news from \(yesterdayStr!)  specifically \(error.localizedDescription)")
+						return
+					}
+				})
+			}
+		}
+		for news in availableNews {
+			print(news.title + "  " + String(describing: news.publishedAt))
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -233,7 +307,7 @@ extension LobbyVC {
 		
 		let sender = Sender(senderId: rootSender?.uid ?? currentUser.uid, displayName: rootSender?.randomUsername)
 		// Push view controller passing the user and the room in question
-		let vc = ChatVC(user: sender, room: room)
+		let vc = ChatVC(user: sender, room: room, delegate: self)
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }
@@ -300,5 +374,33 @@ extension LobbyVC: HomeVCDelegate {
 				}
 			}
 		}
+	}
+}
+
+extension LobbyVC: LobbyViewControllerDelegate {
+	
+	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController {
+//		let newsViewController = NewsViewController(delegate: delegate)
+//		print(availableNews.count)
+////		newsViewController.contentView.pages.append()
+//		for article in availableNews {
+//			if article.imageURL != nil {
+//				let imageURL = URL(string: article.imageURL ?? "https://via.placeholder.com/150")
+////				let imageView = NewsImageView(frame: .zero, url: imageURL!)
+//				let view = newsViewController.contentViewWith(title: article.title, bodyText: article.description ?? "", imageURL: imageURL)
+//				newsViewController.contentView.pages.append(view)
+//			} else {
+//				let view = newsViewController.contentViewWith(title: article.title, bodyText: article.description ?? "", imageURL: nil)
+//				newsViewController.contentView.pages.append(view)
+//			}
+//		}
+//		print(newsViewController.contentView.pages.count)
+//		newsViewController.contentView.updatePages()
+//		newsViewController.reloadInputViews()
+////		vc.contentView.pages
+		
+		let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
+		
+		return newsViewController
 	}
 }
