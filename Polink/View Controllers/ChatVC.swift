@@ -148,6 +148,7 @@ final class ChatVC: MessagesViewController {
 		messagesCollectionView.messagesDataSource = self
 		messagesCollectionView.messagesLayoutDelegate = self
 		messagesCollectionView.messagesDisplayDelegate = self
+		messagesCollectionView.messageCellDelegate = self
 		
 		maintainPositionOnKeyboardFrameChanged = true
 		scrollsToBottomOnKeyboardBeginsEditing = true
@@ -247,7 +248,7 @@ final class ChatVC: MessagesViewController {
 		presentPromptPicker()
 	}
 	
-	func openSafariView(_ input: String?) {
+	@objc func openSafariView(_ input: String?) {
 		guard let url = URL(string: input!) else {
 			print("didnt work")
 			return
@@ -531,6 +532,13 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 		}
 	}
 	
+}
+extension ChatVC: MessageCellDelegate {
+	func didTapMessage(in cell: MessageCollectionViewCell) {
+		guard let index = messagesCollectionView.indexPath(for: cell) else {return}
+//		_ = messageForItem(at: index, in: messagesCollectionView)
+		openSafariView(messages[index.section].content)
+	}
 }
 
 extension ChatVC: NewsViewControllerDelegate {
