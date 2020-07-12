@@ -316,6 +316,9 @@ PODS:
   - InputBarAccessoryView (4.3.2):
     - InputBarAccessoryView/Core (= 4.3.2)
   - InputBarAccessoryView/Core (4.3.2)
+  - Kingfisher (5.14.1):
+    - Kingfisher/Core (= 5.14.1)
+  - Kingfisher/Core (5.14.1)
   - leveldb-library (1.22)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
@@ -334,6 +337,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Functions
   - FirebaseFirestoreSwift
+  - Kingfisher (~> 5.0)
   - MessageKit
   - PopupDialog
 
@@ -359,6 +363,7 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - InputBarAccessoryView
+    - Kingfisher
     - leveldb-library
     - MessageKit
     - nanopb
@@ -386,12 +391,13 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
+  Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
 
-PODFILE CHECKSUM: 79ef755cc9511983a935630c2dccb4f1df4c823b
+PODFILE CHECKSUM: e8cfae7b4d48f42f7ad15c1ff0c0f5a0af91a88e
 
 COCOAPODS: 1.9.3

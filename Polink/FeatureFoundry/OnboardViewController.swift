@@ -36,6 +36,8 @@ class OnboardViewController: UIViewController {
 		return defaultBackgroundView
 	}
 	
+	var newsUrl: URL?
+	
 	var layoutEmphasis: ModalLayoutView.LayoutEmphasis {
 		get {
 			guard let modalLayoutView = modalLayoutView else { return .content }
@@ -77,7 +79,7 @@ class OnboardViewController: UIViewController {
 	}
 	
 	override func loadView() {
-		let modalLayoutView = ModalLayoutView(title: titleText, body: bodyText, contentView: contentView, buttons: buttons, backgroundView: backgroundView)
+		let modalLayoutView = ModalLayoutView(title: titleText, body: bodyText, contentView: contentView, buttons: buttons, backgroundView: backgroundView, url: newsUrl)
 		self.modalLayoutView = modalLayoutView
 		view = modalLayoutView
 	}

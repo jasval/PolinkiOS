@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 class ModalLayoutView: UIView {
 	
@@ -41,16 +42,22 @@ class ModalLayoutView: UIView {
 	private let buttonLayoutView: ButtonLayoutView
 	private let backgroundView: UIView?
 	private let activityIndicator: UIActivityIndicatorView
+	let newsUrl: URL?
 	
 	private var hasText: Bool = false
 	
-	init(title: String?, body: String?, contentView: UIView?, buttons: [Button], backgroundView: UIView? = nil) {
+	init(title: String?, body: String?, contentView: UIView?, buttons: [Button], backgroundView: UIView? = nil, url: URL?) {
 		
+		newsUrl = url
+
 		titleLabel = UILabel()
 //		titleLabel.font = FontFamily.defaultFamily.font(.title2)
 		titleLabel.textColor = .black
+		titleLabel.font = .boldSystemFont(ofSize: 16)
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 0
+		
+		
 		
 		bodyLabel = UILabel()
 //		bodyLabel.font = FontFamily.defaultFamily.font(.body)
@@ -58,10 +65,12 @@ class ModalLayoutView: UIView {
 		bodyLabel.textAlignment = .center
 		bodyLabel.numberOfLines = 0
 		
+
 		textScrollView = UIScrollView()
 		textScrollView.indicatorStyle = .black
 		
 		self.contentView = contentView
+		
 		self.buttonLayoutView = ButtonLayoutView(buttons)
 		
 		activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -85,15 +94,16 @@ class ModalLayoutView: UIView {
 		addSubview(buttonBackground)
 		addSubview(textScrollView)
 		textScrollView.addSubview(titleLabel)
-		textScrollView.addSubview(bodyLabel)
+//		textScrollView.addSubview(bodyLabel)
 		addSubview(buttonLayoutView)
 		addSubview(activityIndicator)
 		addSubview(buttonSeparator)
 		
 		updateBackgroundColors()
 		updateText(title: title, body: body)
+		
 	}
-	
+		
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -130,7 +140,7 @@ class ModalLayoutView: UIView {
 		if hasText {
 			
 			titleTextSize = titleLabel.sizeThatFits(CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude))
-			bodyTextSize = bodyLabel.sizeThatFits(CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude))
+//			bodyTextSize = bodyLabel.sizeThatFits(CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude))
 			
 			let preferredContentRatio: CGFloat
 			switch layoutEmphasis {
@@ -142,13 +152,14 @@ class ModalLayoutView: UIView {
 				preferredContentRatio = .greatestFiniteMagnitude
 			}
 			
+			bodyTextSize = .zero
 			let textOffsetFromBottom = min(260.0, bounds.height * preferredContentRatio)
-			
 			// Padding: 1x above text. 1x below buttons. 2x between text/buttons
 			let padding = hasButtons ? 4.0 * Appearance.padding : 0.0
 			let minTextHeight = min(titleTextSize.height + bodyTextSize.height + ModalLayoutView.bodyTextPadding, ModalLayoutView.minTextHeight)
+//			let minTextHeight = min(titleTextSize.height + ModalLayoutView.bodyTextPadding, ModalLayoutView.minTextHeight)
 			textHeight = max(textOffsetFromBottom - buttonsHeight - padding - layoutMargins.bottom, minTextHeight)
-			contentHeight = bounds.height - layoutMargins.top - textHeight - buttonsHeight - padding - layoutMargins.bottom
+			contentHeight = bounds.height - layoutMargins.top - textHeight - buttonsHeight - padding - layoutMargins.bottom - Appearance.padding
 		} else {
 			titleTextSize = .zero
 			bodyTextSize = .zero
@@ -186,11 +197,13 @@ class ModalLayoutView: UIView {
 		
 		guard hasText else { return }
 		//added optional to content view --> This could lead to serious problems
+//		textScrollView.frame = CGRect(x: 0.0, y: contentView?.frame.maxY ?? 100 + Appearance.padding, width: bounds.width, height: textHeight)
 		textScrollView.frame = CGRect(x: 0.0, y: contentView?.frame.maxY ?? 100 + Appearance.padding, width: bounds.width, height: textHeight)
-		
-		titleLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: 0.0, width: textWidth, height: titleTextSize.height)
+
+		titleLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: Appearance.padding, width: textWidth, height: titleTextSize.height)
 		
 		bodyLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: titleLabel.frame.maxY + ModalLayoutView.bodyTextPadding, width: textWidth, height: bodyTextSize.height)
+
 		
 		textScrollView.contentSize = CGSize(width: bounds.width, height: bodyLabel.frame.maxY)
 	}

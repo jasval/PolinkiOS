@@ -244,8 +244,6 @@ class LobbyVC: UITableViewController {
 	private func handleDocumentChange(_ change: DocumentChange) {
 		do {
 			guard let room: Room = try change.document.data(as: Room.self) else {return}
-//
-//			guard let room:Room = try change.document.decoded() else {return}
 			
 			switch change.type {
 				
@@ -380,27 +378,8 @@ extension LobbyVC: HomeVCDelegate {
 extension LobbyVC: LobbyViewControllerDelegate {
 	
 	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController {
-//		let newsViewController = NewsViewController(delegate: delegate)
-//		print(availableNews.count)
-////		newsViewController.contentView.pages.append()
-//		for article in availableNews {
-//			if article.imageURL != nil {
-//				let imageURL = URL(string: article.imageURL ?? "https://via.placeholder.com/150")
-////				let imageView = NewsImageView(frame: .zero, url: imageURL!)
-//				let view = newsViewController.contentViewWith(title: article.title, bodyText: article.description ?? "", imageURL: imageURL)
-//				newsViewController.contentView.pages.append(view)
-//			} else {
-//				let view = newsViewController.contentViewWith(title: article.title, bodyText: article.description ?? "", imageURL: nil)
-//				newsViewController.contentView.pages.append(view)
-//			}
-//		}
-//		print(newsViewController.contentView.pages.count)
-//		newsViewController.contentView.updatePages()
-//		newsViewController.reloadInputViews()
-////		vc.contentView.pages
 		
 		let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
-		
 		return newsViewController
 	}
 }

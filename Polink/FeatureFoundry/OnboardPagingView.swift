@@ -22,7 +22,7 @@ class OnboardPagingView: UIView {
 		
 		scrollView = UIScrollView()
 		scrollView.isPagingEnabled = true
-		scrollView.showsHorizontalScrollIndicator = false
+		scrollView.showsHorizontalScrollIndicator = true
 		
 		pageControl = UIPageControl()
 		pageControl.numberOfPages = pages.count

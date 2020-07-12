@@ -13,5 +13,6 @@ target 'Polink' do
   pod 'FirebaseFirestoreSwift'
   pod 'PopupDialog'
   pod 'Firebase/Functions'
+  pod 'Kingfisher', '~> 5.0'
 end
 

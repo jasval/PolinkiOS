@@ -23,9 +23,16 @@ class Message: MessageType {
 	//    let news: UIButton?
 	
 	var kind: MessageKind {
+		if URL(string: content ?? "") != nil && content?.contains("http") == true {
+			let contentAtt = NSMutableAttributedString(string: content ?? "")
+			contentAtt.addAttribute(.link, value: content ?? "", range: NSRange(location: 0, length: contentAtt.length))
+			return .attributedText(contentAtt)
+		} else {
 			return .text(content ?? "")
+		}
 	}
 	
+//	var kind: MessageKind
 	
 	init(sender: Sender, content: String) {
 		// Do something (I still need to figure out what to do exactly ... )
@@ -33,14 +40,25 @@ class Message: MessageType {
 		self.content = content
 		self.sentDate = Date()
 		self.messageId = UUID().uuidString
+		
+//		if isNews {
+//			let attributedContent = NSMutableAttributedString(string: content)
+//			attributedContent.addAttribute(.link, value: content, range: NSRange(location: 0, length: attributedContent.length))
+//			self.kind = .attributedText(attributedContent)
+//		} else {
+//			self.kind = .text(content)
+//		}
 	}
 	
 	required init(from decoder: Decoder) throws {
 		//learn how to use it
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		self.content = try container.decode(String.self, forKey: .content)
 		
+//		self.kind = try container.decode(MessageKind.self, forKey: .kind)
+		
+		self.content = try container.decode(String.self, forKey: .content)
+				
 		let username = try container.decode(String.self, forKey: .senderUsername)
 		let senderId = try container.decode(String.self, forKey: .senderId)
 		
@@ -50,6 +68,7 @@ class Message: MessageType {
 		//		self.downloadURL = try container.decode(String.self, forKey: .downloadURL)
 		self.sentDate = try container.decode(Date.self, forKey: .sentDate)
 		
+
 		// MessageKind is only get so its populating automatically
 		
 	}

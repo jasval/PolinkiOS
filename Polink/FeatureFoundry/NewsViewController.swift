@@ -8,35 +8,50 @@
 
 import Foundation
 import UIKit
+import Kingfisher
+import SafariServices
 
 class NewsViewController: OnboardViewController {
 	
+	
 	override var buttons: [Button] {
-		let doneButton = Button(title: "Got It!", style: .primary) { [unowned self] in
+		let doneButton = Button(title: "Let's chat about this!", style: .primary) { [unowned self] in
 			
-//			self.printCurrentValues()
-			let currentView = self.newsToDisplay[self.currentPage]
-			print(currentView.title)
+			let currentNews = self.newsToDisplay[self.currentPage]
+			print(currentNews.title)
+			
+			self.delegate.newsWasSelected(currentNews)
 			
 			self.delegate.newsViewControllerDidFinish(self)
 		}
-		return [doneButton]
+		
+		let safariButton = Button(title: "Open in Safari", style: .primary) { [unowned self] in
+			
+			let currentNews = self.newsToDisplay[self.currentPage]
+			if let url = URL(string: currentNews.articleURL) {
+				let config = SFSafariViewController.Configuration()
+				config.entersReaderIfAvailable = true
+				
+				let vc = SFSafariViewController(url: url, configuration: config)
+				vc.modalPresentationStyle = .popover
+				self.present(vc, animated: true)
+				
+			}
+			
+		}
+		
+		return [safariButton,doneButton]
 	}
 	
-//	func printCurrentValues() {
-//
-//	}
-	
-//	override var contentView: UIView?
 	// It was UIView before
 	override var contentView: OnboardPagingView {
 
 		var viewsToDisplay = Array<UIView>()
 		newsToDisplay.forEach { (news) in
 			let imageURL = URL(string: news.imageURL ?? "")
-			
-			print(imageURL)
-			let vc = contentViewWith(title: news.title, bodyText: news.description ?? "", imageURL: imageURL)
+			let url = URL(string: news.articleURL)
+			print(imageURL as Any)
+			let vc = contentViewWith(title: news.title, bodyText: news.description ?? "", imageURL: imageURL, url: url) as! ModalLayoutView
 			viewsToDisplay.append(vc)
 		}
 		
@@ -44,6 +59,7 @@ class NewsViewController: OnboardViewController {
 
 		return pagingView
 	}
+	
 	
 	var newsToDisplay: [News]
 	var viewsToDisplay: [UIView]?
@@ -68,31 +84,31 @@ class NewsViewController: OnboardViewController {
 		layoutEmphasis = .none
 	}
 	
-	func contentViewWith(title: String, bodyText: String, imageURL: URL?) -> UIView {
-		guard let url = imageURL else {
-			let modalLayoutView = ModalLayoutView(title: title, body: bodyText, contentView: nil, buttons: [])
+	func contentViewWith(title: String, bodyText: String, imageURL: URL?, url: URL?) -> UIView {
+		guard let urlImage = imageURL else {
+			let modalLayoutView = ModalLayoutView(title: title, body: bodyText, contentView: nil, buttons: [], url: url)
 			return modalLayoutView
 		}
-		let imageView = NewsImageView(frame: .zero, url: url)
-		imageView.sizeToFit()
+		let imageView = UIImageView()
+		imageView.kf.setImage(with: urlImage, placeholder: UIImage(named:"placeholder-news"))
 		let modalLayoutView = ModalLayoutView(title: title,
 														  body: bodyText,
 														  contentView: imageView,
-														  buttons: [])
+														  buttons: [], url: url)
 		return modalLayoutView
 	}
 	
 	func contentViewWith(title: String, bodyText: String, imageName: String?) -> UIView {
 		guard imageName != nil else {
-			let modalLayoutView = ModalLayoutView(title: title, body: bodyText, contentView: nil, buttons: [])
+			let modalLayoutView = ModalLayoutView(title: title, body: bodyText, contentView: nil, buttons: [], url: nil)
 			return modalLayoutView
 		}
-		let imageView = NewsImageView(frame: .zero, image: UIImage(named: "gender-male" )!)
+		let imageView = NewsImageView(frame: .zero, image: UIImage(named: "placeholder-news" )!)
 		imageView.sizeToFit()
 		let modalLayoutView = ModalLayoutView(title: title,
 														  body: bodyText,
 														  contentView: imageView,
-														  buttons: [])
+														  buttons: [], url: nil)
 		return modalLayoutView
 	}
 	
@@ -106,22 +122,5 @@ extension NewsViewController: OnboardPagingViewDelegate {
 
 protocol NewsViewControllerDelegate {
 	func newsViewControllerDidFinish(_ newsViewController: NewsViewController)
+	func newsWasSelected(_ newsToSend: News)
 }
-
-//
-//override func viewDidAppear(_ animated: Bool) {
-//	super.viewDidAppear(animated)
-//
-//	viewIsAppearing = true
-//
-//	if #available(iOS 13.0, *) {
-//		let hasShownContextMenuPopup = UserDefaults.standard.bool(forKey: GlobalKeys.HasShownContextMenuIntro)
-//		if !hasShownContextMenuPopup {
-//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-//				let testVC = ContextMenuIntroViewController(delegate: self)
-//				testVC.transitioningDelegate = self
-//				testVC.modalPresentationStyle = .custom
-//				self.present(testVC, animated: true)
-//			}
-//		}
-//}

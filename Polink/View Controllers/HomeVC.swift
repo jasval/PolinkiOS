@@ -250,6 +250,10 @@ class HomeVC: UIViewController {
 	
 }
 extension HomeVC:  NewsViewControllerDelegate {
+	func newsWasSelected(_ newsToSend: News) {
+		//
+	}
+	
 	
 	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
 //		UserDefaults.standard.set(true, forKey: GlobalKeys.HasShownContextMenuIntro)

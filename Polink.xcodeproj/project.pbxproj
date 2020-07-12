@@ -29,7 +29,6 @@
 		0278570524B6987D00C1131A /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570424B6987D00C1131A /* NewsImageView.swift */; };
 		0278570724B7102600C1131A /* PresentationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570624B7102600C1131A /* PresentationAnimationController.swift */; };
 		0278570924B710C000C1131A /* PopupDismissalAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */; };
-		0278570B24B753E000C1131A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570A24B753E000C1131A /* Util.swift */; };
 		0278570D24B7846000C1131A /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570C24B7845F00C1131A /* UIImageView+Ext.swift */; };
 		02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542CF24AA558100A03A81 /* LanguageModeration.swift */; };
 		02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */; };
@@ -127,7 +126,6 @@
 		0278570424B6987D00C1131A /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
 		0278570624B7102600C1131A /* PresentationAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAnimationController.swift; sourceTree = "<group>"; };
 		0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDismissalAnimationController.swift; sourceTree = "<group>"; };
-		0278570A24B753E000C1131A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		0278570C24B7845F00C1131A /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		02A542CF24AA558100A03A81 /* LanguageModeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModeration.swift; sourceTree = "<group>"; };
 		02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModerationDictionary.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 				0278570424B6987D00C1131A /* NewsImageView.swift */,
 				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
 				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
-				0278570A24B753E000C1131A /* Util.swift */,
 			);
 			path = FeatureFoundry;
 			sourceTree = "<group>";
@@ -617,7 +614,6 @@
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
 				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
 				023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */,
-				0278570B24B753E000C1131A /* Util.swift in Sources */,
 				02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,

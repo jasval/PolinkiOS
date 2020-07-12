@@ -12,6 +12,7 @@ import FirebaseFunctions
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import InputBarAccessoryView
+import SafariServices
 
 final class ChatVC: MessagesViewController {
 	fileprivate lazy var functions = Functions.functions()
@@ -41,11 +42,7 @@ final class ChatVC: MessagesViewController {
 		
 		title = interlocutor?.randomUsername
 	}
-	
-	// Moving to LobbyVC
-	private var availableNews : [News]  = []
-	//
-	
+		
 	private var messages : [Message] = []
 	private var messagesListener: ListenerRegistration?
 	private var lobbyDelegate: LobbyViewControllerDelegate
@@ -84,8 +81,6 @@ final class ChatVC: MessagesViewController {
 				configueMessageInputBar()
 				addListeners()
 				configureMessageCollectionView()
-				// Get latest news moving to LobbyVC
-				//
 			}
 		} else {
 			if !(room.participantFeedbacks.contains{ (Participant) in
@@ -104,9 +99,6 @@ final class ChatVC: MessagesViewController {
 					self.addListeners()
 					self.configureMessageCollectionView()
 					self.presentPromptPicker()
-					// Moving to LobbyVC
-//					self.getLatestNews()
-					//
 				}))
 				alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (UIAlertAction) in
 					// Dismiss the conversation ...
@@ -159,6 +151,8 @@ final class ChatVC: MessagesViewController {
 		
 		maintainPositionOnKeyboardFrameChanged = true
 		scrollsToBottomOnKeyboardBeginsEditing = true
+		
+		messagesCollectionView.isUserInteractionEnabled = true
 		
 		
 		if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
@@ -253,56 +247,30 @@ final class ChatVC: MessagesViewController {
 		presentPromptPicker()
 	}
 	
+	func openSafariView(_ input: String?) {
+		guard let url = URL(string: input!) else {
+			print("didnt work")
+			return
+			
+		}
+		let config = SFSafariViewController.Configuration()
+		config.entersReaderIfAvailable = true
+		print("did work")
+		let vc = SFSafariViewController(url: url, configuration: config)
+		vc.modalPresentationStyle = .popover
+		present(vc, animated: true)
+	}
+	
+	
 	func presentPromptPicker(isInitialPrompt: Bool = false) {
 		print("Receiving news from delegate...")
 		let newsViewController = lobbyDelegate.retrieveNewsInformation(delegate: self, isInitial: isInitialPrompt)
 		newsViewController.transitioningDelegate = self
 		newsViewController.modalPresentationStyle = .custom
-		newsViewController.layoutEmphasis = .content
+		newsViewController.layoutEmphasis = .text
 		print(newsViewController.contentView)
 		self.present(newsViewController, animated: true)
 	}
-	
-	
-//	func getLatestNews() {
-//		let todayStr = Date().getFormattedDate(format: "yyy-MM-dd")
-//
-//		db.collection("news").document(todayStr).getDocument { [weak self](documentSnapshot, error) in
-//			guard let document = documentSnapshot else {return}
-//			if document.exists {
-//				self?.db.collection("news").document(todayStr).collection("articles").getDocuments { (querySnapshot, error) in
-//					guard let query = querySnapshot else {return}
-//					if query.documents.count > 0 {
-//						do {
-//							self?.availableNews = try query.decoded()
-//						} catch {
-//							print("An error ocurred parsing the news from \(todayStr)")
-//							return
-//						}
-//					}
-//				}
-//			} else {
-//				var dayComponent = DateComponents()
-//				dayComponent.day = -1
-//				let calendarComponent = Calendar.current
-//				let yesterdayStr = calendarComponent.date(byAdding: dayComponent, to: Date())?.getFormattedDate(format: "yyy-MM-dd")
-//
-//				self?.db.collection("news").document(yesterdayStr!).collection("articles").getDocuments(completion: { (querySnapshot, error) in
-//					guard let query = querySnapshot else {return}
-//
-//					do {
-//						self?.availableNews = try query.decoded()
-//					} catch {
-//						print("An error ocurred parsing the news from \(yesterdayStr!)  specifically \(error.localizedDescription)")
-//						return
-//					}
-//				})
-//			}
-//		}
-//		for news in availableNews {
-//			print(news.title + "  " + String(describing: news.publishedAt))
-//		}
-//	}
 	
 	func deleteAtPath(pathToDelete: String) {
 		let jsonObject : [String: Any] = ["path" : pathToDelete]
@@ -457,6 +425,17 @@ extension ChatVC: MessagesLayoutDelegate {
 // MARK: - MessagesDataSource
 
 extension ChatVC: MessagesDataSource {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//		let message = messages[indexPath.section]
+//		if URL(string: message.content ?? "") != nil && message.content?.contains("http") == true {
+//			let contentAtt = NSMutableAttributedString(string: message.content ?? "")
+//			contentAtt.addAttribute(.link, value: message.content ?? "", range: NSRange(location: 0, length: contentAtt.length))
+//			openSafariView(message.content)
+//		} else {
+//		}
+		let message = messages[indexPath.section]
+		openSafariView(message.content)
+	}
 	
 	// 1. A sender a simple structure created from the user values for user participant in room  passed by tableviewcontroller
 	func currentSender() -> SenderType {
@@ -555,6 +534,12 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 }
 
 extension ChatVC: NewsViewControllerDelegate {
+	
+	func newsWasSelected(_ newsToSend: News) {
+		let message = Message(sender: user, content: newsToSend.articleURL)
+		self.save(message)
+	}
+	
 	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
 		newsViewController.dismiss(animated: true, completion: nil)
 	}
