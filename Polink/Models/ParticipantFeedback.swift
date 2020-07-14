@@ -1,5 +1,5 @@
 //
-//  Participant.swift
+//  ParticipantFeedback.swift
 //  Polink
 //
 //  Created by Josh Valdivia on 14/06/2020.
@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 import Fakery
 import CoreData
 
-class Participant: Codable {
+class ParticipantFeedback: Codable {
 	let uid: String
 	var agreement: Bool
 	var conversationRating: Int

@@ -13,6 +13,7 @@ import CoreData
 
 protocol LobbyViewControllerDelegate {
 	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController
+	func reloadData()
 }
 
 class LobbyVC: UITableViewController {
@@ -47,9 +48,6 @@ class LobbyVC: UITableViewController {
 	
 	private let currentUser: User
 	
-	// Call the stack of persistent storage for the model Rooms. --> Needs work.
-	lazy var coreDataContainer = NSPersistentContainer(name: "RoomChatModel")
-	
 	deinit {
 		roomListener?.remove()
 		privateProfileListener?.remove()
@@ -73,15 +71,6 @@ class LobbyVC: UITableViewController {
 		clearsSelectionOnViewWillAppear = true
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: roomCellIdentifier)
 		
-		// Load the database if it exists, if not create it.
-		coreDataContainer.loadPersistentStores { (storeDescription, error) in
-			// resolve portential conflict by using NSMergePolicy
-			self.coreDataContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-			
-			if let error = error {
-				print("Unresolved error \(error.localizedDescription)")
-			}
-		}
 		
 		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false)
 			.addSnapshotListener(includeMetadataChanges: false, listener: { [weak self] (QuerySnapshot, error) in
@@ -127,6 +116,9 @@ class LobbyVC: UITableViewController {
 			}
 		})
 		
+		for room in rooms {
+			print(room.participantFeedbacks[0].uid)
+		}
 	}
 	
 	func getLatestNews() throws {
@@ -286,7 +278,7 @@ extension LobbyVC {
 		cell.accessoryType = .disclosureIndicator
 		
 		// Name to be shown in the table is the randomised name of the other participant
-		let interlocutor: Participant? = rooms[indexPath.row].participantFeedbacks.first { (Participant) -> Bool in
+		let interlocutor: ParticipantFeedback? = rooms[indexPath.row].participantFeedbacks.first { (Participant) -> Bool in
 			Participant.uid != currentUser.uid
 		}
 		
@@ -302,8 +294,11 @@ extension LobbyVC {
 		let rootSender = room.participantFeedbacks.first { (Participant) -> Bool in
 			Participant.uid == currentUser.uid
 		}
-		
-		let sender = Sender(senderId: rootSender?.uid ?? currentUser.uid, displayName: rootSender?.randomUsername)
+		for room in rooms {
+			print(room.participantFeedbacks[0].uid)
+		}
+
+		let sender = Sender(senderId: currentUser.uid, displayName: rootSender?.randomUsername)
 		// Push view controller passing the user and the room in question
 		let vc = ChatVC(user: sender, room: room, delegate: self)
 		navigationController?.pushViewController(vc, animated: true)
@@ -382,4 +377,9 @@ extension LobbyVC: LobbyViewControllerDelegate {
 		let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
 		return newsViewController
 	}
+	
+	func reloadData() {
+		tableView.reloadData()
+	}
+	
 }

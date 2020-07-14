@@ -15,16 +15,17 @@ class Room: Codable {
 	let id: String
 	let createdAt: Date
 	let createdBy: String
-	var participantFeedbacks: [Participant]
+	var participantFeedbacks: [ParticipantFeedback]
 	var pending: Bool
 	private var reported: Bool
 	var participants: [String]
+	var newsDiscussed: [String]
 	
 	// Core Data Managed Object
 //	@NSManaged var id: String
 //	@NSManaged var createdAt: Date
 //	@NSManaged var createdBy: String
-//	@NSManaged var participantFeedbacks: [Participant]
+//	@NSManaged var participantFeedbacks: [ParticipantFeedback]
 //	@NSManaged var pending: Bool
 //	@NSManaged var participants: [String]
 	
@@ -33,22 +34,27 @@ class Room: Codable {
 		self.createdAt = Date()
 		self.createdBy = ownId
 		self.pending = true
-		let ownPersona = Participant(uid: ownId)
-		let otherPersona = Participant(uid: matchedId)
+		let ownPersona = ParticipantFeedback(uid: ownId)
+		let otherPersona = ParticipantFeedback(uid: matchedId)
 		self.participantFeedbacks = [ownPersona, otherPersona]
 		self.participants = [ownId,matchedId]
 		self.reported = false
+		self.newsDiscussed = Array<String>()
 	}
 	
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		id = try container.decode(String.self, forKey: .id)
 		createdBy = try container.decode(String.self, forKey: .createdBy)
+		print(id)
+		print("Decoding participant Container")
 		var participanFeedbacktContainer = try container
 			.nestedUnkeyedContainer(forKey: .participantFeedbacks)
-		participantFeedbacks = Array<Participant>()
+		participantFeedbacks = Array<ParticipantFeedback>()
+		print("Created Participant Array")
 		while !participanFeedbacktContainer.isAtEnd {
-			let participantFeedback: Participant = try participanFeedbacktContainer.decode(Participant.self)
+			let participantFeedback: ParticipantFeedback = try participanFeedbacktContainer.decode(ParticipantFeedback.self)
+			print("Was there a problem?")
 			participantFeedbacks.append(participantFeedback)
 		}
 		pending = try container.decode(Bool.self, forKey: .pending)
@@ -63,6 +69,12 @@ class Room: Codable {
 		createdAt = try container.decode(Date.self, forKey: .createdAt)
 		print("After timestamp decoding")
 		reported = try container.decode(Bool.self, forKey: .reported)
+		var newsContainer = try container.nestedUnkeyedContainer(forKey: .newsDiscussed)
+		newsDiscussed = Array<String>()
+		while !newsContainer.isAtEnd {
+			let newsTitle = try newsContainer.decode(String.self)
+			newsDiscussed.append(newsTitle)
+		}
 	}
 	
 	func report() {
@@ -96,7 +108,7 @@ extension Room: Comparable {
 //        let user = Auth.auth().currentUser
 //
 //        // The document needs to read the information contained in an array of participants
-//        guard let participants = data["participants"] as? Array<Participant> else {
+//        guard let participants = data["participants"] as? Array<ParticipantFeedback> else {
 //            print("Couldn't return participants array as array of participants")
 //            return nil
 //        }

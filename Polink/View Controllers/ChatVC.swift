@@ -26,9 +26,9 @@ final class ChatVC: MessagesViewController {
 	private var documentReference: DocumentReference {
 		return db.collection("rooms").document(room.id)
 	}
-		
+	
 	private let user: Sender
-	private let room: Room
+	private var room: Room
 	
 	init(user: Sender, room: Room, delegate: LobbyViewControllerDelegate) {
 		self.user = user
@@ -42,9 +42,10 @@ final class ChatVC: MessagesViewController {
 		
 		title = interlocutor?.randomUsername
 	}
-		
+	
 	private var messages : [Message] = []
 	private var messagesListener: ListenerRegistration?
+	private var roomListener: ListenerRegistration?
 	private var lobbyDelegate: LobbyViewControllerDelegate
 	
 	private var presentationAnimationController: PopupPresentationAnimationController?
@@ -57,6 +58,7 @@ final class ChatVC: MessagesViewController {
 	
 	deinit {
 		messagesListener?.remove()
+		roomListener?.remove()
 		resignFirstResponder()
 	}
 	
@@ -73,6 +75,7 @@ final class ChatVC: MessagesViewController {
 				aPending.addAction(UIAlertAction(title: "Return", style: .default, handler: { _ in
 					// Pop current view controller and revert back to Lobby
 					self.navigationController?.popViewController(animated: true)
+					self.lobbyDelegate.reloadData()
 				}))
 				present(aPending, animated: true, completion: nil)
 			} else {
@@ -176,6 +179,24 @@ final class ChatVC: MessagesViewController {
 				self.handleDocumentChange(change)
 			}
 		})
+		roomListener = documentReference.addSnapshotListener {[unowned self] documentSnapshot, error in
+			guard let document = documentSnapshot else {
+				print("Error fetching document: \(error!)")
+				return
+			}
+//			let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+//			print("\(source) data: \(document.data() ?? [:])")
+			do {
+				let downloadedRoom = try document.data(as: Room.self)
+				if downloadedRoom != nil {
+					self.room = downloadedRoom!
+				}
+			} catch {
+				fatalError("Data from room couldn't be saved to current room")
+			}
+//			self.room.newsDiscussed = document.get("newsDiscussed") as! [String]
+//			self.room.participantFeedbacks = document.get("participantFeedbacks") as! [ParticipantFeedback]
+		}
 	}
 	
 	// for the implementation of the custom message type
@@ -192,7 +213,7 @@ final class ChatVC: MessagesViewController {
 		}
 		return super.collectionView(collectionView, cellForItemAt: indexPath)
 	}
-
+	
 	
 	
 	// MARK: - Actions
@@ -234,7 +255,7 @@ final class ChatVC: MessagesViewController {
 				}
 			}
 			// Remove room from Lobby and add to history with negative views
-				
+			
 			
 		}))
 		present(ac, animated: true, completion: nil)
@@ -280,7 +301,7 @@ final class ChatVC: MessagesViewController {
 		} else {
 			print(false)
 		}
-
+		
 		print(jsonObject.description as Any)
 		
 		let deleteFunction = functions.httpsCallable("recursiveDelete")
@@ -427,13 +448,13 @@ extension ChatVC: MessagesLayoutDelegate {
 
 extension ChatVC: MessagesDataSource {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//		let message = messages[indexPath.section]
-//		if URL(string: message.content ?? "") != nil && message.content?.contains("http") == true {
-//			let contentAtt = NSMutableAttributedString(string: message.content ?? "")
-//			contentAtt.addAttribute(.link, value: message.content ?? "", range: NSRange(location: 0, length: contentAtt.length))
-//			openSafariView(message.content)
-//		} else {
-//		}
+		//		let message = messages[indexPath.section]
+		//		if URL(string: message.content ?? "") != nil && message.content?.contains("http") == true {
+		//			let contentAtt = NSMutableAttributedString(string: message.content ?? "")
+		//			contentAtt.addAttribute(.link, value: message.content ?? "", range: NSRange(location: 0, length: contentAtt.length))
+		//			openSafariView(message.content)
+		//		} else {
+		//		}
 		let message = messages[indexPath.section]
 		openSafariView(message.content)
 	}
@@ -536,7 +557,7 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 extension ChatVC: MessageCellDelegate {
 	func didTapMessage(in cell: MessageCollectionViewCell) {
 		guard let index = messagesCollectionView.indexPath(for: cell) else {return}
-//		_ = messageForItem(at: index, in: messagesCollectionView)
+		//		_ = messageForItem(at: index, in: messagesCollectionView)
 		openSafariView(messages[index.section].content)
 	}
 }
@@ -546,6 +567,15 @@ extension ChatVC: NewsViewControllerDelegate {
 	func newsWasSelected(_ newsToSend: News) {
 		let message = Message(sender: user, content: newsToSend.articleURL)
 		self.save(message)
+		
+		//Set Timer for inactivity of the button
+		
+		
+		//Add newsDiscussed to current Room
+		documentReference.updateData(["newsDiscussed" : FieldValue.arrayUnion([newsToSend.title])]) { Error in
+			guard let error = Error else {return}
+			print(error.localizedDescription)
+		}
 	}
 	
 	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
