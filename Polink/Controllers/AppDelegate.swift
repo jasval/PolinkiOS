@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

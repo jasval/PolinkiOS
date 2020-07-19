@@ -20,6 +20,7 @@ class Room: Codable {
 	private var reported: Bool
 	var participants: [String]
 	var newsDiscussed: [String]
+	var finished: Bool
 	
 	// Core Data Managed Object
 //	@NSManaged var id: String
@@ -40,6 +41,7 @@ class Room: Codable {
 		self.participants = [ownId,matchedId]
 		self.reported = false
 		self.newsDiscussed = Array<String>()
+		self.finished = false
 	}
 	
 	required init(from decoder: Decoder) throws {
@@ -75,12 +77,17 @@ class Room: Codable {
 			let newsTitle = try newsContainer.decode(String.self)
 			newsDiscussed.append(newsTitle)
 		}
+		finished = try container.decode(Bool.self, forKey: .finished)
 	}
 	
 	func report() {
 		reported = true
 	}
 	
+	func finish() -> Bool {
+		finished.toggle()
+		return finished
+	}
 }
 
 extension Room: Comparable {

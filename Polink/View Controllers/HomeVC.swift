@@ -52,6 +52,13 @@ class HomeVC: UIViewController {
 		userProfileListener?.remove()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		if listeningSwitch.isOn {
+			matchButton.isEnabled = true
+		} else {
+			matchButton.isEnabled = false
+		}
+	}
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
@@ -81,15 +88,11 @@ class HomeVC: UIViewController {
 			}
 		})
 		
+
 	}
 	
 	@objc func callTestunction() {
 		// Call the function that is being tested
-//		let testVC = NewsViewController(delegate: self, viewsToDisplay: [])
-//		testVC.transitioningDelegate = self
-//		testVC.modalPresentationStyle = .custom
-//		testVC.layoutEmphasis = .text
-//		self.present(testVC, animated: true)
 		
 	}
 	
@@ -140,9 +143,16 @@ class HomeVC: UIViewController {
 	func setButton() {
 		view.addSubview(matchButton)
 		matchButton.translatesAutoresizingMaskIntoConstraints = false
-		matchButton.titleLabel?.text = "Match!"
-		matchButton.backgroundColor = .green
-		matchButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
+		matchButton.setTitle("Match", for: .normal)
+		matchButton.setTitle("Not Listening", for: .disabled)
+		matchButton.setTitleColor(.black, for: .normal)
+		matchButton.setTitleColor(.lightGray, for: .disabled)
+		matchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+		matchButton.backgroundColor = .white
+		matchButton.layer.borderColor = UIColor.black.cgColor
+		matchButton.layer.borderWidth = 2
+		matchButton.layer.cornerRadius = 25
+		matchButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
 		matchButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
 		matchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		matchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -153,7 +163,7 @@ class HomeVC: UIViewController {
 		view.addSubview(listeningSwitch)
 		
 		listeningSwitch.translatesAutoresizingMaskIntoConstraints = false
-		listeningSwitch.onTintColor = .green
+		listeningSwitch.onTintColor = .black
 		listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 50).isActive = true
 		listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
 		listeningSwitch.isUserInteractionEnabled = true

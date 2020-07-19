@@ -23,14 +23,7 @@ class ParticipantFeedback: Codable {
 	var agreedOn: String
 	var learnings: String
 	var finalRebuttal: String
-	
-	
-	//	@NSManaged var uid: String
-	//	@NSManaged var agreement: Bool
-	//	@NSManaged var conversationRating: Int
-	//	@NSManaged var engagementRating: Int
-	//	@NSManaged var informativeRating: Int
-	//	@NSManaged var randomUsername: String
+	var perceivedIdeology: [String:Float]
 	
 	
 	enum CodingKeys: String, CodingKey {
@@ -44,6 +37,7 @@ class ParticipantFeedback: Codable {
 		case agreedOn
 		case learnings
 		case finalRebuttal
+		case perceivedIdeology
 	}
 	
 	init(uid: String) {
@@ -56,9 +50,29 @@ class ParticipantFeedback: Codable {
 		self.agreedOn = ""
 		self.learnings = ""
 		self.finalRebuttal = ""
+		
 		// use a random generator for names to provide a random anonymised username.
 		let faker = Faker()
 		self.randomUsername = faker.internet.username()
+		self.perceivedIdeology = [:]
 	}
 	
+	required init(from decoder: Decoder) throws {
+		print("Trying")
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		self.uid = try container.decode(String.self, forKey: .uid)
+		self.agreement = try container.decode(Bool.self, forKey: .agreement)
+		self.conversationRating = try container.decode(Int.self, forKey: .conversationRating)
+		self.engagementRating = try container.decode(Int.self, forKey: .engagementRating)
+		self.informativeRating = try container.decode(Int.self, forKey: .informativeRating)
+		self.interlocutorIdeas = try container.decode(String.self, forKey: .interlocutorIdeas)
+		self.agreedOn = try container.decode(String.self, forKey: .agreedOn)
+		self.learnings = try container.decode(String.self, forKey: .learnings)
+		self.finalRebuttal = try container.decode(String.self, forKey: .finalRebuttal)
+		self.randomUsername = try container.decode(String.self, forKey: .randomUsername)
+		print("Ugh the problem persists")
+		self.perceivedIdeology = try container.decode([String:Float].self, forKey: .perceivedIdeology)
+		
+	}
 }

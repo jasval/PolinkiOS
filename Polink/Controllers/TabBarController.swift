@@ -15,7 +15,6 @@ class TabBarController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		
 		let defaults = UserDefaults.standard
 
 		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
@@ -34,6 +33,7 @@ class TabBarController: UITabBarController {
 //			let boardNavController = createBoardNC(user: user)
 //			viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
 			viewControllers = [roomNavController, homeNavController, profileNavController]
+			self.tabBar.tintColor = .black
 			self.selectedIndex = 1
 		}
 	}
@@ -60,7 +60,7 @@ extension TabBarController {
 	
 	func createProfileNC(user: User) -> UINavigationController {
 		let profileVC = ProfileVC(user: user)
-		profileVC.title = "Profile"
+		profileVC.title = "Settings"
 		profileVC.tabBarItem = UITabBarItem(title: profileVC.title, image: UIImage(systemName: "person.crop.circle.fill"), tag: 3)
 		
 		return NavigationController(profileVC)

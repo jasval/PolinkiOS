@@ -8,15 +8,15 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class ProfileVC: UIViewController {
 	
+	private let defaults = UserDefaults.standard
 	private let currentUser: User
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		view.backgroundColor = .systemGreen
-		// Do any additional setup after loading the view.
+	private let db = Firestore.firestore()
+	private var historyRef: CollectionReference {
+		return db.collection("history")
 	}
 	
 	init(user: User) {
@@ -28,14 +28,273 @@ class ProfileVC: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	/*
-	// MARK: - Navigation
-	
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	// Get the new view controller using segue.destination.
-	// Pass the selected object to the new view controller.
+	enum Section: String, CaseIterable {
+		case profile, history
 	}
-	*/
 	
+	enum ItemType {
+		case statistics, logout, pastConversation, updateHistory
+	}
+	
+	struct Item: Hashable {
+		
+		let title: String
+		let type: ItemType
+		let conversation: Room?
+		private let identifier: UUID
+		
+		
+		init(title: String, type: ItemType) {
+			self.title = title
+			self.type = type
+			self.conversation = nil
+			self.identifier = UUID()
+		}
+		
+		init(conversation: Room) {
+			
+			self.title = conversation.id
+			self.type = .pastConversation
+			self.conversation = conversation
+			self.identifier = UUID()
+		}
+		
+		var isRoom: Bool {
+			return type == .pastConversation
+		}
+		
+		var isUpdate: Bool {
+			return type == .updateHistory
+		}
+		
+		var isLogout: Bool {
+			return type == .logout
+		}
+		
+		var isStatistics: Bool {
+			return type == .statistics
+		}
+		
+		func hash(into hasher: inout Hasher) {
+			hasher.combine(self.identifier)
+		}
+	}
+	
+	var rooms = [Room]()
+	var pastConversations: [Item]?
+	
+	
+	let tableView = UITableView(frame: .zero, style: .insetGrouped)
+	var dataSource: DiffableDataSource! = nil
+	var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Item>! = nil
+	
+	var firstSectionItems: [Item] = {
+		return [
+			Item(title: "Profile - Statistics", type: .statistics),
+			Item(title: "Logout", type: .logout)]
+	}()
+	
+	var updateHistory: Item {
+		Item(title: "Update History", type: .updateHistory)
+	}
+	
+	static let reuseIdentifier = "reuse-identifier"
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		view.backgroundColor = .white
+		tableView.delegate = self
+		configureDataSource()
+		configureTableView()
+		pastConversations = [updateHistory]
+		updateUI(animated: false)
+	}
+	
+}
+
+extension ProfileVC  {
+	func configureDataSource() {
+		self.dataSource = DiffableDataSource(tableView: tableView) { (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
+						
+			let cell = tableView.dequeueReusableCell(withIdentifier: ProfileVC.reuseIdentifier, for: indexPath)
+			
+			// Past conversation cells
+			if item.isRoom {
+				let interlocutor = item.conversation?.participantFeedbacks.first(where: {[weak self] (participant) -> Bool in
+					participant.uid != self?.currentUser.uid
+				})
+				let formatter = DateFormatter()
+				formatter.dateStyle = .medium
+				cell.textLabel?.text = "Conversation - " + formatter.string(from:item.conversation!.createdAt)
+				cell.accessoryType = .disclosureIndicator
+				cell.accessoryView = nil
+				
+				// first section cells
+			} else if item.isStatistics {
+				cell.textLabel?.text = item.title
+				cell.accessoryType = .disclosureIndicator
+			} else if item.isLogout {
+				cell.textLabel?.text = item.title
+				cell.textLabel?.textColor = .red
+				cell.textLabel?.tintColor = .red
+				cell.accessoryType = .none
+			} else if item.isUpdate {
+				cell.textLabel?.text = item.title
+				cell.backgroundColor = .black
+				cell.textLabel?.textColor = .white
+				cell.textLabel?.textAlignment = .center
+				cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium)
+				cell.accessoryType = .none
+			} else {
+				fatalError("Unknown item type!")
+			}
+			return cell
+		}
+		
+		self.dataSource.defaultRowAnimation = .fade
+		print("finished configuring data source")
+	}
+	
+	func updateUI(animated: Bool = true) {
+		let profileItems = firstSectionItems
+		
+		currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+		
+		currentSnapshot.appendSections([Section.profile])
+		currentSnapshot.appendItems(profileItems, toSection: .profile)
+		
+		if pastConversations != nil {
+			currentSnapshot.appendSections([.history])
+			currentSnapshot.appendItems(pastConversations!, toSection: .history)
+		}
+		
+		self.dataSource.apply(currentSnapshot, animatingDifferences: animated)
+		
+	}
+	
+	func updateHistoryItems() {
+		historyRef.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false).whereField("finished", isEqualTo: true).getDocuments { (QuerySnapshot, error) in
+			guard let snapshot = QuerySnapshot else {
+				print("Error getting history: \(error?.localizedDescription ?? "No error")")
+				return
+			}
+			
+			snapshot.documentChanges.forEach { (change) in
+				print("There are changes")
+				self.handleDocumentChange(change)
+			}
+		}
+//		guard let index = pastConversations?.firstIndex(of: updateHistory) else { return }
+//		pastConversations?.remove(at: index)
+	}
+	
+	func handleDocumentChange(_ change: DocumentChange) {
+		do {
+			guard let room: Room = try change.document.data(as: Room.self) else {return}
+			
+			switch change.type {
+			case .added:
+				print("We add")
+				addRoomToHistory(room)
+			case .modified:
+				print("We modify")
+				updateRoomInHistory(room)
+			case .removed:
+				print("We remove")
+				removeRoomFromHistory(room)
+			}
+		} catch {
+			print("There was a problem handling the document change and decoding into history room object: \(error.localizedDescription)")
+		}
+		updateUI()
+	}
+	
+	func addRoomToHistory(_ room: Room) {
+		guard !rooms.contains(room) else {return}
+		
+		rooms.append(room)
+		rooms.sort()
+		
+		guard let index = rooms.firstIndex(of: room) else {return}
+		
+		let newItem = Item(conversation: room)
+		
+		pastConversations?.insert(newItem, at: index + 1)
+	}
+	
+	func updateRoomInHistory(_ room: Room) {
+		guard let index = rooms.firstIndex(of: room) else {return}
+		
+		rooms[index] = room
+		
+		let updatedItem = Item(conversation: room)
+		pastConversations?[index] = updatedItem
+	}
+	
+	func removeRoomFromHistory(_ room: Room) {
+		guard let index = rooms.firstIndex(of: room) else {return}
+		rooms.remove(at: index)
+		pastConversations?.remove(at: index)
+	}
+
+}
+
+extension ProfileVC: UITableViewDelegate {
+	func configureTableView() {
+		view.addSubview(tableView)
+		tableView.contentInset.top = -15
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+			tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+		])
+		
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: ProfileVC.reuseIdentifier)
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		
+		guard let rowItem = dataSource.itemIdentifier(for: indexPath) else {return}
+		
+		switch rowItem.type {
+		case .updateHistory:
+			//update history
+			updateHistoryItems()
+			for item in pastConversations! {
+				print(item.title)
+			}
+		case .logout:
+			let alert = UIAlertController(title: "Logging out?", message: "You can always log back in with your registered email and password", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))
+			alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [unowned self] (action) in
+				do {
+					try Auth.auth().signOut()
+					self.defaults.set(false, forKey: "LOGGED_IN")
+					let mainSB = UIStoryboard(name: "Main", bundle: nil)
+					let vc = mainSB.instantiateViewController(identifier: "initialViewController") as! InitialVC
+					UIApplication.shared.windows.first {$0.isKeyWindow}?.rootViewController = vc
+				} catch {
+					print("Couldn't Sign out")
+				}
+			}))
+			present(alert, animated: true, completion: nil)
+		case .statistics:
+//			let vc =
+			print("This is statistics")
+		case .pastConversation:
+			print("This is a past conversation")
+		default:
+			fatalError("This is not an available cell type")
+		}
+	}
+	
+}
+
+class DiffableDataSource: UITableViewDiffableDataSource<ProfileVC.Section, ProfileVC.Item> {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return ProfileVC.Section.allCases[section].rawValue.uppercased()
+	}
 }

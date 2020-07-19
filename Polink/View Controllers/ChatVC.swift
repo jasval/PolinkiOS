@@ -141,9 +141,15 @@ final class ChatVC: MessagesViewController {
 		newsItem.addTarget(self, action: #selector(newsButtonPressed), for: .primaryActionTriggered)
 		newsItem.setSize(CGSize(60, 30), animated: false)
 		
+		let agreementItem = InputBarButtonItem(type: .system)
+		agreementItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+		agreementItem.image = UIImage(systemName: "shield.lefthalf.fill")
+		agreementItem.addTarget(self, action: #selector(agreementButtonPressed), for: .primaryActionTriggered)
+		agreementItem.setSize(CGSize(60, 30), animated: false)
+		
 		messageInputBar.leftStackView.alignment = .center
-		messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
-		messageInputBar.setStackViewItems([newsItem], forStack: .left, animated: false)
+		messageInputBar.setLeftStackViewWidthConstant(to: 100, animated: false)
+		messageInputBar.setStackViewItems([agreementItem, newsItem], forStack: .left, animated: false)
 	}
 	
 	func configureMessageCollectionView() {
@@ -265,8 +271,19 @@ final class ChatVC: MessagesViewController {
 	
 	// News button to present the collection of views for the day
 	@objc func newsButtonPressed() {
-		// Get current date and prep it for manipulation
+		if room.newsDiscussed.count > 5 {
+			let alert = UIAlertController(title: "You have reached the limit.", message: "Too many news are being discussed in this room.", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Go back", style: .default, handler: nil))
+			present(alert, animated: true, completion: nil)
+		}
 		presentPromptPicker()
+	}
+	
+	@objc func agreementButtonPressed() {
+		let vc = FeedbackVC()
+		vc.modalPresentationStyle = .popover
+//		vc.isModalInPresentation = true
+		self.present(vc, animated: true, completion: nil)
 	}
 	
 	@objc func openSafariView(_ input: String?) {
