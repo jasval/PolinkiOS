@@ -12,13 +12,6 @@ import Charts
 
 class ProfileDetailViewController: UIViewController {
 	
-	private var scrollView: UIScrollView = {
-		let view = UIScrollView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.bounces = true
-		return view
-	}()
-	
 	private var quizButton: UIButton = {
 		var button = UIButton(type: .roundedRect)
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -39,9 +32,11 @@ class ProfileDetailViewController: UIViewController {
 	private var profile: ProfilePublic
 	private var graphView: RadarChartView?
 	private var userData: RadarChartData?
+	private var delegate: ProfileDetailViewControllerDelegate
 	
-	init(_ profile: ProfilePublic) {
+	init(_ profile: ProfilePublic, delegate: ProfileDetailViewControllerDelegate) {
 		self.profile = profile
+		self.delegate = delegate
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -51,17 +46,22 @@ class ProfileDetailViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .systemBackground
 		setupViews()
 		setupConstraints()
+		animateChart()
 	}
 	
 	func setupViews() {
 		setupGraph()
+		// set background
 		view.addSubview(graphView!)
 		view.addSubview(quizButton)
 		navigationController?.isToolbarHidden = false
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(profileDetailViewIsDone(_:)))
+		
+		// Next release of the feature
+		quizButton.isHidden = true
 	}
 	
 	func setupGraph() {
@@ -102,10 +102,15 @@ class ProfileDetailViewController: UIViewController {
 		yAxis?.valueFormatter = YAxisFormatter()
 	}
 	
+	func animateChart() {
+		graphView?.animate(yAxisDuration: 1.4, easingOption: .linear)
+	}
+	
 	func setupConstraints() {
 		guard let g = graphView else {return}
 		NSLayoutConstraint.activate([
-			g.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+			
+			g.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
 			g.heightAnchor.constraint(equalToConstant: 350),
 			g.widthAnchor.constraint(equalToConstant: 350),
 			g.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -120,6 +125,15 @@ class ProfileDetailViewController: UIViewController {
 	@objc func didPressQuizButton() {
 		quizButton.pulsate()
 	}
+	
+	@objc func profileDetailViewIsDone(_ sender: UIBarButtonItem) {
+		delegate.dismissProfileDetailViewController(self)
+	}
+	
+}
+
+protocol ProfileDetailViewControllerDelegate {
+	func dismissProfileDetailViewController(_ controller: ProfileDetailViewController)
 }
 
 class DataSetValueFormatter: IValueFormatter {

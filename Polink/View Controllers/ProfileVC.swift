@@ -280,11 +280,14 @@ extension ProfileVC: UITableViewDelegate {
 			present(alert, animated: true, completion: nil)
 		case .statistics:
 			let userRef = db.collection("users").document(currentUser.uid)
-			userRef.getDocument { [weak self] (document, error) in
+			userRef.getDocument { [unowned self] (document, error) in
 				do {
 					guard let profile = try document?.data(as: ProfilePublic.self) else {return}
-					let vc = ProfileDetailViewController(profile)
-					self?.present(vc, animated: true, completion: nil)
+					let vc = ProfileDetailViewController(profile, delegate: self)
+					
+					let navController = UINavigationController(rootViewController: vc)
+					navController.presentationController?.delegate = self
+					self.present(navController, animated: true, completion: nil)
 				} catch {
 					print("Couldn't decode document into public profile: \(error.localizedDescription)")
 				}
@@ -294,6 +297,16 @@ extension ProfileVC: UITableViewDelegate {
 			print("This is a past conversation")
 		}
 	}
+	
+}
+
+extension ProfileVC: ProfileDetailViewControllerDelegate {
+	func dismissProfileDetailViewController(_ controller: ProfileDetailViewController) {
+		controller.dismiss(animated: true, completion: nil)
+	}
+}
+
+extension ProfileVC: UIAdaptivePresentationControllerDelegate {
 	
 }
 

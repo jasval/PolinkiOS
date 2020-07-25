@@ -123,10 +123,11 @@ class HomeVC: UIViewController {
 	@objc private func switchValueDidChange(_ sender:UISwitch) {
 		
 		guard let userIsListening = userProfile?.listening else { return }
-		
+
 		do {
 			if sender.isOn && userIsListening {
 				matchButton.isEnabled = true
+				matchButton.backgroundColor = .black
 				return
 			} else if sender.isOn && !userIsListening {
 				userProfile?.listening = true
@@ -134,6 +135,8 @@ class HomeVC: UIViewController {
 				matchButton.backgroundColor = .black
 				try userRef?.setData(from: userProfile)
 			} else if !sender.isOn && !userIsListening {
+				matchButton.isEnabled = false
+				matchButton.backgroundColor = .white
 				return
 			} else {
 				userProfile?.listening = false
