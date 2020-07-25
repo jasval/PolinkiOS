@@ -13,11 +13,16 @@
 		020C9CA52490234200A6BDE6 /* CustomCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */; };
 		020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */; };
 		020C9CA924903AB200A6BDE6 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C9CA824903AB200A6BDE6 /* UICollectionView+Ext.swift */; };
+		02262BB824C9350100BBDF0D /* MainStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02262BB724C9350100BBDF0D /* MainStatistics.swift */; };
 		023A84D5249D0FA500202D87 /* NSLayoutContraint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D4249D0FA500202D87 /* NSLayoutContraint+Ext.swift */; };
 		023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D6249D72E300202D87 /* UIView+Ext.swift */; };
 		023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D8249EA98800202D87 /* DistancePoint.swift */; };
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
+		025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */; };
+		025EE79124C4D07A00352E74 /* FeedbackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79024C4D07A00352E74 /* FeedbackListView.swift */; };
+		025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79224C4D0BB00352E74 /* GraphView.swift */; };
+		025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79424C4E29C00352E74 /* IdeologyMapping.swift */; };
 		027856EC24B2BAFF00C1131A /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856EB24B2BAFF00C1131A /* News.swift */; };
 		027856F524B680FD00C1131A /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856F424B680FD00C1131A /* Popup.swift */; };
 		027856F724B690BB00C1131A /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856F624B690BB00C1131A /* OnboardViewController.swift */; };
@@ -114,11 +119,17 @@
 		020C9CA42490234200A6BDE6 /* CustomCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellSizeCalculator.swift; sourceTree = "<group>"; };
 		020C9CA6249023D000A6BDE6 /* CustomMessagesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessagesFlowLayout.swift; sourceTree = "<group>"; };
 		020C9CA824903AB200A6BDE6 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		02262BB724C9350100BBDF0D /* MainStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatistics.swift; sourceTree = "<group>"; };
 		023A84D4249D0FA500202D87 /* NSLayoutContraint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutContraint+Ext.swift"; sourceTree = "<group>"; };
 		023A84D6249D72E300202D87 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		023A84D8249EA98800202D87 /* DistancePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePoint.swift; sourceTree = "<group>"; };
 		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
+		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
+		025EE79024C4D07A00352E74 /* FeedbackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackListView.swift; sourceTree = "<group>"; };
+		025EE79224C4D0BB00352E74 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		025EE79424C4E29C00352E74 /* IdeologyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeologyMapping.swift; sourceTree = "<group>"; };
 		027856EB24B2BAFF00C1131A /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		027856F424B680FD00C1131A /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		027856F624B690BB00C1131A /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +315,7 @@
 				02ADDB6E249AE18D0073039B /* ProfileVC.swift */,
 				02ADDB90249B10C00073039B /* BoardVC.swift */,
 				02ADDB92249B11D60073039B /* SettingsVC.swift */,
+				025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -330,6 +342,9 @@
 				0278570424B6987D00C1131A /* NewsImageView.swift */,
 				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
 				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
+				025EE79024C4D07A00352E74 /* FeedbackListView.swift */,
+				025EE79224C4D0BB00352E74 /* GraphView.swift */,
+				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
 			);
 			path = FeatureFoundry;
 			sourceTree = "<group>";
@@ -425,6 +440,7 @@
 		FE01AE7623E61240002F36FA /* Polink */ = {
 			isa = PBXGroup;
 			children = (
+				023C33F724C8633500E43F03 /* Polink.entitlements */,
 				02579DFA24BC6872004D1413 /* Utilities */,
 				027856F324B680E300C1131A /* FeatureFoundry */,
 				FE01AE8D23E6127A002F36FA /* Controllers */,
@@ -463,6 +479,7 @@
 				02A542D124AA55A000A03A81 /* LanguageModerationDictionary.swift */,
 				02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */,
 				027856EB24B2BAFF00C1131A /* News.swift */,
+				025EE79424C4E29C00352E74 /* IdeologyMapping.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -616,9 +633,11 @@
 				020C9CA924903AB200A6BDE6 /* UICollectionView+Ext.swift in Sources */,
 				FE0CE33923E8927E002E5604 /* K.swift in Sources */,
 				020C9CA52490234200A6BDE6 /* CustomCellSizeCalculator.swift in Sources */,
+				025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */,
 				02ADDAE8249629130073039B /* Sender.swift in Sources */,
 				023A84D5249D0FA500202D87 /* NSLayoutContraint+Ext.swift in Sources */,
 				02ADDB6D249ADBDE0073039B /* HomeVC.swift in Sources */,
+				025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */,
 				02A542D424AA55AF00A03A81 /* LanguageModerationResources.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageVC+Ext.swift in Sources */,
 				FE4A037C24851B6D00228F88 /* Room.swift in Sources */,
@@ -639,6 +658,7 @@
 				02579DFC24BC6887004D1413 /* DataManager.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
+				02262BB824C9350100BBDF0D /* MainStatistics.swift in Sources */,
 				023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */,
 				027856EC24B2BAFF00C1131A /* News.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Ext.swift in Sources */,
@@ -655,6 +675,7 @@
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
 				028D4FC024C3981C00976600 /* FeedbackVC.swift in Sources */,
+				025EE79124C4D07A00352E74 /* FeedbackListView.swift in Sources */,
 				027856F924B691D400C1131A /* ModalLayoutView.swift in Sources */,
 				FE4A037A2484FD3500228F88 /* LobbyVC.swift in Sources */,
 				02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */,
@@ -679,6 +700,7 @@
 				FEE7083E23F2A55400E47E7B /* SpinnerVC.swift in Sources */,
 				FE32EB092484258E00E8C2D5 /* ChatVC.swift in Sources */,
 				FE01AE9523E618D6002F36FA /* QuizVC.swift in Sources */,
+				025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */,
 				02ADDAF62497CDD80073039B /* ProfilePublic.swift in Sources */,
 				FE4A038024851EC700228F88 /* Message.swift in Sources */,
 				028D4FC424C3987100976600 /* TextfieldView.swift in Sources */,
@@ -811,15 +833,18 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jlsv.Polink;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -831,15 +856,18 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jlsv.Polink;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

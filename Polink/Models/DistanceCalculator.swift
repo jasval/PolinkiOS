@@ -19,11 +19,17 @@ struct DistanceCalculator {
 		self.collectionOfPoints = Array<DistancePoint>()
 		
 		// Everytime the array is initialised it will use the ideology of the user passed
+		guard let ideology = user.ideology else {
+			print("Initialised with problems")
+			self.userPoint = []
+			return
+		}
 		self.userPoint = {
 			var vectors = Array<Double>()
-			for vector in user.ideology ?? [:] {
-				vectors.append(vector.value)
-			}
+			vectors.append(ideology.govt)
+			vectors.append(ideology.econ)
+			vectors.append(ideology.scty)
+			vectors.append(ideology.dipl)
 			return vectors
 		}()
 	}

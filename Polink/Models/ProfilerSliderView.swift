@@ -18,10 +18,10 @@ class ProfilerSliderView: UIView {
 	private var rangeMax: Float = 100
 	private lazy var midPoint: Float = rangeMax / 2
 	private var step: Float {1}
-	var governmentValue: Float?
-	var societyValue: Float?
-	var economyValue: Float?
-	var diplomacyValue: Float?
+	var governmentValue: Double?
+	var societyValue: Double?
+	var economyValue: Double?
+	var diplomacyValue: Double?
 	var delegate: FeedbackViewControllerDelegate?
 	
 	init(title: String, delegate: FeedbackViewControllerDelegate) {
@@ -211,16 +211,16 @@ class ProfilerSliderView: UIView {
 		
 		switch sender {
 		case sliderGovernment:
-			governmentValue = sender.value
+			governmentValue = Double(sender.value)
 			delegate?.passSliderAnswerToViewController(numericFeedback: governmentValue!, feedbackType: .governmentValue)
 		case sliderEconomy:
-			economyValue = sender.value
+			economyValue = Double(sender.value)
 			delegate?.passSliderAnswerToViewController(numericFeedback: economyValue!, feedbackType: .economicValue)
 		case sliderDiplomacy:
-			diplomacyValue = sender.value
+			diplomacyValue = Double(sender.value)
 			delegate?.passSliderAnswerToViewController(numericFeedback: diplomacyValue!, feedbackType: .diplomacyValue)
 		case sliderSociety:
-			societyValue = sender.value
+			societyValue = Double(sender.value)
 			delegate?.passSliderAnswerToViewController(numericFeedback: societyValue!, feedbackType: .societyValue)
 		default:
 			return

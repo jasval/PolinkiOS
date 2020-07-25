@@ -17,10 +17,18 @@ struct DistancePoint {
 	
 	init(source: ProfilePublic) {
 		userId = source.uid
-		economyCoordinate = source.ideology?[K.ideologyAxes.econ] ?? 0
-		governmentCoordinate = source.ideology?[K.ideologyAxes.govt] ?? 0
-		societyCoordinate = source.ideology?[K.ideologyAxes.scty] ?? 0
-		diplomacyCoordinate = source.ideology?[K.ideologyAxes.dipl] ?? 0
+		guard let ideology = source.ideology else {
+			print("initialised distancepoint with problems")
+			self.economyCoordinate = 0
+			self.diplomacyCoordinate = 0
+			self.governmentCoordinate = 0
+			self.societyCoordinate = 0
+			return
+		}
+		economyCoordinate = ideology.econ
+		governmentCoordinate = ideology.govt
+		societyCoordinate = ideology.scty
+		diplomacyCoordinate = ideology.dipl
 	}
 	
 }

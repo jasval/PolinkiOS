@@ -120,9 +120,6 @@ extension ProfileVC  {
 			
 			// Past conversation cells
 			if item.isRoom {
-				let interlocutor = item.conversation?.participantFeedbacks.first(where: {[weak self] (participant) -> Bool in
-					participant.uid != self?.currentUser.uid
-				})
 				let formatter = DateFormatter()
 				formatter.dateStyle = .medium
 				cell.textLabel?.text = "Conversation - " + formatter.string(from:item.conversation!.createdAt)
@@ -282,12 +279,19 @@ extension ProfileVC: UITableViewDelegate {
 			}))
 			present(alert, animated: true, completion: nil)
 		case .statistics:
-//			let vc =
+			let userRef = db.collection("users").document(currentUser.uid)
+			userRef.getDocument { [weak self] (document, error) in
+				do {
+					guard let profile = try document?.data(as: ProfilePublic.self) else {return}
+					let vc = ProfileDetailViewController(profile)
+					self?.present(vc, animated: true, completion: nil)
+				} catch {
+					print("Couldn't decode document into public profile: \(error.localizedDescription)")
+				}
+			}
 			print("This is statistics")
 		case .pastConversation:
 			print("This is a past conversation")
-		default:
-			fatalError("This is not an available cell type")
 		}
 	}
 	

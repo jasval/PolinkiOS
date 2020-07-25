@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 import Fakery
 import CoreData
 
-class ParticipantFeedback: Codable {
+struct ParticipantFeedback: Codable {
 	let uid: String
 	var agreement: Bool
 	var conversationRating: Int
@@ -23,7 +23,7 @@ class ParticipantFeedback: Codable {
 	var agreedOn: String
 	var learnings: String
 	var finalRebuttal: String
-	var perceivedIdeology: [String:Float]
+	var perceivedIdeology: IdeologyMapping
 	
 	
 	enum CodingKeys: String, CodingKey {
@@ -54,11 +54,10 @@ class ParticipantFeedback: Codable {
 		// use a random generator for names to provide a random anonymised username.
 		let faker = Faker()
 		self.randomUsername = faker.internet.username()
-		self.perceivedIdeology = [:]
+		self.perceivedIdeology = IdeologyMapping()
 	}
 	
-	required init(from decoder: Decoder) throws {
-		print("Trying")
+	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		self.uid = try container.decode(String.self, forKey: .uid)
@@ -71,8 +70,7 @@ class ParticipantFeedback: Codable {
 		self.learnings = try container.decode(String.self, forKey: .learnings)
 		self.finalRebuttal = try container.decode(String.self, forKey: .finalRebuttal)
 		self.randomUsername = try container.decode(String.self, forKey: .randomUsername)
-		print("Ugh the problem persists")
-		self.perceivedIdeology = try container.decode([String:Float].self, forKey: .perceivedIdeology)
+		self.perceivedIdeology = try container.decode(IdeologyMapping.self, forKey: .perceivedIdeology)
 		
 	}
 }

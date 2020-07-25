@@ -10,9 +10,14 @@ target 'Polink' do
   pod 'MessageKit'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
   pod 'FirebaseFirestoreSwift'
   pod 'PopupDialog'
   pod 'Firebase/Functions'
   pod 'Kingfisher', '~> 5.0'
+  pod 'Charts'
+  pod 'ChartsRealm'
+  pod 'RealmSwift'
 end
 

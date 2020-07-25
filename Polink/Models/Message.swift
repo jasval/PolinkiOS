@@ -11,7 +11,7 @@ import MessageKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class Message: MessageType {
+struct Message: MessageType {
 	
 	let content: String?
 	let sentDate: Date
@@ -50,7 +50,7 @@ class Message: MessageType {
 //		}
 	}
 	
-	required init(from decoder: Decoder) throws {
+	init(from decoder: Decoder) throws {
 		//learn how to use it
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		

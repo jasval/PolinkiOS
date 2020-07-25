@@ -20,6 +20,19 @@ class HomeVC: UIViewController {
 
 	private var presentationAnimationController: PopupPresentationAnimationController?
 	
+	var mainLabel: UILabel = {
+		let label = UILabel(frame: CGRect(0, 0, 100, 100))
+		label.textAlignment = .center
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.adjustsFontForContentSizeCategory = true
+		label.text = K.appName
+		label.font = UIFont.systemFont(ofSize: 50, weight: .semibold)
+		label.layer.shadowOffset = CGSize(width: 2, height: 2)
+		label.layer.shadowColor = UIColor.lightGray.cgColor
+		return label
+	}()
+	
+	var statistics: MainStatistics?
 	let matchButton = UIButton(type: .roundedRect)
 	let listeningSwitch = UISwitch()
 	let switchTitle = UILabel()
@@ -29,7 +42,7 @@ class HomeVC: UIViewController {
 	
 	// Initialising the firestore database
 	let db = Firestore.firestore()
-	private let currentUser : User
+	private var currentUser : User
 	private var userRef : DocumentReference?
 	private var userProfile : ProfilePublic?
 	private var userProfileListener: ListenerRegistration?
@@ -62,15 +75,9 @@ class HomeVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
-		setButton()
-		setUpSwitch()
+		setupViews()
+		setupConstraints()
 		userRef = db.collection("users").document(currentUser.uid)
-		
-		let httpTestButton = UIButton(frame: CGRect(0, 40, 100, 100))
-		httpTestButton.backgroundColor = .red
-		httpTestButton.addTarget(self, action: #selector(callTestunction), for: .touchUpInside)
-		view.addSubview(httpTestButton)
-		
 		navigationController?.setNavigationBarHidden(true, animated: false)
 		// Do any additional setup after loading the view.
 		
@@ -83,17 +90,15 @@ class HomeVC: UIViewController {
 				self.userProfile = try snapshot.data(as: ProfilePublic.self)
 				print(String(describing: self.userProfile))
 				self.listeningSwitch.setOn(self.userProfile!.listening, animated: true)
+				if self.matchButton.isEnabled {
+					self.matchButton.backgroundColor = .black
+				} else {
+					self.matchButton.backgroundColor = .white
+				}
 			} catch {
 				print("Found error decoding data to local variable userProfile: \(error.localizedDescription)")
 			}
 		})
-		
-
-	}
-	
-	@objc func callTestunction() {
-		// Call the function that is being tested
-		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -103,8 +108,6 @@ class HomeVC: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 	}
-	
-	
 	
 	@objc func didPressMatchButton() {
 		matchButton.pulsate()
@@ -116,6 +119,7 @@ class HomeVC: UIViewController {
 		}
 	}
 	
+	
 	@objc private func switchValueDidChange(_ sender:UISwitch) {
 		
 		guard let userIsListening = userProfile?.listening else { return }
@@ -126,12 +130,14 @@ class HomeVC: UIViewController {
 			} else if sender.isOn && !userIsListening {
 				userProfile?.listening = true
 				matchButton.isEnabled = true
+				matchButton.backgroundColor = .black
 				try userRef?.setData(from: userProfile)
 			} else if !sender.isOn && !userIsListening {
 				return
 			} else {
 				userProfile?.listening = false
 				matchButton.isEnabled = false
+				matchButton.backgroundColor = .white
 				try userRef?.setData(from: userProfile)
 			}
 		} catch {
@@ -140,40 +146,66 @@ class HomeVC: UIViewController {
 
 	}
 	
-	func setButton() {
+	func setupViews() {
+		view.addSubview(mainLabel)
+		mainLabel.translatesAutoresizingMaskIntoConstraints = false
+		mainLabel.text = K.appName
+		
 		view.addSubview(matchButton)
 		matchButton.translatesAutoresizingMaskIntoConstraints = false
 		matchButton.setTitle("Match", for: .normal)
 		matchButton.setTitle("Not Listening", for: .disabled)
-		matchButton.setTitleColor(.black, for: .normal)
+		matchButton.setTitleColor(.white, for: .normal)
 		matchButton.setTitleColor(.lightGray, for: .disabled)
 		matchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-		matchButton.backgroundColor = .white
-		matchButton.layer.borderColor = UIColor.black.cgColor
-		matchButton.layer.borderWidth = 2
 		matchButton.layer.cornerRadius = 25
-		matchButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
-		matchButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-		matchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		matchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		matchButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+		matchButton.layer.shadowColor = UIColor.lightGray.cgColor
+		matchButton.layer.shadowRadius = 5
+		matchButton.layer.shadowOpacity = 0.5
 		matchButton.addTarget(self, action: #selector(didPressMatchButton), for: .touchUpInside)
-	}
-	
-	func setUpSwitch() {
+
 		view.addSubview(listeningSwitch)
-		
 		listeningSwitch.translatesAutoresizingMaskIntoConstraints = false
 		listeningSwitch.onTintColor = .black
-		listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 50).isActive = true
-		listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
 		listeningSwitch.isUserInteractionEnabled = true
 		listeningSwitch.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
-		
+
 		view.addSubview(switchTitle)
-		switchTitle.translatesAutoresizingMaskIntoConstraints = false
-		switchTitle.bottomAnchor.constraint(equalTo: listeningSwitch.topAnchor, constant: -10).isActive = true
-		switchTitle.rightAnchor.constraint(equalTo: listeningSwitch.rightAnchor).isActive = true
 		switchTitle.tintColor = .black
+		switchTitle.translatesAutoresizingMaskIntoConstraints = false
+		
+		statistics = MainStatistics(self)
+		guard let stats = statistics else {return}
+		view.addSubview(stats)
+	}
+	
+	func setupConstraints() {
+		NSLayoutConstraint.activate([
+			matchButton.heightAnchor.constraint(equalToConstant: 100),
+			matchButton.widthAnchor.constraint(equalToConstant: 150),
+			matchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			matchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+			
+			mainLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+			mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+			mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+			listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 50),
+			listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
+			
+			switchTitle.bottomAnchor.constraint(equalTo: listeningSwitch.topAnchor, constant: -10),
+			switchTitle.rightAnchor.constraint(equalTo: listeningSwitch.rightAnchor)
+		])
+		guard let stats = statistics else {return}
+		NSLayoutConstraint.activate([
+			stats.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20),
+			stats.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+			stats.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+			stats.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			stats.bottomAnchor.constraint(equalTo: matchButton.topAnchor, constant: -10)
+		])
 	}
 	
 	// MARK: - Spinner View Lifecycle
@@ -225,16 +257,6 @@ class HomeVC: UIViewController {
 					print("Something went wrong whilst decoding the information stored in the database:\(error.localizedDescription)")
 				}
 		}
-		
-		//		let spinnerView = createSpinnerView()
-		//
-		//		//	db.collectionGroup("users").whereField("country", isEqualTo: user.country)
-		//
-		//		DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-		//			// Remove the Spinner view
-		//			self.removeSpinnerView(spinnerView: spinnerView)
-		//		}
-		//
 	}
 	
 	func matchUsers() {
@@ -285,4 +307,27 @@ extension HomeVC: UIViewControllerTransitioningDelegate {
 		return PopupDismissalAnimationController(overlayView: overlayView)
 	}
 	
+}
+
+extension HomeVC: MainStatisticsDelegate {
+	
+	func getHistoryData(_ completion: @escaping (String, [Room]) -> ()) throws {
+		var rooms: [Room] = []
+		db.collection("history").whereField("reported", isEqualTo: false).whereField("participants", arrayContains: currentUser.uid).getDocuments { (querySnapshot, error) in
+			guard let documents = querySnapshot else {return}
+			do {
+				for document in documents.documents {
+					guard let r = try document.data(as: Room.self) else {return}
+					rooms.append(r)
+				}
+				completion(self.currentUser.uid, rooms)
+			} catch {
+				print("Decoding rooms is failing", error.localizedDescription)
+			}
+		}
+	}
+
+	func getCurrentUserID() -> String {
+		currentUser.uid
+	}
 }

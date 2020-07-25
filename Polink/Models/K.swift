@@ -47,5 +47,12 @@ struct K {
         static let trans = "Transgender"
         static let other = "Other"
     }
+	
+	enum Statistics {
+		case conversations
+		case disagreements
+		case humilityCoeff
+		case moralHumilityPerCent
+	}
 
 }

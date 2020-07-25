@@ -13,7 +13,7 @@ struct ProfilePublic: Codable {
 	let uid: String
 	var country: String
 	var city: String
-	var ideology: [String : Double]?
+	var ideology: IdeologyMapping?
 	var listening: Bool
 	var redFlags: Int
 }

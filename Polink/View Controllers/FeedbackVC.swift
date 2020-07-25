@@ -25,7 +25,7 @@ public enum Feedback: String {
 protocol FeedbackViewControllerDelegate {
 	func passSliderAnswerToViewController(numericFeedback: Int, feedbackType: Feedback)
 	func passTextfieldAnswerToViewController(textAnswer: String?, feedbackType: Feedback)
-	func passSliderAnswerToViewController(numericFeedback: Float, feedbackType: Feedback)
+	func passSliderAnswerToViewController(numericFeedback: Double, feedbackType: Feedback)
 }
 
 class FeedbackVC: UIViewController {
@@ -309,7 +309,7 @@ extension FeedbackVC: FeedbackViewControllerDelegate {
 		feedback[feedbackType] = numericFeedback
 	}
 	
-	func passSliderAnswerToViewController(numericFeedback: Float, feedbackType: Feedback) {
+	func passSliderAnswerToViewController(numericFeedback: Double, feedbackType: Feedback) {
 		feedback[feedbackType] = numericFeedback
 	}
 
