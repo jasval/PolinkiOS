@@ -20,7 +20,6 @@
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
 		025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */; };
-		025EE79124C4D07A00352E74 /* FeedbackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79024C4D07A00352E74 /* FeedbackListView.swift */; };
 		025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79224C4D0BB00352E74 /* GraphView.swift */; };
 		025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79424C4E29C00352E74 /* IdeologyMapping.swift */; };
 		027856EC24B2BAFF00C1131A /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856EB24B2BAFF00C1131A /* News.swift */; };
@@ -127,7 +126,6 @@
 		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
-		025EE79024C4D07A00352E74 /* FeedbackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackListView.swift; sourceTree = "<group>"; };
 		025EE79224C4D0BB00352E74 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		025EE79424C4E29C00352E74 /* IdeologyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeologyMapping.swift; sourceTree = "<group>"; };
 		027856EB24B2BAFF00C1131A /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 				0278570424B6987D00C1131A /* NewsImageView.swift */,
 				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
 				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
-				025EE79024C4D07A00352E74 /* FeedbackListView.swift */,
 				025EE79224C4D0BB00352E74 /* GraphView.swift */,
 				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
 			);
@@ -675,7 +672,6 @@
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
 				028D4FC024C3981C00976600 /* FeedbackVC.swift in Sources */,
-				025EE79124C4D07A00352E74 /* FeedbackListView.swift in Sources */,
 				027856F924B691D400C1131A /* ModalLayoutView.swift in Sources */,
 				FE4A037A2484FD3500228F88 /* LobbyVC.swift in Sources */,
 				02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */,

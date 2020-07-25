@@ -71,9 +71,8 @@ struct Room: Codable {
 		reported = true
 	}
 	
-	mutating func finish() -> Bool {
-		finished.toggle()
-		return finished
+	mutating func finish() {
+		finished = true
 	}
 }
 

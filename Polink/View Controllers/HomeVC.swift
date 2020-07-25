@@ -32,6 +32,7 @@ class HomeVC: UIViewController {
 		return label
 	}()
 	
+
 	var statistics: MainStatistics?
 	let matchButton = UIButton(type: .roundedRect)
 	let listeningSwitch = UISwitch()
@@ -68,8 +69,10 @@ class HomeVC: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		if listeningSwitch.isOn {
 			matchButton.isEnabled = true
+			self.matchButton.backgroundColor = .black
 		} else {
 			matchButton.isEnabled = false
+			self.matchButton.backgroundColor = .white
 		}
 	}
 	override func viewDidLoad() {
@@ -90,15 +93,12 @@ class HomeVC: UIViewController {
 				self.userProfile = try snapshot.data(as: ProfilePublic.self)
 				print(String(describing: self.userProfile))
 				self.listeningSwitch.setOn(self.userProfile!.listening, animated: true)
-				if self.matchButton.isEnabled {
-					self.matchButton.backgroundColor = .black
-				} else {
-					self.matchButton.backgroundColor = .white
-				}
 			} catch {
 				print("Found error decoding data to local variable userProfile: \(error.localizedDescription)")
 			}
 		})
+	
+		statistics?.didPressStatsButton(UIButton())
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -126,6 +126,7 @@ class HomeVC: UIViewController {
 		
 		do {
 			if sender.isOn && userIsListening {
+				matchButton.isEnabled = true
 				return
 			} else if sender.isOn && !userIsListening {
 				userProfile?.listening = true

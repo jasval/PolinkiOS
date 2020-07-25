@@ -15,10 +15,10 @@ class SliderView: UIView {
 	private let rangeMax: Float
 	private let step: Float
 	var currentValue: Int
-	var delegate: FeedbackViewControllerDelegate?
+	var delegate: InputControllerDelegate?
 	var type: Feedback
 	
-	init(_ type: Feedback, title: String, rangeMin: Float, rangeMax: Float, step: Float, delegate: FeedbackViewControllerDelegate) {
+	init(_ type: Feedback, title: String, rangeMin: Float, rangeMax: Float, step: Float, delegate: InputControllerDelegate) {
 		self.type = type
 		self.title = title
 		self.rangeMin = rangeMin

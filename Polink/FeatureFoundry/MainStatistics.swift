@@ -20,7 +20,6 @@ class MainStatistics: UIView {
 		return stack
 	}()
 	
-	
 	var agreeableStack: UIStackView = {
 		let stack = UIStackView()
 		stack.translatesAutoresizingMaskIntoConstraints = false
@@ -128,11 +127,8 @@ extension MainStatistics {
 		self.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(getLatestStatsButton)
 		addSubview(mainStack)
-		//		mainStack.addArrangedSubview(matchStack)
 		mainStack.addArrangedSubview(agreeableStack)
 		mainStack.addArrangedSubview(moralHumilityStack)
-		//		matchStack.addArrangedSubview(matchesLabel)
-		//		matchStack.addArrangedSubview(counterLabel)
 		agreeableStack.addArrangedSubview(agreeablenessLabel)
 		agreeableStack.addArrangedSubview(agreeableGraph)
 		moralHumilityStack.addArrangedSubview(moralHumilityLabel)

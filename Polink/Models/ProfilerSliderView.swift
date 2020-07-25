@@ -22,9 +22,9 @@ class ProfilerSliderView: UIView {
 	var societyValue: Double?
 	var economyValue: Double?
 	var diplomacyValue: Double?
-	var delegate: FeedbackViewControllerDelegate?
+	var delegate: InputControllerDelegate?
 	
-	init(title: String, delegate: FeedbackViewControllerDelegate) {
+	init(title: String, delegate: InputControllerDelegate) {
 		self.title = title
 		self.delegate = delegate
 		super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))

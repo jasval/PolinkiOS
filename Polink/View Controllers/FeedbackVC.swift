@@ -22,10 +22,14 @@ public enum Feedback: String {
 	case societyValue = "Traditionalist or Progressive?"
 }
 
-protocol FeedbackViewControllerDelegate {
+protocol InputControllerDelegate {
 	func passSliderAnswerToViewController(numericFeedback: Int, feedbackType: Feedback)
 	func passTextfieldAnswerToViewController(textAnswer: String?, feedbackType: Feedback)
 	func passSliderAnswerToViewController(numericFeedback: Double, feedbackType: Feedback)
+}
+
+protocol FeedbackViewControllerDelegate {
+	func sendFeedback(newFeedback: ParticipantFeedback)
 }
 
 class FeedbackVC: UIViewController {
@@ -35,6 +39,16 @@ class FeedbackVC: UIViewController {
 		case interlocutor = "About the other person..."
 		case learnings = "About their ideas..."
 		case finalRemarks = "Any last ideas on your mind?"
+	}
+	
+	init(room: Room, delegate: FeedbackViewControllerDelegate ) {
+		self.delegate = delegate
+		self.room = room
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func viewDidLoad() {
@@ -102,6 +116,8 @@ class FeedbackVC: UIViewController {
 
 	private var feedback: [Feedback:Any] = [:]
 
+	private var room: Room
+	private var delegate: FeedbackViewControllerDelegate
 	private var conversationRatingSlider: SliderView?
 	private var engagementRatingSlider: SliderView?
 	private var informativeRatingSlider: SliderView?
@@ -272,6 +288,7 @@ class FeedbackVC: UIViewController {
 		if checkCompleteness() {
 			print("form is complete")
 			// Dismiss current view controller and copy the information to another collection in database
+			
 		} else {
 			// Animate shake button
 			// Show alert
@@ -298,7 +315,7 @@ class FeedbackVC: UIViewController {
 	}
 }
 
-extension FeedbackVC: FeedbackViewControllerDelegate {
+extension FeedbackVC: InputControllerDelegate {
 	
 	func passTextfieldAnswerToViewController(textAnswer: String?, feedbackType: Feedback) {
 		guard let answer = textAnswer else {return}

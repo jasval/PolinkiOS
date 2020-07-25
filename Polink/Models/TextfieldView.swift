@@ -13,7 +13,7 @@ class TextfieldView: UIView {
 	
 	private let title: String
 	private var type: Feedback
-	private var delegate: FeedbackViewControllerDelegate?
+	private var delegate: InputControllerDelegate?
 	
 	// Computed properties
 	
@@ -56,7 +56,7 @@ class TextfieldView: UIView {
 	}()
 	
 
-	init(_ type: Feedback, title: String, delegate: FeedbackViewControllerDelegate) {
+	init(_ type: Feedback, title: String, delegate: InputControllerDelegate) {
 		self.type = type
 		self.title = title
 		self.delegate = delegate

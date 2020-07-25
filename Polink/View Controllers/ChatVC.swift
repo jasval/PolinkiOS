@@ -84,6 +84,9 @@ final class ChatVC: MessagesViewController {
 				configueMessageInputBar()
 				addListeners()
 				configureMessageCollectionView()
+				if room.finished {
+					invalidateInputs()
+				}
 			}
 		} else {
 			if !(room.participantFeedbacks.contains{ (Participant) in
@@ -93,7 +96,7 @@ final class ChatVC: MessagesViewController {
 			}
 			if room.pending {
 				let alert = UIAlertController(title: nil, message: "Do you agree to start a conversation with: \(title ?? "this new user")", preferredStyle: .alert)
-				alert.addAction(UIAlertAction(title: "Yes!", style: .default, handler: { [unowned self](UIAlertAction) in
+				alert.addAction(UIAlertAction(title: "Yes!", style: .default, handler: { [unowned self] (UIAlertAction) in
 					// Allow the conversation to start ...
 					self.db.collection("rooms").document(self.room.id).updateData(["pending" : false])
 					self.becomeFirstResponder()
@@ -116,6 +119,16 @@ final class ChatVC: MessagesViewController {
 					
 				}))
 				present(alert, animated: true)
+			} else {
+				becomeFirstResponder()
+				configureNavigationItem()
+				configueMessageInputBar()
+				addListeners()
+				configureMessageCollectionView()
+				presentPromptPicker()
+				if room.finished {
+					invalidateInputs()
+				}
 			}
 		}
 	}
@@ -190,8 +203,6 @@ final class ChatVC: MessagesViewController {
 				print("Error fetching document: \(error!)")
 				return
 			}
-//			let source = document.metadata.hasPendingWrites ? "Local" : "Server"
-//			print("\(source) data: \(document.data() ?? [:])")
 			do {
 				let downloadedRoom = try document.data(as: Room.self)
 				if downloadedRoom != nil {
@@ -200,9 +211,14 @@ final class ChatVC: MessagesViewController {
 			} catch {
 				fatalError("Data from room couldn't be saved to current room")
 			}
-//			self.room.newsDiscussed = document.get("newsDiscussed") as! [String]
-//			self.room.participantFeedbacks = document.get("participantFeedbacks") as! [ParticipantFeedback]
 		}
+	}
+	
+	func invalidateInputs() {
+		messageInputBar.inputTextView.isUserInteractionEnabled = false
+		messageInputBar.sendButton.isUserInteractionEnabled = false
+		let item = messageInputBar.leftStackViewItems[1] as? InputBarButtonItem
+		item?.isUserInteractionEnabled = false
 	}
 	
 	// for the implementation of the custom message type
@@ -220,10 +236,7 @@ final class ChatVC: MessagesViewController {
 		return super.collectionView(collectionView, cellForItemAt: indexPath)
 	}
 	
-	
-	
 	// MARK: - Actions
-	
 	// Action to report user
 	@objc private func reportUser() {
 		let ac = UIAlertController(title: nil, message: "Are you sure you want to report this user?", preferredStyle: .alert)
@@ -261,8 +274,6 @@ final class ChatVC: MessagesViewController {
 				}
 			}
 			// Remove room from Lobby and add to history with negative views
-			
-			
 		}))
 		present(ac, animated: true, completion: nil)
 		print("User reported!")
@@ -280,7 +291,7 @@ final class ChatVC: MessagesViewController {
 	}
 	
 	@objc func agreementButtonPressed() {
-		let vc = FeedbackVC()
+		let vc = FeedbackVC(room: room, delegate: self)
 		vc.modalPresentationStyle = .popover
 //		vc.isModalInPresentation = true
 		self.present(vc, animated: true, completion: nil)
@@ -578,6 +589,7 @@ extension ChatVC: MessageCellDelegate {
 		openSafariView(messages[index.section].content)
 	}
 }
+// MARK: - News View Controller Delegate
 
 extension ChatVC: NewsViewControllerDelegate {
 	
@@ -612,5 +624,103 @@ extension ChatVC: UIViewControllerTransitioningDelegate {
 		let overlayView = presentationAnimationController?.overlayView
 		presentationAnimationController = nil
 		return PopupDismissalAnimationController(overlayView: overlayView)
+	}
+}
+
+// MARK: - Feedback View Delegate
+
+extension ChatVC: FeedbackViewControllerDelegate {
+	func sendFeedback(newFeedback: ParticipantFeedback) {
+		guard let index = (self.room.participantFeedbacks.firstIndex { participant -> Bool in
+			participant.uid == newFeedback.uid
+		}) else {return}
+		
+		room.participantFeedbacks[index] = newFeedback
+		
+		if room.participants.contains(newFeedback.uid) && room.participants.count > 1 {
+			room.participants.removeAll { (uid) -> Bool in
+				uid == newFeedback.uid
+			}
+			room.finish()
+			
+			let batch = self.db.batch()
+			do {
+				try batch.setData(from: self.room, forDocument: self.db.collection("rooms").document(self.room.id))
+			} catch {
+				print("There was an error overwriting the current room: \(error.localizedDescription)")
+				return
+			}
+			
+			batch.commit { err in
+				if let err = err {
+					print("There was an error commiting the batch write: \(err.localizedDescription)")
+					return
+				} else {
+					print("Batch write succeded")
+					// Pop current view controller and revert back to Lobby
+					self.navigationController?.popViewController(animated: true)
+				}
+			}
+		} else if room.participants.first == newFeedback.uid  && room.participants.last == newFeedback.uid {
+			guard let otherParticipant = (room.participantFeedbacks.first { (participant) -> Bool in
+				participant.uid != newFeedback.uid
+			}) else {return}
+			
+			room.participants.append(otherParticipant.uid)
+			
+			let batch = self.db.batch()
+			do {
+				try batch.setData(from: self.room, forDocument: self.db.collection("history").document(self.room.id))
+				for message in self.messages {
+					try batch.setData(from: message, forDocument: self.db.collection("history").document(self.room.id).collection("messages").document(message.messageId))
+				}
+			} catch {
+				print("There was an error writing the current room to history: \(error.localizedDescription)")
+				return
+			}
+			
+			batch.commit { err in
+				if let err = err {
+					print("There was an error commiting the batch write: \(err.localizedDescription)")
+					return
+				} else {
+					print("Batch write succeded")
+					
+					let path = self.db.collection("rooms").document(self.room.id).path
+					print(path)
+					self.deleteAtPath(pathToDelete: path)
+					self.navigationController?.popViewController(animated: true)
+				}
+			}
+		} else {
+			fatalError("There has been an error deleting and updating the room.")
+		}
+		
+		let batch = self.db.batch()
+		do {
+			try batch.setData(from: self.room, forDocument: self.db.collection("rooms").document(self.room.id))
+			for message in self.messages {
+				try batch.setData(from: message, forDocument: self.db.collection("history").document(self.room.id).collection("messages").document(message.messageId))
+			}
+		} catch {
+			print("There was an error sending the data \(error.localizedDescription)")
+			return
+		}
+		
+		batch.commit() { err in
+			if let err = err {
+				print("There was an error commiting the batch write: \(err.localizedDescription)")
+				return
+			} else {
+				print("Batch write succeded")
+				
+				// Call the callable function to delete the subcollection and the document
+				let path = self.db.collection("rooms").document(self.room.id).path
+				print(path)
+				self.deleteAtPath(pathToDelete: path)
+				// Pop current view controller and revert back to Lobby
+				self.navigationController?.popViewController(animated: true)
+			}
+		}
 	}
 }
