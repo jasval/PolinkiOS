@@ -10,244 +10,276 @@ import Foundation
 import UIKit
 
 @IBDesignable
-open class CheckBox: UIControl {
+public class Checkbox: UIControl {
 	
-	///Used to choose the style for the Checkbox
-	public enum Style {
-		
+	// MARK: - Enums
+	/// Shape of the center checkmark that appears when `Checkbox.isChecked == true`.
+	public enum CheckmarkStyle {
 		/// ■
 		case square
 		/// ●
 		case circle
-		/// x
+		/// ╳
 		case cross
 		/// ✓
 		case tick
 	}
 	
 	/// Shape of the outside box containing the checkmarks contents.
+	///
 	/// Used as a visual indication of where the user can tap.
 	public enum BorderStyle {
 		/// ▢
 		case square
-		/// ■
-		case roundedSquare(radius: CGFloat)
 		/// ◯
-		case rounded
+		case circle
 	}
 	
-	var style: Style = .circle
-	var borderStyle: BorderStyle = .roundedSquare(radius: 8)
+	// MARK: - Properties
+	/// Shape of the center checkmark that appears when `Checkbox.isChecked == true`.
+	///
+	/// **Default:** `CheckmarkStyle.square`
+	public var checkmarkStyle: CheckmarkStyle = .square
 	
-	@IBInspectable
-	var borderWidth: CGFloat = 1.75
+	/// Shape of the outside border containing the checkmarks contents.
+	///
+	/// Used as a visual indication of where the user can tap.
+	///
+	/// **Default:** `BorderStyle.square`
+	public var borderStyle: BorderStyle = .square
 	
-	var checkmarkSize: CGFloat = 0.5
+	/// Width of the borders stroke.
+	///
+	/// **NOTE**
+	///
+	/// Diagonal/rounded lines tend to appear thicker, so border styles
+	/// that use these (.circle) have had their border widths halved to compensate
+	/// in order appear similar next to other border styles.
+	///
+	/// **Default:** `2`
+	public var borderLineWidth: CGFloat = 2
 	
-	@IBInspectable
-	var uncheckedBorderColor: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+	/// Size of the center checkmark element.
+	///
+	/// Drawn as a percentage of the size of the Checkbox's draw rect.
+	///
+	/// **Default:** `0.5`
+	public var checkmarkSize: CGFloat = 0.5
 	
-	@IBInspectable
-	var checkedBorderColor: UIColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+	/// The checboxes border color in its unchecked state.
+	///
+	/// **Default:** The current tintColor.
+	public var uncheckedBorderColor: UIColor!
 	
-	@IBInspectable
-	var checkmarkColor: UIColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+	/// The checboxes border color in its checked state.
+	///
+	/// **Default:** The current tintColor.
+	public var checkedBorderColor: UIColor!
 	
-	var checkboxBackgroundColor: UIColor! = .white
+	/// **Default:** The current tintColor.
+	public var checkmarkColor: UIColor!
 	
-	//Used to increase the touchable are for the component
-	var increasedTouchRadius: CGFloat = 5
+	/// **Default:** White.
+	@available(swift, obsoleted: 4.1, renamed: "checkboxFillColor", message: "Defaults to a clear color")
+	public var checkboxBackgroundColor: UIColor! = .white
 	
-	//By default it is true
-	var useHapticFeedback: Bool = true
+	/// The checkboxes fill color.
+	///
+	/// **Default:** `UIColoe.Clear`
+	public var checkboxFillColor: UIColor = .clear
 	
-	@IBInspectable
-	var isChecked: Bool = false {
-		didSet{
-			self.setNeedsDisplay()
-		}
+	/// Sets the corner radius for the checkbox border.
+	///
+	///**Default:** `0.0`
+	/// - Note: Only applies to checkboxes with `BorderStyle.square`
+	public var borderCornerRadius: CGFloat = 0.0
+	
+	/// Increases the controls touch area.
+	///
+	/// Checkbox's tend to be smaller than regular UIButton elements
+	/// and in some cases making them difficult to interact with.
+	/// This property helps with that.
+	///
+	/// **Default:** `5`
+	public var increasedTouchRadius: CGFloat = 5
+	
+	/// A function can be passed in here and will be called
+	/// when the `isChecked` value changes due to a tap gesture
+	/// triggered by the user.
+	///
+	/// An alternative to use the TargetAction method.
+	public var valueChanged: ((_ isChecked: Bool) -> Void)?
+	
+	/// Indicates whether the checkbox is currently in a state of being
+	/// checked or not.
+	public var isChecked: Bool = false {
+		didSet { setNeedsDisplay() }
 	}
 	
-	//UIImpactFeedbackGenerator object to wake up the device engine to provide feed backs
+	/// Determines if tapping the checkbox generates haptic feedback to the user.
+	///
+	/// **Default:** `true`
+	public var useHapticFeedback: Bool = true
+	
 	private var feedbackGenerator: UIImpactFeedbackGenerator?
 	
-	//MARK: Intialisers
+	// MARK: - Lifecycle
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		setupViews()
+		setupDefaults()
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setupViews()
+		setupDefaults()
 	}
 	
-	private func setupViews() {
+	private func setupDefaults() {
+		backgroundColor = UIColor.init(white: 1, alpha: 0)
+		uncheckedBorderColor = tintColor
+		checkedBorderColor = tintColor
+		checkmarkColor = tintColor
 		
-		self.backgroundColor = .clear
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(recognizer:)))
+		addGestureRecognizer(tapGesture)
 		
-	}
-	
-	//Define the above UIImpactFeedbackGenerator object, and prepare the engine to be ready to provide feedback.
-	//To store the energy and as per the best practices, we create and make it ready on touches begin.
-	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event)
-		self.feedbackGenerator = UIImpactFeedbackGenerator.init(style: .light)
-		self.feedbackGenerator?.prepare()
-	}
-	
-	//On touches ended,
-	//change the selected state of the component, and changing *isChecked* property, draw methos will be called
-	//So components appearance will be changed accordingly
-	//Hence the state change occures here, we also sent notification for value changed event for this component.
-	//After usage of feedback generator object, we make it nill.
-	open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		//        super.touchesEnded(touches, with: event)
-		
-		self.isChecked = !isChecked
-		self.sendActions(for: .valueChanged)
 		if useHapticFeedback {
-			self.feedbackGenerator?.impactOccurred()
-			self.feedbackGenerator = nil
+			feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+			feedbackGenerator?.prepare()
 		}
 	}
 	
-	open override func draw(_ rect: CGRect) {
-		
-		//Draw the outlined component
-		let newRect = rect.insetBy(dx: borderWidth / 2, dy: borderWidth / 2)
-		
-		let context = UIGraphicsGetCurrentContext()!
-		context.setStrokeColor(self.isChecked ? checkedBorderColor.cgColor : tintColor.cgColor)
-		context.setFillColor(checkboxBackgroundColor.cgColor)
-		context.setLineWidth(borderWidth)
-		
-		var shapePath: UIBezierPath!
-		switch self.borderStyle {
-		case .square:
-			shapePath = UIBezierPath(rect: newRect)
-		case .roundedSquare(let radius):
-			shapePath = UIBezierPath(roundedRect: newRect, cornerRadius: radius)
-		case .rounded:
-			shapePath = UIBezierPath.init(ovalIn: newRect)
-		}
-		
-		context.addPath(shapePath.cgPath)
-		context.strokePath()
-		context.fillPath()
-		
-		//When it is selected, depends on the style
-		//By using helper methods, draw the inner part of the component UI.
+	override public func draw(_ rect: CGRect) {
+		drawBorder(shape: borderStyle, in: rect)
 		if isChecked {
-			
-			switch self.style {
-			case .square:
-				self.drawInnerSquare(frame: newRect)
-			case .circle:
-				self.drawCircle(frame: newRect)
-			case .cross:
-				self.drawCross(frame: newRect)
-			case .tick:
-				self.drawCheckMark(frame: newRect)
-			}
+			drawCheckmark(style: checkmarkStyle, in: rect)
 		}
 	}
 	
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-		self.setNeedsDisplay()
-	}
-	
-	open override func prepareForInterfaceBuilder() {
-		super.prepareForInterfaceBuilder()
-		self.setNeedsDisplay()
-	}
-	
-	//we override the following method,
-	//To increase the hit frame for this component
-	//Usaully check boxes are small in our app's UI, so we need more touchable area for its interaction
-	open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+	// MARK: - Borders
+	private func drawBorder(shape: BorderStyle, in rect: CGRect) {
+		let adjustedRect = CGRect(x: borderLineWidth/2,
+								  y: borderLineWidth/2,
+								  width: rect.width-borderLineWidth,
+								  height: rect.height-borderLineWidth)
 		
+		switch shape {
+		case .circle:
+			circleBorder(rect: adjustedRect)
+		case .square:
+			squareBorder(rect: adjustedRect)
+		}
+	}
+	
+	private func squareBorder(rect: CGRect) {
+		let rectanglePath = UIBezierPath(roundedRect: rect, cornerRadius: borderCornerRadius)
+		
+		if isChecked {
+			checkedBorderColor.setStroke()
+		} else {
+			uncheckedBorderColor.setStroke()
+		}
+		
+		rectanglePath.lineWidth = borderLineWidth
+		rectanglePath.stroke()
+		checkboxFillColor.setFill()
+		rectanglePath.fill()
+	}
+	
+	private func circleBorder(rect: CGRect) {
+		let ovalPath = UIBezierPath(ovalIn: rect)
+		
+		if isChecked {
+			checkedBorderColor.setStroke()
+		} else {
+			uncheckedBorderColor.setStroke()
+		}
+		
+		ovalPath.lineWidth = borderLineWidth / 2
+		ovalPath.stroke()
+		checkboxFillColor.setFill()
+		ovalPath.fill()
+	}
+	
+	// MARK: - Checkmarks
+	private func drawCheckmark(style: CheckmarkStyle, in rect: CGRect) {
+		let adjustedRect = checkmarkRect(in: rect)
+		switch checkmarkStyle {
+		case .square:
+			squareCheckmark(rect: adjustedRect)
+		case .circle:
+			circleCheckmark(rect: adjustedRect)
+		case .cross:
+			crossCheckmark(rect: adjustedRect)
+		case .tick:
+			tickCheckmark(rect: adjustedRect)
+		}
+	}
+	
+	private func circleCheckmark(rect: CGRect) {
+		let ovalPath = UIBezierPath(ovalIn: rect)
+		checkmarkColor.setFill()
+		ovalPath.fill()
+	}
+	
+	private func squareCheckmark(rect: CGRect) {
+		let path = UIBezierPath(rect: rect)
+		checkmarkColor.setFill()
+		path.fill()
+	}
+	
+	private func crossCheckmark(rect: CGRect) {
+		let bezier4Path = UIBezierPath()
+		bezier4Path.move(to: CGPoint(x: rect.minX + 0.06250 * rect.width, y: rect.minY + 0.06452 * rect.height))
+		bezier4Path.addLine(to: CGPoint(x: rect.minX + 0.93750 * rect.width, y: rect.minY + 0.93548 * rect.height))
+		bezier4Path.move(to: CGPoint(x: rect.minX + 0.93750 * rect.width, y: rect.minY + 0.06452 * rect.height))
+		bezier4Path.addLine(to: CGPoint(x: rect.minX + 0.06250 * rect.width, y: rect.minY + 0.93548 * rect.height))
+		checkmarkColor.setStroke()
+		bezier4Path.lineWidth = checkmarkSize * 2
+		bezier4Path.stroke()
+	}
+	
+	private func tickCheckmark(rect: CGRect) {
+		let bezierPath = UIBezierPath()
+		bezierPath.move(to: CGPoint(x: rect.minX + 0.04688 * rect.width, y: rect.minY + 0.63548 * rect.height))
+		bezierPath.addLine(to: CGPoint(x: rect.minX + 0.34896 * rect.width, y: rect.minY + 0.95161 * rect.height))
+		bezierPath.addLine(to: CGPoint(x: rect.minX + 0.95312 * rect.width, y: rect.minY + 0.04839 * rect.height))
+		checkmarkColor.setStroke()
+		bezierPath.lineWidth = checkmarkSize * 2
+		bezierPath.stroke()
+	}
+	
+	// MARK: - Size Calculations
+	private func checkmarkRect(in rect: CGRect) -> CGRect {
+		let width = rect.maxX * checkmarkSize
+		let height = rect.maxY * checkmarkSize
+		let adjustedRect = CGRect(x: (rect.maxX - width) / 2,
+								  y: (rect.maxY - height) / 2,
+								  width: width,
+								  height: height)
+		return adjustedRect
+	}
+	
+	// MARK: - Touch
+	@objc private func handleTapGesture(recognizer: UITapGestureRecognizer) {
+		isChecked = !isChecked
+		valueChanged?(isChecked)
+		sendActions(for: .valueChanged)
+		
+		if useHapticFeedback {
+			// Trigger impact feedback.
+			feedbackGenerator?.impactOccurred()
+			
+			// Keep the generator in a prepared state.
+			feedbackGenerator?.prepare()
+		}
+	}
+	
+	override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
 		let relativeFrame = self.bounds
 		let hitTestEdgeInsets = UIEdgeInsets(top: -increasedTouchRadius, left: -increasedTouchRadius, bottom: -increasedTouchRadius, right: -increasedTouchRadius)
 		let hitFrame = relativeFrame.inset(by: hitTestEdgeInsets)
 		return hitFrame.contains(point)
 	}
 	
-	//Draws tick inside the component
-	func drawCheckMark(frame: CGRect) {
-		
-		//// Bezier Drawing
-		let bezierPath = UIBezierPath()
-		bezierPath.move(to: CGPoint(x: frame.minX + 0.26000 * frame.width, y: frame.minY + 0.50000 * frame.height))
-		bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.42000 * frame.width, y: frame.minY + 0.62000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.38000 * frame.width, y: frame.minY + 0.60000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.42000 * frame.width, y: frame.minY + 0.62000 * frame.height))
-		bezierPath.addLine(to: CGPoint(x: frame.minX + 0.70000 * frame.width, y: frame.minY + 0.24000 * frame.height))
-		bezierPath.addLine(to: CGPoint(x: frame.minX + 0.78000 * frame.width, y: frame.minY + 0.30000 * frame.height))
-		bezierPath.addLine(to: CGPoint(x: frame.minX + 0.44000 * frame.width, y: frame.minY + 0.76000 * frame.height))
-		bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.20000 * frame.width, y: frame.minY + 0.58000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.44000 * frame.width, y: frame.minY + 0.76000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.26000 * frame.width, y: frame.minY + 0.62000 * frame.height))
-		checkmarkColor.setFill()
-		bezierPath.fill()
-	}
-	
-	//Draws circle inside the component
-	func drawCircle(frame: CGRect) {
-		//// General Declarations
-		// This non-generic function dramatically improves compilation times of complex expressions.
-		func fastFloor(_ x: CGFloat) -> CGFloat { return floor(x) }
-		
-		//// Oval Drawing
-		let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + fastFloor(frame.width * 0.22000 + 0.5), y: frame.minY + fastFloor(frame.height * 0.22000 + 0.5), width: fastFloor(frame.width * 0.76000 + 0.5) - fastFloor(frame.width * 0.22000 + 0.5), height: fastFloor(frame.height * 0.78000 + 0.5) - fastFloor(frame.height * 0.22000 + 0.5)))
-		checkmarkColor.setFill()
-		ovalPath.fill()
-	}
-	
-	//Draws square inside the component
-	func drawInnerSquare(frame: CGRect) {
-		//// General Declarations
-		// This non-generic function dramatically improves compilation times of complex expressions.
-		func fastFloor(_ x: CGFloat) -> CGFloat { return floor(x) }
-		
-		//// Rectangle Drawing
-		let padding = self.bounds.width * 0.3
-		let innerRect = frame.inset(by: .init(top: padding, left: padding, bottom: padding, right: padding))
-		let rectanglePath = UIBezierPath.init(roundedRect: innerRect, cornerRadius: 3)
-		
-		//        let rectanglePath = UIBezierPath(rect: CGRect(x: frame.minX + fastFloor(frame.width * 0.22000 + 0.15), y: frame.minY + fastFloor(frame.height * 0.26000 + 0.15), width: fastFloor(frame.width * 0.76000 + 0.15) - fastFloor(frame.width * 0.22000 + 0.15), height: fastFloor(frame.height * 0.76000 + 0.15) - fastFloor(frame.height * 0.26000 + 0.15)))
-		checkmarkColor.setFill()
-		rectanglePath.fill()
-	}
-	
-	//Draws cross inside the component
-	func drawCross(frame: CGRect) {
-		//// General Declarations
-		let context = UIGraphicsGetCurrentContext()!
-		// This non-generic function dramatically improves compilation times of complex expressions.
-		func fastFloor(_ x: CGFloat) -> CGFloat { return floor(x) }
-		
-		//// Subframes
-		let group: CGRect = CGRect(x: frame.minX + fastFloor((frame.width - 17.37) * 0.49035 + 0.5), y: frame.minY + fastFloor((frame.height - 23.02) * 0.51819 - 0.48) + 0.98, width: 17.37, height: 23.02)
-		
-		//// Group
-		//// Rectangle Drawing
-		context.saveGState()
-		context.translateBy(x: group.minX + 14.91, y: group.minY)
-		context.rotate(by: 35 * CGFloat.pi/180)
-		
-		let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 3, height: 26))
-		checkmarkColor.setFill()
-		rectanglePath.fill()
-		
-		context.restoreGState()
-		
-		//// Rectangle 2 Drawing
-		context.saveGState()
-		context.translateBy(x: group.minX, y: group.minY + 1.72)
-		context.rotate(by: -35 * CGFloat.pi/180)
-		
-		let rectangle2Path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 3, height: 26))
-		checkmarkColor.setFill()
-		rectangle2Path.fill()
-		
-		context.restoreGState()
-	}
 }

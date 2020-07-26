@@ -207,7 +207,7 @@ class HomeVC: UIViewController {
 			mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
 			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-			listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 50),
+			listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 20),
 			listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
 			
 			switchTitle.bottomAnchor.constraint(equalTo: listeningSwitch.topAnchor, constant: -10),

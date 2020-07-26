@@ -20,6 +20,7 @@
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
 		025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6024CD0F1D00405FDC /* Checkbox.swift */; };
+		025A7F6324CD3ACA00405FDC /* CheckboxFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */; };
 		025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */; };
 		025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79224C4D0BB00352E74 /* GraphView.swift */; };
 		025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79424C4E29C00352E74 /* IdeologyMapping.swift */; };
@@ -127,6 +128,7 @@
 		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		025A7F6024CD0F1D00405FDC /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxFeedbackView.swift; sourceTree = "<group>"; };
 		025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		025EE79224C4D0BB00352E74 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		025EE79424C4E29C00352E74 /* IdeologyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeologyMapping.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				FE6886B523EB1865001F1301 /* QuizBrain.swift */,
 				FE6886B723EB18F8001F1301 /* Question.swift */,
 				028D4FC124C3986300976600 /* SliderView.swift */,
+				025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */,
 				028D4FC324C3987100976600 /* TextfieldView.swift */,
 				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
 				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
@@ -631,6 +634,7 @@
 				0278570524B6987D00C1131A /* NewsImageView.swift in Sources */,
 				02ADDB97249BD3DE0073039B /* CGRect+Ext.swift in Sources */,
 				020C9CA924903AB200A6BDE6 /* UICollectionView+Ext.swift in Sources */,
+				025A7F6324CD3ACA00405FDC /* CheckboxFeedbackView.swift in Sources */,
 				FE0CE33923E8927E002E5604 /* K.swift in Sources */,
 				020C9CA52490234200A6BDE6 /* CustomCellSizeCalculator.swift in Sources */,
 				025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */,

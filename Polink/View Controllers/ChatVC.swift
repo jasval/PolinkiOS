@@ -291,7 +291,11 @@ final class ChatVC: MessagesViewController {
 	}
 	
 	@objc func agreementButtonPressed() {
-		let vc = FeedbackVC(room: room, delegate: self)
+		guard let feedbackForm = (room.participantFeedbacks.first { participant -> Bool in
+			participant.uid == user.senderId
+		}) else {return}
+		
+		let vc = FeedbackVC(feedbackForm, delegate: self)
 		vc.modalPresentationStyle = .popover
 //		vc.isModalInPresentation = true
 		self.present(vc, animated: true, completion: nil)

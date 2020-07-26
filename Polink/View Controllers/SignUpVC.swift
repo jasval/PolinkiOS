@@ -27,8 +27,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
 	@IBOutlet var fields: [UITextField]!
 	
 	
-	var termsCheckbox: CheckBox?
-	var agreementCheckbox: CheckBox?
+	var termsCheckbox: Checkbox?
+	var agreementCheckbox: Checkbox?
 	// delegate of class SignUpVC
 	var registerDelegate: RegisterDelegate!
 	
@@ -182,13 +182,15 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	func setupCheckboxes() {
-		termsCheckbox = CheckBox(frame: CGRect(0, 0, 20, 20))
-		agreementCheckbox = CheckBox(frame: CGRect(0, 0, 20, 20))
-		termsCheckbox?.style = .tick
-		termsCheckbox?.borderStyle = .roundedSquare(radius: 7)
-		agreementCheckbox?.style = .tick
-		agreementCheckbox?.borderStyle = .roundedSquare(radius: 7)
-		
+		termsCheckbox = Checkbox(frame: CGRect(0, 0, 20, 20))
+		agreementCheckbox = Checkbox(frame: CGRect(0, 0, 20, 20))
+		termsCheckbox?.checkmarkStyle = .tick
+		termsCheckbox?.borderStyle = .square
+		termsCheckbox?.borderCornerRadius = 7
+		agreementCheckbox?.checkmarkStyle = .tick
+		agreementCheckbox?.borderStyle = .square
+		agreementCheckbox?.borderCornerRadius = 7
+
 		termsCheckbox?.checkmarkColor = .black
 		termsCheckbox?.checkedBorderColor = .black
 		termsCheckbox?.uncheckedBorderColor = .lightGray

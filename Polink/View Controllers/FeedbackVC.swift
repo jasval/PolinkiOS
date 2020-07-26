@@ -20,12 +20,14 @@ public enum Feedback: String {
 	case economicValue = "Equality or Growth in Economy?"
 	case diplomacyValue = "Nation-centric or Globalised?"
 	case societyValue = "Traditionalist or Progressive?"
+	case agreement = "Did you agree in any topics?"
 }
 
 protocol InputControllerDelegate {
 	func passSliderAnswerToViewController(numericFeedback: Int, feedbackType: Feedback)
 	func passTextfieldAnswerToViewController(textAnswer: String?, feedbackType: Feedback)
 	func passSliderAnswerToViewController(numericFeedback: Double, feedbackType: Feedback)
+	func passBooleanAnswerToViewController(booleanAnswer: Bool, feedbackType: Feedback)
 }
 
 protocol FeedbackViewControllerDelegate {
@@ -41,9 +43,9 @@ class FeedbackVC: UIViewController {
 		case finalRemarks = "Any last ideas on your mind?"
 	}
 	
-	init(room: Room, delegate: FeedbackViewControllerDelegate ) {
+	init(_ feedbacks: ParticipantFeedback, delegate: FeedbackViewControllerDelegate ) {
 		self.delegate = delegate
-		self.room = room
+		self.feedback = feedbacks
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -114,10 +116,11 @@ class FeedbackVC: UIViewController {
 		return button
 	}()
 
-	private var feedback: [Feedback:Any] = [:]
+	private var feedbackForm: [Feedback:Any] = [:]
 
-	private var room: Room
+	private var feedback: ParticipantFeedback
 	private var delegate: FeedbackViewControllerDelegate
+	private var agreementView: CheckboxFeedbackView?
 	private var conversationRatingSlider: SliderView?
 	private var engagementRatingSlider: SliderView?
 	private var informativeRatingSlider: SliderView?
@@ -149,6 +152,9 @@ class FeedbackVC: UIViewController {
 		scrollView.backgroundColor = .white
 		
 		scrollView.addSubview(headerConversation)
+		
+		agreementView = CheckboxFeedbackView(Feedback.agreement.rawValue, delegate: self)
+		scrollView.addSubview(agreementView!)
 				
 		conversationRatingSlider = SliderView(.conversationRating, title: Feedback.conversationRating.rawValue, rangeMin: 0, rangeMax: 5, step: 1, delegate: self)
 		scrollView.addSubview(conversationRatingSlider!)
@@ -186,12 +192,7 @@ class FeedbackVC: UIViewController {
 	}
 	
 	func setupConstraints() {
-		guard let convo = conversationRatingSlider, let inf = informativeRatingSlider, let eng = engagementRatingSlider else {return}
-		guard let profiler = profilerSlider else {return}
-		
-		guard let agr = agreedOnTextView, let inter = interlocutorIdeasTextView, let lear = learningsTexView else {return}
-		
-		guard let freb = finalRebuttalTextView else {return}
+		guard let convo = conversationRatingSlider, let inf = informativeRatingSlider, let eng = engagementRatingSlider, let profiler = profilerSlider, let agr = agreedOnTextView, let inter = interlocutorIdeasTextView, let lear = learningsTexView, let freb = finalRebuttalTextView, let check = agreementView else {return}
 		
 		NSLayoutConstraint.activate([
 			scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -208,10 +209,15 @@ class FeedbackVC: UIViewController {
 			headerConversation.widthAnchor.constraint(equalToConstant: view.frame.width - 60),
 			headerConversation.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
 			
-			convo.topAnchor.constraint(equalToSystemSpacingBelow: headerConversation.bottomAnchor, multiplier: 1.5),
+			check.topAnchor.constraint(equalToSystemSpacingBelow: headerConversation.bottomAnchor, multiplier: 1.5),
+			check.heightAnchor.constraint(equalToConstant: 150),
+			check.widthAnchor.constraint(equalTo: headerConversation.widthAnchor),
+			check.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+
+			convo.topAnchor.constraint(equalToSystemSpacingBelow: check.bottomAnchor, multiplier: 1.5),
 			convo.heightAnchor.constraint(equalToConstant: 150),
-			convo.widthAnchor.constraint(equalTo: headerConversation.widthAnchor),
-			convo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+			convo.widthAnchor.constraint(equalTo: check.widthAnchor),
+			convo.centerXAnchor.constraint(equalTo: check.centerXAnchor),
 			
 			eng.topAnchor.constraint(equalToSystemSpacingBelow: convo.bottomAnchor, multiplier: 1.5),
 			eng.heightAnchor.constraint(equalTo: convo.heightAnchor),
@@ -288,6 +294,20 @@ class FeedbackVC: UIViewController {
 		if checkCompleteness() {
 			print("form is complete")
 			// Dismiss current view controller and copy the information to another collection in database
+			feedback.agreedOn = feedbackForm[.agreedOn] as! String
+			feedback.agreement = feedbackForm[.agreement] as! Bool
+			feedback.conversationRating = feedbackForm[.conversationRating] as! Int
+			feedback.engagementRating = feedbackForm[.engagementRating] as! Int
+			feedback.finalRebuttal = feedbackForm[.finalRebuttal] as! String
+			feedback.informativeRating = feedbackForm[.informativeRating] as! Int
+			feedback.interlocutorIdeas = feedbackForm[.interlocutorIdeas] as! String
+			feedback.learnings = feedbackForm[.learnings] as! String
+			feedback.perceivedIdeology.dipl = feedbackForm[.diplomacyValue] as! Double
+			feedback.perceivedIdeology.econ = feedbackForm[.economicValue] as! Double
+			feedback.perceivedIdeology.govt = feedbackForm[.governmentValue] as! Double
+			feedback.perceivedIdeology.scty = feedbackForm[.societyValue] as! Double
+			
+			delegate.sendFeedback(newFeedback: feedback)
 			
 		} else {
 			// Animate shake button
@@ -300,11 +320,11 @@ class FeedbackVC: UIViewController {
 
 	func checkCompleteness() -> Bool {
 		
-		if feedback.count < 11 {
+		if feedbackForm.count < 11 {
 			return false
 		}
 		
-		let result = feedback.reduce(true) { (result, tupleKeyValue) -> Bool in
+		let result = feedbackForm.reduce(true) { (result, tupleKeyValue) -> Bool in
 			if result && tupleKeyValue.value != nil {
 				return true
 			} else {
@@ -316,18 +336,21 @@ class FeedbackVC: UIViewController {
 }
 
 extension FeedbackVC: InputControllerDelegate {
+	func passBooleanAnswerToViewController(booleanAnswer: Bool, feedbackType: Feedback) {
+		feedbackForm[feedbackType] = booleanAnswer
+	}
 	
 	func passTextfieldAnswerToViewController(textAnswer: String?, feedbackType: Feedback) {
 		guard let answer = textAnswer else {return}
-		feedback[feedbackType] = answer
+		feedbackForm[feedbackType] = answer
 	}
 	
 	func passSliderAnswerToViewController(numericFeedback: Int, feedbackType: Feedback) {
-		feedback[feedbackType] = numericFeedback
+		feedbackForm[feedbackType] = numericFeedback
 	}
 	
 	func passSliderAnswerToViewController(numericFeedback: Double, feedbackType: Feedback) {
-		feedback[feedbackType] = numericFeedback
+		feedbackForm[feedbackType] = numericFeedback
 	}
 
 }

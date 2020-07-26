@@ -34,7 +34,7 @@ class ProfileVC: UIViewController {
 	}
 	
 	enum ItemType {
-		case statistics, logout, pastConversation, updateHistory, privacyNotice
+		case statistics, logout, pastConversation, updateHistory, privacyPolicy
 	}
 	
 	struct Item: Hashable {
@@ -76,6 +76,10 @@ class ProfileVC: UIViewController {
 			return type == .statistics
 		}
 		
+		var isPrivacyPolicy: Bool {
+			return type == .privacyPolicy
+		}
+		
 		func hash(into hasher: inout Hasher) {
 			hasher.combine(self.identifier)
 		}
@@ -92,6 +96,7 @@ class ProfileVC: UIViewController {
 	var firstSectionItems: [Item] = {
 		return [
 			Item(title: "Profile - Statistics", type: .statistics),
+			Item(title: "Privacy Policy", type: .privacyPolicy),
 			Item(title: "Logout", type: .logout)]
 	}()
 	
@@ -143,6 +148,9 @@ extension ProfileVC  {
 				cell.textLabel?.textAlignment = .center
 				cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium)
 				cell.accessoryType = .none
+			} else if item.isPrivacyPolicy {
+				cell.textLabel?.text = item.title
+				cell.accessoryType = .disclosureIndicator
 			} else {
 				fatalError("Unknown item type!")
 			}
@@ -296,7 +304,7 @@ extension ProfileVC: UITableViewDelegate {
 			print("This is statistics")
 		case .pastConversation:
 			print("This is a past conversation")
-		case .privacyNotice:
+		case .privacyPolicy:
 			if let url = URL(string: "https://polink.flycricket.io/privacy.html") {
 				let config = SFSafariViewController.Configuration()
 				config.entersReaderIfAvailable = true
