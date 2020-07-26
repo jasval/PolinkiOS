@@ -41,6 +41,7 @@ class LocationVC: UIViewController {
         } else {
             mapView.alpha = 0
             checkMark.alpha = 0
+			nextArrow.alpha = 0
         }
     }
 
@@ -123,6 +124,7 @@ class LocationVC: UIViewController {
         // Registration.state.location != nil && 
         if Registration.state.geoLocCity != nil && Registration.state.geoLocCountry != nil{
             animateIn(checkMark, delay: 0.5)
+			animateIn(nextArrow, delay: 0.5)
             Registration.state.regCompletion[2] = true
         } else {
             if checkMark.alpha > 0 {

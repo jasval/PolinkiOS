@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -22,12 +22,15 @@
                                 <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="shadowOffset" width="2" height="2"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ScG-TX-LeJ">
-                                <rect key="frame" x="70" y="447" width="235" height="80"/>
+                            <stackView opaque="NO" contentMode="top" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ScG-TX-LeJ">
+                                <rect key="frame" x="70" y="447" width="235" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuM-Aa-DTu">
-                                        <rect key="frame" x="0.0" y="0.0" width="235" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="235" height="40"/>
                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="7tF-aW-3Ld"/>
+                                        </constraints>
                                         <size key="titleShadowOffset" width="2" height="2"/>
                                         <state key="normal" title="Sign Up">
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -39,8 +42,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1NR-AE-imT">
-                                        <rect key="frame" x="0.0" y="50" width="235" height="30"/>
+                                        <rect key="frame" x="0.0" y="60" width="235" height="40"/>
                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="IKL-He-v7i"/>
+                                        </constraints>
                                         <size key="titleShadowOffset" width="2" height="2"/>
                                         <state key="normal" title="Sign In">
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -86,7 +92,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-bK-6gO">
-                                <rect key="frame" x="70" y="310" width="235" height="138"/>
+                                <rect key="frame" x="70" y="305" width="235" height="148"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1@2.com" borderStyle="roundedRect" placeholder="Email..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0FM-ua-KqS">
                                         <rect key="frame" x="0.0" y="0.0" width="235" height="34"/>
@@ -113,8 +119,11 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8s-Fo-Xhy">
-                                        <rect key="frame" x="0.0" y="108" width="235" height="30"/>
+                                        <rect key="frame" x="0.0" y="108" width="235" height="40"/>
                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="qIJ-PF-51C"/>
+                                        </constraints>
                                         <size key="titleShadowOffset" width="2" height="2"/>
                                         <state key="normal" title="Sign In">
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -158,8 +167,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fc8-Xb-vXd">
-                                <rect key="frame" x="70" y="310" width="235" height="138"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fc8-Xb-vXd">
+                                <rect key="frame" x="70" y="262.66666666666669" width="235" height="233"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPL-68-c9Y">
                                         <rect key="frame" x="0.0" y="0.0" width="235" height="34"/>
@@ -185,9 +194,51 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="utR-AF-WfD">
+                                        <rect key="frame" x="0.0" y="108" width="235" height="65"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="B9s-jG-DMi">
+                                                <rect key="frame" x="0.0" y="0.0" width="235" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c92-tv-Unq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="235" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="Terms and Conditions"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="9Ib-Em-4Jo"/>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="c92-tv-Unq" secondAttribute="trailing" constant="30" id="FnV-IO-afU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="c92-tv-Unq" secondAttribute="bottom" id="TdF-x1-KLr"/>
+                                                    <constraint firstItem="c92-tv-Unq" firstAttribute="top" secondItem="B9s-jG-DMi" secondAttribute="top" id="giG-HF-Ht5"/>
+                                                    <constraint firstItem="c92-tv-Unq" firstAttribute="leading" secondItem="B9s-jG-DMi" secondAttribute="leading" id="zSX-S4-JxF"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="ya6-RD-9hO">
+                                                <rect key="frame" x="0.0" y="35" width="235" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbp-z2-7pK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="235" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="MSc Study Agreement"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="cbp-z2-7pK" secondAttribute="bottom" id="8pb-Qc-fpA"/>
+                                                    <constraint firstItem="cbp-z2-7pK" firstAttribute="leading" secondItem="ya6-RD-9hO" secondAttribute="leading" id="MaI-2Q-41l"/>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="cbp-z2-7pK" secondAttribute="trailing" constant="30" id="bNm-nL-yQR"/>
+                                                    <constraint firstAttribute="height" constant="30" id="ptY-ys-Gvp"/>
+                                                    <constraint firstItem="cbp-z2-7pK" firstAttribute="top" secondItem="ya6-RD-9hO" secondAttribute="top" id="ron-e2-knO"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-qU-SgW">
-                                        <rect key="frame" x="0.0" y="108" width="235" height="30"/>
+                                        <rect key="frame" x="0.0" y="193" width="235" height="40"/>
                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="QzY-x6-mzp"/>
+                                        </constraints>
                                         <size key="titleShadowOffset" width="2" height="2"/>
                                         <state key="normal" title="Sign Up">
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -211,9 +262,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="51i-Wn-ZVE"/>
                     <connections>
+                        <outlet property="agreementButton" destination="cbp-z2-7pK" id="p9g-hJ-3zI"/>
                         <outlet property="emailField" destination="GPL-68-c9Y" id="Ikr-2g-sXx"/>
                         <outlet property="passwordField" destination="Tdl-mY-mWB" id="CxY-Ni-75z"/>
                         <outlet property="signupButton" destination="o1U-qU-SgW" id="njL-v2-1Th"/>
+                        <outlet property="studyStack" destination="ya6-RD-9hO" id="E3K-Io-EuM"/>
+                        <outlet property="termsConditionsButton" destination="c92-tv-Unq" id="MCq-ZH-Jjh"/>
+                        <outlet property="termsStack" destination="B9s-jG-DMi" id="aD6-zQ-KYf"/>
                         <outletCollection property="fields" destination="GPL-68-c9Y" collectionClass="NSMutableArray" id="xaM-XC-crZ"/>
                         <outletCollection property="fields" destination="Tdl-mY-mWB" collectionClass="NSMutableArray" id="nCY-Db-6by"/>
                     </connections>

@@ -23,10 +23,18 @@ class SignInVC: UIViewController {
 	@IBOutlet weak var signInButton: UIButton!
 	@IBOutlet var fields: [UITextField]!
 	
-	var loginScreenDelegate: LoginDelegate!
+	var loginScreenDelegate: LoginDelegate?
 	
 	let db = Firestore.firestore()
 	let name = Auth.auth().currentUser?.displayName
+
+	// Special constructor considering the view is still in Storyboard
+	static func makeloginVC(delegate: LoginDelegate) -> SignInVC {
+		let newViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginViewController") as! SignInVC
+		
+		newViewController.loginScreenDelegate = delegate
+		return newViewController
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -43,6 +51,8 @@ class SignInVC: UIViewController {
 	}
 	
 	@IBAction func signInPressed(_ sender: Any) {
+		let button = sender as? UIButton
+		button?.pulsate()
 		if let email = emailField.text, let password = passwordField.text {
 			Auth.auth().signIn(withEmail: email, password: password) {authResult, error in
 				if let e = error {
@@ -81,7 +91,7 @@ class SignInVC: UIViewController {
 							
 						} else {
 							print("User with uid: \(uid) has not completed his profile")
-							self.loginScreenDelegate.userIsIncomplete()
+							self.loginScreenDelegate?.userIsIncomplete()
 							self.dismiss(animated: true)
 						}
 					}

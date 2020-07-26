@@ -36,7 +36,7 @@ class RegistrationCheckVC: UIViewController {
     @objc func nextPressed(_ sender: Any) {
         if reduceBools(Registration.state.regCompletion) == true {
 			let sb = UIStoryboard(name: "Quiz", bundle: nil)
-			let vc = sb.instantiateViewController(withIdentifier: "profilerViewController")
+			let vc = sb.instantiateViewController(withIdentifier: "QuizVC")
 			navigationController?.viewControllers.append(vc)
 			print("View will transition now")
         } else {

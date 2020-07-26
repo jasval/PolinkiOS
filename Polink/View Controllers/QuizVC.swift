@@ -60,7 +60,7 @@ class QuizVC: UIViewController {
 		quizLabel.text =
 		"""
 		We are going to ask you a few quetions so we can get to know you better.
-		\nThere are no right or wrong answers, just be honest and allow us to do the rest.
+		\nThere are no right or wrong answers.
 		"""
 		
 		quizLabel.alpha = 0
@@ -97,6 +97,7 @@ class QuizVC: UIViewController {
 	
 	@IBAction func answerButtonPressed(_ sender: AnswerButton){
 		// Backend tracking in QuizBrain
+		sender.pulsate()
 		quiz.nextQuestion(sender.effect!)
 		loadQuestion()
 		updateProgressBar()
@@ -104,6 +105,7 @@ class QuizVC: UIViewController {
 	
 	@IBAction func backButtonPressed(_ sender: UIButton) {
 		// Back Button
+		sender.pulsate()
 		quiz.prevQuestion()
 		loadQuestion()
 		updateProgressBar(-1)
@@ -234,12 +236,14 @@ class QuizVC: UIViewController {
 	}
 	
 	@IBAction func nextButtonPressed(_ sender: UIButton){
+		sender.pulsate()
 		let vc = TabBarController()
 		let keywindow = UIApplication.shared.windows.first {$0.isKeyWindow}
 		keywindow?.rootViewController = vc
 	}
 	
 	@IBAction func retryButtonPressed(_ sender: UIButton){
+		sender.pulsate()
 		sendResults()
 	}
 	

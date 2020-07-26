@@ -11,7 +11,6 @@ import FirebaseAuth
 
 class UserInfoVC: UIViewController {
 	@IBOutlet weak var titleText: UILabel!
-	@IBOutlet weak var fieldStack: UIStackView!
 	@IBOutlet weak var firstNameTextField: UITextField!
 	@IBOutlet weak var lastNameTextField: UITextField!
 	@IBOutlet weak var checkMark: UIImageView!
@@ -38,13 +37,10 @@ class UserInfoVC: UIViewController {
 		firstNameTextField.delegate = self
 		lastNameTextField.delegate = self
 		titleText.alpha = 0
-		fieldStack.alpha = 0
 		checkMark.alpha = 0
 		nextArrow.alpha = 0
 		configureDateBoundaries()
-		animateIn(titleText, delay: 1)
-		animateIn(fieldStack, delay: 2)
-		
+		animateIn(titleText, delay: 1)		
 	}
 	
 	// A checker that visually calls the checkmark if all necessary fields have been completed

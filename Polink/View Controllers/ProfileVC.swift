@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import SafariServices
 
 class ProfileVC: UIViewController {
 	
@@ -33,7 +34,7 @@ class ProfileVC: UIViewController {
 	}
 	
 	enum ItemType {
-		case statistics, logout, pastConversation, updateHistory
+		case statistics, logout, pastConversation, updateHistory, privacyNotice
 	}
 	
 	struct Item: Hashable {
@@ -295,6 +296,15 @@ extension ProfileVC: UITableViewDelegate {
 			print("This is statistics")
 		case .pastConversation:
 			print("This is a past conversation")
+		case .privacyNotice:
+			if let url = URL(string: "https://polink.flycricket.io/privacy.html") {
+				let config = SFSafariViewController.Configuration()
+				config.entersReaderIfAvailable = true
+				
+				let vc = SFSafariViewController(url: url, configuration: config)
+				vc.modalPresentationStyle = .popover
+				self.present(vc, animated: true, completion: nil)
+			}
 		}
 	}
 	

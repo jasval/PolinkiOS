@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="faI-Uy-gqX">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="faI-Uy-gqX">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,37 +12,28 @@
             <objects>
                 <viewController storyboardIdentifier="QuizVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="faI-Uy-gqX" customClass="QuizVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yAc-Fw-Cub">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="oU4-EU-ngL">
-                                <rect key="frame" x="40" y="840" width="334" height="2"/>
-                                <color key="progressTintColor" red="0.60707634690000001" green="0.110588558" blue="0.1215160117" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="trackTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="36" y="536" width="248" height="2"/>
+                                <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="trackTintColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, $USERNAME" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZI-Eb-jJm">
-                                <rect key="frame" x="40" y="104" width="334" height="176"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz text" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-Jt-Ldr">
-                                <rect key="frame" x="40" y="320" width="334" height="150"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, $USERNAME" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cZI-Eb-jJm">
+                                <rect key="frame" x="40" y="55" width="240" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="PcQ-aF-J54"/>
+                                    <constraint firstAttribute="height" constant="80" id="SZQ-ig-gOZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xOc-Fs-mJq">
-                                <rect key="frame" x="40" y="530" width="334" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="fzt-fV-roc"/>
-                                </constraints>
+                                <rect key="frame" x="40" y="305" width="240" height="211"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdI-n3-sQt">
-                                <rect key="frame" x="40" y="69" width="40" height="30"/>
+                                <rect key="frame" x="40" y="20" width="40" height="30"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="You-vg-adm"/>
@@ -54,24 +45,33 @@
                                     <action selector="backButtonPressed:" destination="faI-Uy-gqX" eventType="touchUpInside" id="acT-rc-zga"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz text" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-Jt-Ldr">
+                                <rect key="frame" x="40" y="145" width="240" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="a1B-cB-pvp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="xOc-Fs-mJq" firstAttribute="leading" secondItem="RfQ-Yf-XYJ" secondAttribute="leading" constant="40" id="0GE-jE-ElK"/>
-                            <constraint firstItem="Xbl-Jt-Ldr" firstAttribute="leading" secondItem="RfQ-Yf-XYJ" secondAttribute="leading" constant="40" id="70Z-ek-QAf"/>
+                            <constraint firstItem="Xbl-Jt-Ldr" firstAttribute="leading" secondItem="RfQ-Yf-XYJ" secondAttribute="leading" constant="40" id="5QA-f6-3eL"/>
                             <constraint firstItem="oU4-EU-ngL" firstAttribute="leading" secondItem="yAc-Fw-Cub" secondAttribute="leadingMargin" constant="20" id="7M3-p8-uvT"/>
+                            <constraint firstItem="xOc-Fs-mJq" firstAttribute="top" secondItem="Xbl-Jt-Ldr" secondAttribute="bottom" constant="10" id="9sT-6v-RkE"/>
                             <constraint firstItem="cZI-Eb-jJm" firstAttribute="leading" secondItem="RfQ-Yf-XYJ" secondAttribute="leading" constant="40" id="AJV-eC-vsg"/>
-                            <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="bottom" secondItem="oU4-EU-ngL" secondAttribute="bottom" constant="20" id="By1-SH-vPM"/>
+                            <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="trailing" secondItem="Xbl-Jt-Ldr" secondAttribute="trailing" constant="40" id="Bbr-mj-RF3"/>
+                            <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="bottom" secondItem="oU4-EU-ngL" secondAttribute="bottom" constant="30" id="By1-SH-vPM"/>
                             <constraint firstItem="GdI-n3-sQt" firstAttribute="leading" secondItem="RfQ-Yf-XYJ" secondAttribute="leading" constant="40" id="EaF-km-g1O"/>
-                            <constraint firstItem="oU4-EU-ngL" firstAttribute="top" secondItem="xOc-Fs-mJq" secondAttribute="bottom" constant="60" id="PuJ-eb-JPV"/>
-                            <constraint firstItem="xOc-Fs-mJq" firstAttribute="top" secondItem="Xbl-Jt-Ldr" secondAttribute="bottom" constant="60" id="QQK-4X-4Hr"/>
-                            <constraint firstItem="cZI-Eb-jJm" firstAttribute="top" secondItem="RfQ-Yf-XYJ" secondAttribute="top" constant="60" id="TgP-M9-nQ9"/>
-                            <constraint firstItem="Xbl-Jt-Ldr" firstAttribute="top" secondItem="cZI-Eb-jJm" secondAttribute="bottom" constant="40" id="Wpb-gw-bEO"/>
+                            <constraint firstItem="oU4-EU-ngL" firstAttribute="top" secondItem="xOc-Fs-mJq" secondAttribute="bottom" constant="20" id="PuJ-eb-JPV"/>
+                            <constraint firstItem="Xbl-Jt-Ldr" firstAttribute="top" secondItem="cZI-Eb-jJm" secondAttribute="bottom" constant="10" id="RA4-z4-eil"/>
                             <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="trailing" secondItem="xOc-Fs-mJq" secondAttribute="trailing" constant="40" id="X9P-0Z-bqf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oU4-EU-ngL" secondAttribute="trailing" constant="20" id="YPH-p7-9K6"/>
                             <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="trailing" secondItem="cZI-Eb-jJm" secondAttribute="trailing" constant="40" id="bhy-Iu-D7M"/>
-                            <constraint firstItem="RfQ-Yf-XYJ" firstAttribute="trailing" secondItem="Xbl-Jt-Ldr" secondAttribute="trailing" constant="40" id="lca-qV-WaG"/>
-                            <constraint firstItem="GdI-n3-sQt" firstAttribute="top" secondItem="RfQ-Yf-XYJ" secondAttribute="top" constant="25" id="zLp-3j-F3P"/>
+                            <constraint firstItem="cZI-Eb-jJm" firstAttribute="top" secondItem="GdI-n3-sQt" secondAttribute="bottom" constant="5" id="fRS-c9-Ada"/>
+                            <constraint firstItem="GdI-n3-sQt" firstAttribute="top" secondItem="RfQ-Yf-XYJ" secondAttribute="top" constant="20" id="zLp-3j-F3P"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RfQ-Yf-XYJ"/>
                     </view>
@@ -86,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-Jx-fD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="965" y="-344"/>
+            <point key="canvasLocation" x="963.75" y="-344.36619718309862"/>
         </scene>
     </scenes>
     <resources>

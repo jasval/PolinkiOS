@@ -19,6 +19,7 @@
 		023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D8249EA98800202D87 /* DistancePoint.swift */; };
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
+		025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6024CD0F1D00405FDC /* Checkbox.swift */; };
 		025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */; };
 		025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79224C4D0BB00352E74 /* GraphView.swift */; };
 		025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79424C4E29C00352E74 /* IdeologyMapping.swift */; };
@@ -125,6 +126,7 @@
 		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		025A7F6024CD0F1D00405FDC /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		025EE79224C4D0BB00352E74 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		025EE79424C4E29C00352E74 /* IdeologyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeologyMapping.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
 				025EE79224C4D0BB00352E74 /* GraphView.swift */,
 				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
+				025A7F6024CD0F1D00405FDC /* Checkbox.swift */,
 			);
 			path = FeatureFoundry;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				FE01AE9123E61874002F36FA /* SignUpVC.swift in Sources */,
 				02ADDAF42497CDB10073039B /* ProfilePrivate.swift in Sources */,
 				FE6886B823EB18F8001F1301 /* Question.swift in Sources */,
+				025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */,
 				02ADDB93249B11D60073039B /* SettingsVC.swift in Sources */,
 				020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */,
 				02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */,

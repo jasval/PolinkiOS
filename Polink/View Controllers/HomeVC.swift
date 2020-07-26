@@ -78,6 +78,17 @@ class HomeVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
+		
+		let application = UIApplication.shared
+
+		let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+		UNUserNotificationCenter.current().requestAuthorization(
+			options: authOptions,
+			completionHandler: {_, _ in })
+
+		application.registerForRemoteNotifications()
+
+		
 		setupViews()
 		setupConstraints()
 		userRef = db.collection("users").document(currentUser.uid)

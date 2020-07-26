@@ -476,13 +476,6 @@ extension ChatVC: MessagesLayoutDelegate {
 
 extension ChatVC: MessagesDataSource {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		//		let message = messages[indexPath.section]
-		//		if URL(string: message.content ?? "") != nil && message.content?.contains("http") == true {
-		//			let contentAtt = NSMutableAttributedString(string: message.content ?? "")
-		//			contentAtt.addAttribute(.link, value: message.content ?? "", range: NSRange(location: 0, length: contentAtt.length))
-		//			openSafariView(message.content)
-		//		} else {
-		//		}
 		let message = messages[indexPath.section]
 		openSafariView(message.content)
 	}

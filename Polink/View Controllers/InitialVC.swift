@@ -52,16 +52,17 @@ class InitialVC: UIViewController {
 	}
 	
 	// Actions performed
-	@IBAction func signUpPressed(_ sender: Any) {
+	@IBAction func signUpPressed(_ sender: UIButton) {
+		sender.pulsate()
 		let sb = UIStoryboard(name: "Main", bundle: nil)
 		let vc = sb.instantiateViewController(withIdentifier: "registerViewController") as! SignUpVC
 		vc.registerDelegate = self
 		self.present(vc, animated: true)
 	}
 	
-	@IBAction func signInPressed(_ sender: Any) {
-		let sb = UIStoryboard(name: "Main", bundle: nil)
-		let vc = sb.instantiateViewController(withIdentifier: "loginViewController")
+	@IBAction func signInPressed(_ sender: UIButton) {
+		sender.pulsate()
+		let vc = SignInVC.makeloginVC(delegate: self)
 		self.present(vc, animated: true)
 	}
 	
