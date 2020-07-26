@@ -50,6 +50,7 @@ DerivedData/
 xcuserdata/
 
 GoogleService-Info.plist
+FirebaseFunction/functions/package-lock.json
 
 ## Other
 *.moved-aside
