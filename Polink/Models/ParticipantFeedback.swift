@@ -15,9 +15,9 @@ import CoreData
 struct ParticipantFeedback: Codable {
 	let uid: String
 	var agreement: Bool
-	var conversationRating: Int
-	var engagementRating: Int
-	var informativeRating: Int
+	var conversationRating: Double
+	var engagementRating: Double
+	var informativeRating: Double
 	var randomUsername: String
 	var interlocutorIdeas: String
 	var agreedOn: String
@@ -62,9 +62,9 @@ struct ParticipantFeedback: Codable {
 		
 		self.uid = try container.decode(String.self, forKey: .uid)
 		self.agreement = try container.decode(Bool.self, forKey: .agreement)
-		self.conversationRating = try container.decode(Int.self, forKey: .conversationRating)
-		self.engagementRating = try container.decode(Int.self, forKey: .engagementRating)
-		self.informativeRating = try container.decode(Int.self, forKey: .informativeRating)
+		self.conversationRating = try container.decode(Double.self, forKey: .conversationRating)
+		self.engagementRating = try container.decode(Double.self, forKey: .engagementRating)
+		self.informativeRating = try container.decode(Double.self, forKey: .informativeRating)
 		self.interlocutorIdeas = try container.decode(String.self, forKey: .interlocutorIdeas)
 		self.agreedOn = try container.decode(String.self, forKey: .agreedOn)
 		self.learnings = try container.decode(String.self, forKey: .learnings)

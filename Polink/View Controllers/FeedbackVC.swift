@@ -64,6 +64,7 @@ class FeedbackVC: UIViewController {
 
 		setupViews()
 		setupConstraints()
+		becomeFirstResponder()
 	}
 	
 	private var scrollView: UIScrollView = {
@@ -199,7 +200,7 @@ class FeedbackVC: UIViewController {
 			scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 			scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-			scrollView.contentLayoutGuide.heightAnchor.constraint(equalToConstant: 3000),
+			scrollView.contentLayoutGuide.heightAnchor.constraint(equalToConstant: 3400),
 			scrollView.contentLayoutGuide.widthAnchor.constraint(equalToConstant: view.frame.width - 20),
 			scrollView.contentLayoutGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			scrollView.contentLayoutGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -296,10 +297,10 @@ class FeedbackVC: UIViewController {
 			// Dismiss current view controller and copy the information to another collection in database
 			feedback.agreedOn = feedbackForm[.agreedOn] as! String
 			feedback.agreement = feedbackForm[.agreement] as! Bool
-			feedback.conversationRating = feedbackForm[.conversationRating] as! Int
-			feedback.engagementRating = feedbackForm[.engagementRating] as! Int
+			feedback.conversationRating = feedbackForm[.conversationRating] as! Double
+			feedback.engagementRating = feedbackForm[.engagementRating] as! Double
 			feedback.finalRebuttal = feedbackForm[.finalRebuttal] as! String
-			feedback.informativeRating = feedbackForm[.informativeRating] as! Int
+			feedback.informativeRating = feedbackForm[.informativeRating] as! Double
 			feedback.interlocutorIdeas = feedbackForm[.interlocutorIdeas] as! String
 			feedback.learnings = feedbackForm[.learnings] as! String
 			feedback.perceivedIdeology.dipl = feedbackForm[.diplomacyValue] as! Double
@@ -320,7 +321,7 @@ class FeedbackVC: UIViewController {
 
 	func checkCompleteness() -> Bool {
 		
-		if feedbackForm.count < 11 {
+		if feedbackForm.count < 12 {
 			return false
 		}
 		

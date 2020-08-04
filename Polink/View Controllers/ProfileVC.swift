@@ -113,6 +113,7 @@ class ProfileVC: UIViewController {
 		configureDataSource()
 		configureTableView()
 		pastConversations = [updateHistory]
+		updateHistoryItems()
 		updateUI(animated: false)
 	}
 	
@@ -292,8 +293,28 @@ extension ProfileVC: UITableViewDelegate {
 			userRef.getDocument { [unowned self] (document, error) in
 				do {
 					guard let profile = try document?.data(as: ProfilePublic.self) else {return}
-					let vc = ProfileDetailViewController(profile, delegate: self)
-					
+					var vc = ProfileDetailViewController(profile, delegate: self)
+					if self.rooms.count > 0 {
+						var ideologyMapping = IdeologyMapping(econ: 0, dipl: 0, scty: 0, govt: 0)
+						var index = 0.0
+						for room in self.rooms {
+							guard let other = (room.participantFeedbacks.first { (participant) -> Bool in
+								participant.uid != self.currentUser.uid
+							}) else {return}
+							ideologyMapping.dipl += other.perceivedIdeology.dipl
+							ideologyMapping.econ += other.perceivedIdeology.econ
+							ideologyMapping.govt += other.perceivedIdeology.govt
+							ideologyMapping.scty += other.perceivedIdeology.scty
+							index += 1.0
+						}
+						ideologyMapping.econ = ideologyMapping.econ / index
+						ideologyMapping.govt = ideologyMapping.govt / index
+						ideologyMapping.scty = ideologyMapping.scty / index
+						ideologyMapping.dipl = ideologyMapping.dipl / index
+
+						vc = ProfileDetailViewController(profile, aggregatedFeedback: ideologyMapping, delegate: self)
+					}
+
 					let navController = UINavigationController(rootViewController: vc)
 					navController.presentationController?.delegate = self
 					self.present(navController, animated: true, completion: nil)
@@ -303,6 +324,19 @@ extension ProfileVC: UITableViewDelegate {
 			}
 			print("This is statistics")
 		case .pastConversation:
+			let userRef = db.collection("users").document(currentUser.uid)
+			userRef.getDocument { [unowned self] (document, error) in
+				do {
+					guard let profile = try document?.data(as: ProfilePublic.self) else {return}
+					let vc = PastConversationDetailVC(rowItem.conversation!, profile: profile, delegate: self)
+					
+					let navController = UINavigationController(rootViewController: vc)
+					navController.presentationController?.delegate = self
+					self.present(navController, animated: true, completion: nil)
+				} catch {
+					print("Couldn't decode document into public profile: \(error.localizedDescription)")
+				}
+			}
 			print("This is a past conversation")
 		case .privacyPolicy:
 			if let url = URL(string: "https://polink.flycricket.io/privacy.html") {
@@ -316,6 +350,12 @@ extension ProfileVC: UITableViewDelegate {
 		}
 	}
 	
+}
+
+extension ProfileVC: PastConversationDetailDelegate {
+	func dismissDetailViewController(_ controller: PastConversationDetailVC) {
+		controller.dismiss(animated: true, completion: nil)
+	}
 }
 
 extension ProfileVC: ProfileDetailViewControllerDelegate {

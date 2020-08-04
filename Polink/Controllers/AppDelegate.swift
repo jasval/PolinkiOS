@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 //		
 //		application.registerForRemoteNotifications()
-
 		
 		return true
 	}
@@ -106,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		print("Application did become active")
+		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
