@@ -55,7 +55,7 @@ class PageNavController: UIPageViewController, UIPageViewControllerDataSource, U
         pageControl.currentPage = 0
         
         // Using an extension to customise the color of page control
-        pageControl.customPageControl(dotFillColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), dotBorderColor: #colorLiteral(red: 0.3294117647, green: 0.3294117647, blue: 0.3450980392, alpha: 0.6), dotBorderWidth: 0.1)
+        pageControl.customPageControl(dotFillColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), dotBorderColor: #colorLiteral(red: 0.3294117647, green: 0.3294117647, blue: 0.3450980392, alpha: 0.6), dotBorderWidth: 0.1)
         pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
         

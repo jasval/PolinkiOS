@@ -12,7 +12,7 @@ import FirebaseFirestore
 import CoreData
 
 protocol LobbyViewControllerDelegate {
-	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController
+	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController?
 	func reloadData()
 }
 
@@ -41,8 +41,6 @@ class LobbyVC: UITableViewController {
 	}
 	private var newsListener: ListenerRegistration?
 	//
-	
-	
 	private var roomListener: ListenerRegistration?
 	private var privateProfileListener: ListenerRegistration?
 	
@@ -308,74 +306,101 @@ extension LobbyVC {
 // MARK: - Matching Delegate
 
 extension LobbyVC: HomeVCDelegate {
-	
+	func getHistory(completion: @escaping () -> ()) {
+		db.collection("history").whereField("participants", arrayContains: self.currentUser.uid).getDocuments { [weak self] (querySnapshot, error) in
+			if let error = error {
+				print(error.localizedDescription)
+				return
+			}
+			guard let documents = querySnapshot?.documents else {return}
+			self?.history = []
+			do {
+				for item in documents {
+					let room: Room = try item.data(as: Room.self)!
+					self?.history.append(room)
+				}
+				completion()
+			} catch {
+				print(error.localizedDescription)
+				return
+			}
+		}
+	}
 	
 	func matchingDataIsPassed(userProfiles: [(String, Double)]) {
 		print("Matching began")
-		for profile in userProfiles {
-			var roomExistsAlready: Bool = false
-			print(profile)
-			if profile.0 > currentUser.uid {
-				let roomId = profile.0 + currentUser.uid
-				print("Matched profile is bigger, then: \(roomId)")
-				for room in rooms {
-					if room.id != roomId {
-						print("Room is not the same")
-					} else {
-						print("A room already exist between these two users")
-						roomExistsAlready = true
+		getHistory {
+			for profile in userProfiles {
+				var roomExistsAlready: Bool = false
+				print(profile)
+				if profile.0 > self.currentUser.uid {
+					let roomId = profile.0 + self.currentUser.uid
+					print("Matched profile is bigger, then: \(roomId)")
+					for room in self.rooms {
+						if room.id != roomId {
+							print("Room is not the same")
+						} else {
+							print("A room already exist between these two users")
+							roomExistsAlready = true
+						}
 					}
-				}
-				for room in history {
-					if room.id != roomId {
-						print("Room is not the same in history")
-					} else {
-						print("A room already exist between these two users in history")
-						roomExistsAlready = true
+					for room in self.history {
+						if room.id != roomId {
+							print("Room is not the same in history")
+						} else {
+							print("A room already exist between these two users in history")
+							roomExistsAlready = true
+						}
 					}
-				}
-				if roomExistsAlready {
-					continue
+					if roomExistsAlready {
+						continue
+					} else {
+						self.createRoom(id: roomId, ownId: self.currentUser.uid, matchedId: profile.0)
+						return
+					}
 				} else {
-					createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
-					return
-				}
-			} else {
-				let roomId = currentUser.uid + profile.0
-				print("Matched profile is smaller, then: \(roomId)")
-				for room in rooms {
-					if room.id != roomId {
-						print("Room is not the same")
-					} else {
-						print("A room already exist between these two users")
-						roomExistsAlready = true
+					let roomId = self.currentUser.uid + profile.0
+					print("Matched profile is smaller, then: \(roomId)")
+					for room in self.rooms {
+						if room.id != roomId {
+							print("Room is not the same")
+						} else {
+							print("A room already exist between these two users")
+							roomExistsAlready = true
+						}
 					}
-				}
-				for room in history {
-					if room.id != roomId {
-						print("Room is not the same in history")
-					} else {
-						print("A room already exist between these two users in history")
-						roomExistsAlready = true
+					for room in self.history {
+						if room.id != roomId {
+							print("Room is not the same in history")
+						} else {
+							print("A room already exist between these two users in history")
+							roomExistsAlready = true
+						}
 					}
-				}
-				if roomExistsAlready {
-					continue
-				} else {
-					createRoom(id: roomId, ownId: currentUser.uid, matchedId: profile.0)
-					return
+					if roomExistsAlready {
+						continue
+					} else {
+						self.createRoom(id: roomId, ownId: self.currentUser.uid, matchedId: profile.0)
+						return
+					}
 				}
 			}
+
 		}
 	}
 }
 
 extension LobbyVC: LobbyViewControllerDelegate {
 	
-	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController {
+	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController? {
 		
-		let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
-		return newsViewController
+		if availableNews != nil {
+			let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
+			
+			return newsViewController
+		} else {
+			return nil
+		}
 	}
 	
 	func reloadData() {

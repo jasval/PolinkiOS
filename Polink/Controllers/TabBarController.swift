@@ -29,9 +29,6 @@ class TabBarController: UITabBarController {
 			let roomNavController = createLobbyNC(user: user)
 			let homeNavController = createHomeNC(user: user)
 			let profileNavController = createProfileNC(user: user)
-//			let settingsNavController = createSettingsNC(user: user)
-//			let boardNavController = createBoardNC(user: user)
-//			viewControllers = [roomNavController, boardNavController, homeNavController, profileNavController, settingsNavController]
 			viewControllers = [roomNavController, homeNavController, profileNavController]
 			self.tabBar.tintColor = .black
 			self.selectedIndex = 1
@@ -66,19 +63,4 @@ extension TabBarController {
 		return NavigationController(profileVC)
 	}
 	
-	func createBoardNC(user: User) -> UINavigationController {
-		let boardVC = BoardVC(user: user)
-		boardVC.title = "Board"
-		boardVC.tabBarItem = UITabBarItem(title: boardVC.title, image: UIImage(systemName: "rosette"), tag: 1)
-		
-		return NavigationController(boardVC)
-	}
-	
-	func createSettingsNC(user: User) -> UINavigationController {
-		let settingsVC = SettingsVC(user: user)
-		settingsVC.title = "Settings"
-		settingsVC.tabBarItem = UITabBarItem(title: settingsVC.title, image: UIImage(systemName: "gear"), tag: 4)
-		
-		return NavigationController(settingsVC)
-	}
 }

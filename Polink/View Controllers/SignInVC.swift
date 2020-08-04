@@ -38,7 +38,9 @@ class SignInVC: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
 		// Do any additional setup after loading the view.
 		signInButton.layer.masksToBounds = true
 		signInButton.layer.cornerRadius = signInButton.frame.height / 5
@@ -99,4 +101,37 @@ class SignInVC: UIViewController {
 			}
 		}
 	}
+	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if textField == emailField {
+			passwordField.becomeFirstResponder()
+			return true
+		} else {
+			textField.endEditing(true)
+			return true
+		}
+	}
+
+	// If the text field ends editing clear password field
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		//Use what the user typed to call the signup process
+		if textField == passwordField {
+			resignFirstResponder()
+		}
+	}
+
+	@objc func keyboardWillShow(notification: NSNotification) {
+		if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+			if self.view.frame.origin.y == 0 {
+				self.view.frame.origin.y -= keyboardSize.height
+			}
+		}
+	}
+	
+	@objc func keyboardWillHide(notification: NSNotification) {
+		if self.view.frame.origin.y != 0 {
+			self.view.frame.origin.y = 0
+		}
+	}
+
 }

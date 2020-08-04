@@ -31,12 +31,20 @@ class ProfileDetailViewController: UIViewController {
 	
 	private var profile: ProfilePublic
 	private var graphView: RadarChartView?
-	private var userData: RadarChartData?
 	private var delegate: ProfileDetailViewControllerDelegate
+	private var graphData: RadarChartData?
+	private var aggregatedfeedbackData: IdeologyMapping?
 	
 	init(_ profile: ProfilePublic, delegate: ProfileDetailViewControllerDelegate) {
 		self.profile = profile
 		self.delegate = delegate
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	init(_ profile: ProfilePublic, aggregatedFeedback: IdeologyMapping, delegate: ProfileDetailViewControllerDelegate) {
+		self.profile = profile
+		self.delegate = delegate
+		self.aggregatedfeedbackData = aggregatedFeedback
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -65,24 +73,38 @@ class ProfileDetailViewController: UIViewController {
 	}
 	
 	func setupGraph() {
+		let redColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 1)
+		let redFillColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 0.6)
+		let blueColor = UIColor(red: 80/255, green: 130/255, blue: 206/255, alpha: 1)
+		let blueFillColor = UIColor(red: 80/255, green: 130/255, blue: 206/255, alpha: 0.6)
 		graphView = RadarChartView()
 		graphView?.translatesAutoresizingMaskIntoConstraints = false
 		graphView?.noDataText = "Please input some data to display a graph"
-		let dataSet = GraphView.createRadarCharDataSet(data: profile.ideology!, name: "User Data")
-		let redColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 1)
-		let redFillColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 0.6)
-		dataSet.colors = [redColor]
-		dataSet.fillColor = redFillColor
-		dataSet.drawFilledEnabled = true
-		dataSet.valueFormatter = DataSetValueFormatter()
-		let data = RadarChartData(dataSet: dataSet)
-		graphView?.data = data
+		
+		let userData = GraphView.createRadarCharDataSet(data: profile.ideology!, name: "User Ideology")
+		userData.colors = [redColor]
+		userData.fillColor = redFillColor
+		userData.drawFilledEnabled = true
+		userData.valueFormatter = DataSetValueFormatter()
+		
+		graphData = RadarChartData(dataSet: userData)
+		if aggregatedfeedbackData != nil {
+			let feedbackData = GraphView.createRadarCharDataSet(data: aggregatedfeedbackData!, name: "Aggregated Perception")
+			feedbackData.colors = [blueColor]
+			feedbackData.fillColor = blueFillColor
+			feedbackData.drawFilledEnabled = true
+			feedbackData.valueFormatter = DataSetValueFormatter()
+			
+			graphData = RadarChartData(dataSets: [userData, feedbackData])
+		}
+
+		graphView?.data = graphData
 		graphView?.webLineWidth = 0.5
 		graphView?.innerWebLineWidth = 0.5
 		graphView?.webColor = .lightGray
 		graphView?.innerWebColor = .lightGray
 		graphView?.rotationEnabled = false
-		graphView?.legend.enabled = false
+		graphView?.legend.enabled = true
 		graphView?.isMultipleTouchEnabled = true
 		graphView?.isUserInteractionEnabled = false
 		
