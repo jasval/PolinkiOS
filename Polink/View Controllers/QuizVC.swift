@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Charts
 
 class QuizVC: UIViewController {
 	
@@ -19,7 +20,7 @@ class QuizVC: UIViewController {
 	@IBOutlet weak var quizLabel: UILabel!
 	@IBOutlet weak var answerStack: UIStackView!
 	@IBOutlet weak var backButton: UIButton!
-	
+	private var results : RadarChartView?
 	// creating an instance of the QuizBrain
 	var quiz = QuizBrain()
 	
@@ -135,20 +136,7 @@ class QuizVC: UIViewController {
 			do{
 				let finalScore = try quiz.calcScores()
 				// Printing and declaration of lastScore for testing
-				let lastScore = quiz.answerStack.peek()
-				print("End of questions")
-				print("Max diplomacy score is \(quiz.maxDipl)")
-				print("Your raw diplomacy score is: \(lastScore!.dipl)")
-				print("Your calculated diplomacy score is: \(finalScore.dipl)%")
-				print("Max economy score is \(quiz.maxEcon)")
-				print("Your raw economy score is: \(lastScore!.econ)")
-				print("Your calculated economy score is: \(finalScore.econ)%")
-				print("Max government score is: \(quiz.maxGovt)")
-				print("Your raw government score is: \(lastScore!.govt)")
-				print("Your calculated government score is: \(finalScore.govt)%")
-				print("Max societal score is: \(quiz.maxScty)")
-				print("Your raw societal score is: \(lastScore!.scty)")
-				print("Your calculated societal score is: \(finalScore.scty)%")
+//				let lastScore = quiz.answerStack.peek()
 				for button in buttons {
 					animateOut(button)
 				}
@@ -170,33 +158,98 @@ class QuizVC: UIViewController {
 	}
 	
 	func displayResults(){
-		let resultsLabel = UILabel()
-		self.view.addSubview(resultsLabel)
-		resultsLabel.translatesAutoresizingMaskIntoConstraints = false
-		resultsLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
-		resultsLabel.heightAnchor.constraint(equalToConstant: 300).isActive = true
-		resultsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		resultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-		resultsLabel.textAlignment = NSTextAlignment.center
-		resultsLabel.numberOfLines = 0
-		resultsLabel.alpha = 0
-		resultsLabel.text = "Diplomacy Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.dipl] ?? 0)\nEconomy Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.econ] ?? 0)\nGovernment Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.govt] ?? 0)\nSociety Score: \(Registration.state.polinkIdeology?[K.ideologyAxes.scty] ?? 0)"
-		animateIn(resultsLabel, delay: 1)
+		let ideology = IdeologyMapping(econ: Registration.state.polinkIdeology?[K.ideologyAxes.econ] ?? 0, dipl: Registration.state.polinkIdeology?[K.ideologyAxes.dipl] ?? 0, scty: Registration.state.polinkIdeology?[K.ideologyAxes.scty] ?? 0, govt: Registration.state.polinkIdeology?[K.ideologyAxes.govt] ?? 0)
+		results = RadarChartView()
+		results?.translatesAutoresizingMaskIntoConstraints = false
+		results?.noDataText = "There is no data to display int the graph"
+		let dataSet = GraphView.createRadarCharDataSet(data: ideology, name: "User Data")
+		let redColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 1)
+		let redFillColor = UIColor(red: 247/255, green: 67/255, blue: 115/255, alpha: 0.6)
+		dataSet.colors = [redColor]
+		dataSet.fillColor = redFillColor
+		dataSet.drawFilledEnabled = true
+		dataSet.valueFormatter = DataSetValueFormatter()
+		let data = RadarChartData(dataSet: dataSet)
+
+		results?.data = data
+		results?.webLineWidth = 0.5
+		results?.innerWebLineWidth = 0.5
+		results?.webColor = .lightGray
+		results?.innerWebColor = .lightGray
+		results?.rotationEnabled = false
+		results?.legend.enabled = false
+		results?.isMultipleTouchEnabled = true
+		results?.isUserInteractionEnabled = false
+
+		let xAxis = results?.xAxis
+		xAxis?.labelFont = .systemFont(ofSize: 10, weight: .bold)
+		xAxis?.labelTextColor = .black
+		xAxis?.xOffset = 10
+		xAxis?.yOffset = 10
+		xAxis?.valueFormatter = XAxisFormatter()
+		
+		let yAxis = results?.yAxis
+		yAxis?.labelFont = .systemFont(ofSize: 9, weight: .light)
+		yAxis?.labelCount = 3
+		yAxis?.labelXOffset = 5
+		yAxis?.drawTopYLabelEntryEnabled = true
+		yAxis?.axisMinimum = 0
+		yAxis?.valueFormatter = YAxisFormatter()
+
+		guard let graph = results else { return }
+		view.addSubview(graph)
+		
+		NSLayoutConstraint.activate([
+			graph.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+			graph.heightAnchor.constraint(equalToConstant: 350),
+			graph.widthAnchor.constraint(equalToConstant: 350),
+			graph.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+		])
+		
+		animateChart()
 	}
+	
+	func animateChart() {
+		results?.animate(yAxisDuration: 1.4, easingOption: .linear)
+	}
+
+	
 	func displayNextButton() {
 		let nextButton = UIButton(type: .roundedRect)
+		nextButton.layer.cornerRadius = 10
 		nextButton.backgroundColor = UIColor.gray
 		nextButton.setTitle("Next", for: .normal)
 		nextButton.setTitleColor(UIColor.white, for: .normal)
 		nextButton.alpha = 0
-		self.view.addSubview(nextButton)
 		nextButton.translatesAutoresizingMaskIntoConstraints = false
-		nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		nextButton.topAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-		nextButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-		nextButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+		self.view.addSubview(nextButton)
+		NSLayoutConstraint.activate([
+			nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			nextButton.heightAnchor.constraint(equalToConstant: 80),
+			nextButton.widthAnchor.constraint(equalToConstant: 300),
+			nextButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 150)
+		])
 		nextButton.addTarget(self, action: #selector(nextButtonPressed(_:)), for: .touchUpInside)
-		animateIn(nextButton, delay: 3)
+		animateIn(nextButton, delay: 5)
+	}
+	
+	func displayRetryButton() {
+		let retryButton = UIButton(type: .custom)
+		retryButton.layer.cornerRadius = 10
+		retryButton.backgroundColor = UIColor.gray
+		retryButton.setTitle("Next", for: .normal)
+		retryButton.setTitleColor(UIColor.white, for: .normal)
+		retryButton.alpha = 0
+		retryButton.translatesAutoresizingMaskIntoConstraints = false
+		self.view.addSubview(retryButton)
+		NSLayoutConstraint.activate([
+			retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			retryButton.heightAnchor.constraint(equalToConstant: 80),
+			retryButton.widthAnchor.constraint(equalToConstant: 300),
+			retryButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 150)
+		])
+		retryButton.addTarget(self, action: #selector(retryButtonPressed(_:)), for: .touchUpInside)
+		animateIn(retryButton, delay: 5)
 	}
 	
 	func sendResults() {
@@ -266,19 +319,7 @@ class QuizVC: UIViewController {
 		}, completion: nil)
 	}
 	
-	func displayRetryButton() {
-		let retryButton = UIButton(type: .custom)
-		self.view.addSubview(retryButton)
-		retryButton.alpha = 0
-		retryButton.setTitle("Retry", for: .normal)
-		retryButton.setTitleColor(UIColor.white, for: .normal)
-		retryButton.translatesAutoresizingMaskIntoConstraints = false
-		retryButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-		retryButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
-		retryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
-		retryButton.addTarget(self, action: #selector(retryButtonPressed(_:)), for: .touchUpInside)
-		animateIn(retryButton, delay: 0)
-	}
+
 	
 }
 

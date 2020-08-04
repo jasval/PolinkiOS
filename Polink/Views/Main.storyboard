@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,18 +12,18 @@
             <objects>
                 <viewController storyboardIdentifier="initialViewController" id="BYZ-38-t0r" customClass="InitialVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🗣 Polink" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8E-d4-JjI">
-                                <rect key="frame" x="86.333333333333329" y="335" width="202.33333333333337" height="62"/>
+                                <rect key="frame" x="86.5" y="262.5" width="202.5" height="62"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="shadowOffset" width="2" height="2"/>
                             </label>
                             <stackView opaque="NO" contentMode="top" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ScG-TX-LeJ">
-                                <rect key="frame" x="70" y="447" width="235" height="100"/>
+                                <rect key="frame" x="70" y="374.5" width="235" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuM-Aa-DTu">
                                         <rect key="frame" x="0.0" y="0.0" width="235" height="40"/>
@@ -88,13 +88,13 @@
             <objects>
                 <viewController storyboardIdentifier="loginViewController" id="TPM-ca-X99" customClass="SignInVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHz-Jc-GLe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-bK-6gO">
-                                <rect key="frame" x="70" y="305" width="235" height="148"/>
+                                <rect key="frame" x="70" y="349.5" width="235" height="148"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1@2.com" borderStyle="roundedRect" placeholder="Email..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0FM-ua-KqS">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0FM-ua-KqS">
                                         <rect key="frame" x="0.0" y="0.0" width="235" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -106,7 +106,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKp-vC-WPl">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKp-vC-WPl">
                                         <rect key="frame" x="0.0" y="54" width="235" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -142,7 +142,7 @@
                             <constraint firstItem="J9J-bK-6gO" firstAttribute="centerX" secondItem="DHz-Jc-GLe" secondAttribute="centerX" id="7e5-mB-6Rs"/>
                             <constraint firstItem="J9J-bK-6gO" firstAttribute="leading" secondItem="Gqa-wZ-841" secondAttribute="leading" constant="70" id="EZT-LK-ZJH"/>
                             <constraint firstItem="Gqa-wZ-841" firstAttribute="trailing" secondItem="J9J-bK-6gO" secondAttribute="trailing" constant="70" id="OKg-Ws-Ugx"/>
-                            <constraint firstItem="J9J-bK-6gO" firstAttribute="centerY" secondItem="DHz-Jc-GLe" secondAttribute="centerY" id="b7t-S6-axq"/>
+                            <constraint firstItem="J9J-bK-6gO" firstAttribute="centerY" secondItem="DHz-Jc-GLe" secondAttribute="centerY" constant="100" id="b7t-S6-axq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gqa-wZ-841"/>
                     </view>
@@ -164,11 +164,11 @@
             <objects>
                 <viewController storyboardIdentifier="registerViewController" id="ZNc-QO-VfV" customClass="SignUpVC" customModule="Polink" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="scG-wu-VvA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fc8-Xb-vXd">
-                                <rect key="frame" x="70" y="262.66666666666669" width="235" height="233"/>
+                                <rect key="frame" x="70" y="307" width="235" height="233"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPL-68-c9Y">
                                         <rect key="frame" x="0.0" y="0.0" width="235" height="34"/>
@@ -256,7 +256,7 @@
                             <constraint firstItem="Fc8-Xb-vXd" firstAttribute="leading" secondItem="Wv2-GD-5H8" secondAttribute="leading" constant="70" id="36d-dH-PdB"/>
                             <constraint firstItem="Wv2-GD-5H8" firstAttribute="trailing" secondItem="Fc8-Xb-vXd" secondAttribute="trailing" constant="70" id="8R4-Sb-fyn"/>
                             <constraint firstItem="Fc8-Xb-vXd" firstAttribute="centerX" secondItem="scG-wu-VvA" secondAttribute="centerX" id="QgG-P2-fAG"/>
-                            <constraint firstItem="Fc8-Xb-vXd" firstAttribute="centerY" secondItem="scG-wu-VvA" secondAttribute="centerY" id="px4-Xr-ohz"/>
+                            <constraint firstItem="Fc8-Xb-vXd" firstAttribute="centerY" secondItem="scG-wu-VvA" secondAttribute="centerY" constant="100" id="px4-Xr-ohz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wv2-GD-5H8"/>
                     </view>

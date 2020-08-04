@@ -40,7 +40,9 @@ class UserInfoVC: UIViewController {
 		checkMark.alpha = 0
 		nextArrow.alpha = 0
 		configureDateBoundaries()
-		animateIn(titleText, delay: 1)		
+		animateIn(titleText, delay: 1)
+		nextArrow.isUserInteractionEnabled = true
+		nextArrow.addTarget(self, action: #selector(didPressNext), for: .touchUpInside)
 	}
 	
 	// A checker that visually calls the checkmark if all necessary fields have been completed
@@ -106,6 +108,15 @@ class UserInfoVC: UIViewController {
 	func isValidName(_ name: String) -> Bool {
 		let stringRegex = "^.{2,}$"
 		return NSPredicate(format: "SELF MATCHES %@", stringRegex).evaluate(with: name)
+	}
+	
+	@objc func didPressNext() {
+		print("it is registering the tap")
+		// get parent view controller
+		let parentVC = self.parent as! PageNavController
+		
+		// change page of PageViewController
+		parentVC.setViewControllers([parentVC.viewControllerList[1]], direction: .forward, animated: true, completion: nil)
 	}
 }
 
