@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
