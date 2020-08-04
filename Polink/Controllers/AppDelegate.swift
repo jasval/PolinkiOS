@@ -41,11 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 //		
 //		application.registerForRemoteNotifications()
-
-		MSAppCenter.start("05155dfa-5283-474a-845d-431d5dd4f79e", withServices:[
-			MSAnalytics.self,
-			MSCrashes.self
-		])
 		
 		return true
 	}
@@ -113,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		print("Application did become active")
+		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {

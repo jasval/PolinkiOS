@@ -102,7 +102,6 @@ class HomeVC: UIViewController {
 			}
 			do {
 				self.userProfile = try snapshot.data(as: ProfilePublic.self)
-				print(String(describing: self.userProfile))
 				self.listeningSwitch.setOn(self.userProfile!.listening, animated: true)
 			} catch {
 				print("Found error decoding data to local variable userProfile: \(error.localizedDescription)")
@@ -139,20 +138,24 @@ class HomeVC: UIViewController {
 			if sender.isOn && userIsListening {
 				matchButton.isEnabled = true
 				matchButton.backgroundColor = .black
+				switchTitle.text = "Listening"
 				return
 			} else if sender.isOn && !userIsListening {
 				userProfile?.listening = true
 				matchButton.isEnabled = true
 				matchButton.backgroundColor = .black
+				switchTitle.text = "Listening"
 				try userRef?.setData(from: userProfile)
 			} else if !sender.isOn && !userIsListening {
 				matchButton.isEnabled = false
 				matchButton.backgroundColor = .white
+				switchTitle.text = "Not listening"
 				return
 			} else {
 				userProfile?.listening = false
 				matchButton.isEnabled = false
 				matchButton.backgroundColor = .white
+				switchTitle.text = "Not listening"
 				try userRef?.setData(from: userProfile)
 			}
 		} catch {
@@ -188,6 +191,9 @@ class HomeVC: UIViewController {
 
 		view.addSubview(switchTitle)
 		switchTitle.tintColor = .black
+		switchTitle.textColor = .black
+		switchTitle.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+		switchTitle.text = "Listening"
 		switchTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		statistics = MainStatistics(self)
@@ -211,7 +217,7 @@ class HomeVC: UIViewController {
 			listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
 			
 			switchTitle.bottomAnchor.constraint(equalTo: listeningSwitch.topAnchor, constant: -10),
-			switchTitle.rightAnchor.constraint(equalTo: listeningSwitch.rightAnchor)
+			switchTitle.centerXAnchor.constraint(equalTo: listeningSwitch.centerXAnchor),
 		])
 		guard let stats = statistics else {return}
 		NSLayoutConstraint.activate([

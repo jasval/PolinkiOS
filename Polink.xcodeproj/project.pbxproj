@@ -24,6 +24,7 @@
 		025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */; };
 		025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79224C4D0BB00352E74 /* GraphView.swift */; };
 		025EE79524C4E29C00352E74 /* IdeologyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EE79424C4E29C00352E74 /* IdeologyMapping.swift */; };
+		026001B224D561D70018428F /* PastConversationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026001B124D561D70018428F /* PastConversationDetailVC.swift */; };
 		027856EC24B2BAFF00C1131A /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856EB24B2BAFF00C1131A /* News.swift */; };
 		027856F524B680FD00C1131A /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856F424B680FD00C1131A /* Popup.swift */; };
 		027856F724B690BB00C1131A /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856F624B690BB00C1131A /* OnboardViewController.swift */; };
@@ -58,8 +59,6 @@
 		02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAF92497E02F0073039B /* UIColor+Ext.swift */; };
 		02ADDB6D249ADBDE0073039B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB6C249ADBDE0073039B /* HomeVC.swift */; };
 		02ADDB6F249AE18D0073039B /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB6E249AE18D0073039B /* ProfileVC.swift */; };
-		02ADDB91249B10C00073039B /* BoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB90249B10C00073039B /* BoardVC.swift */; };
-		02ADDB93249B11D60073039B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB92249B11D60073039B /* SettingsVC.swift */; };
 		02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB94249BB75C0073039B /* NavigationController.swift */; };
 		02ADDB97249BD3DE0073039B /* CGRect+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB96249BD3DE0073039B /* CGRect+Ext.swift */; };
 		259D382C6644788B81A90C56 /* Pods_Polink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */; };
@@ -132,6 +131,7 @@
 		025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		025EE79224C4D0BB00352E74 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		025EE79424C4E29C00352E74 /* IdeologyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeologyMapping.swift; sourceTree = "<group>"; };
+		026001B124D561D70018428F /* PastConversationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastConversationDetailVC.swift; sourceTree = "<group>"; };
 		027856EB24B2BAFF00C1131A /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		027856F424B680FD00C1131A /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		027856F624B690BB00C1131A /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
@@ -166,8 +166,6 @@
 		02ADDAF92497E02F0073039B /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		02ADDB6C249ADBDE0073039B /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		02ADDB6E249AE18D0073039B /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		02ADDB90249B10C00073039B /* BoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardVC.swift; sourceTree = "<group>"; };
-		02ADDB92249B11D60073039B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		02ADDB94249BB75C0073039B /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		02ADDB96249BD3DE0073039B /* CGRect+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Ext.swift"; sourceTree = "<group>"; };
 		0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Polink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,22 +313,13 @@
 				FE32EB082484258E00E8C2D5 /* ChatVC.swift */,
 				02ADDB6C249ADBDE0073039B /* HomeVC.swift */,
 				02ADDB6E249AE18D0073039B /* ProfileVC.swift */,
-				02ADDB90249B10C00073039B /* BoardVC.swift */,
-				02ADDB92249B11D60073039B /* SettingsVC.swift */,
 				025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */,
+				026001B124D561D70018428F /* PastConversationDetailVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		02579DFA24BC6872004D1413 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				02579DFB24BC6887004D1413 /* DataManager.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		027856F324B680E300C1131A /* FeatureFoundry */ = {
+		02397C7C24D7411100546090 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				027856F424B680FD00C1131A /* Popup.swift */,
@@ -338,17 +327,28 @@
 				027856F824B691D400C1131A /* ModalLayoutView.swift */,
 				027856FA24B692A100C1131A /* ButtonLayoutView.swift */,
 				027856FC24B692DD00C1131A /* Button.swift */,
-				027856FE24B6931500C1131A /* Appearance.swift */,
 				0278570024B6968900C1131A /* NewsViewController.swift */,
 				0278570224B696DF00C1131A /* OnboardPagingView.swift */,
 				0278570424B6987D00C1131A /* NewsImageView.swift */,
-				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
-				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
-				025EE79224C4D0BB00352E74 /* GraphView.swift */,
-				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
 				025A7F6024CD0F1D00405FDC /* Checkbox.swift */,
+				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
+				025EE79224C4D0BB00352E74 /* GraphView.swift */,
+				028D4FC124C3986300976600 /* SliderView.swift */,
+				025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */,
+				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
+				028D4FC324C3987100976600 /* TextfieldView.swift */,
+				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
 			);
-			path = FeatureFoundry;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		02579DFA24BC6872004D1413 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				02579DFB24BC6887004D1413 /* DataManager.swift */,
+				027856FE24B6931500C1131A /* Appearance.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		02ADDAE624951D390073039B /* Custom Cell Implementation */ = {
@@ -443,10 +443,10 @@
 			isa = PBXGroup;
 			children = (
 				023C33F724C8633500E43F03 /* Polink.entitlements */,
-				02579DFA24BC6872004D1413 /* Utilities */,
-				027856F324B680E300C1131A /* FeatureFoundry */,
-				FE01AE8D23E6127A002F36FA /* Controllers */,
 				020C9C99248F9BCD00A6BDE6 /* Extensions */,
+				02579DFA24BC6872004D1413 /* Utilities */,
+				02397C7C24D7411100546090 /* ViewModels */,
+				FE01AE8D23E6127A002F36FA /* Controllers */,
 				FE01AE8B23E61254002F36FA /* Models */,
 				FE01AE8C23E6125E002F36FA /* Views */,
 				020C9C9A248F9C1400A6BDE6 /* Supporting Files */,
@@ -463,11 +463,6 @@
 				FE0CE33823E8927E002E5604 /* K.swift */,
 				FE6886B523EB1865001F1301 /* QuizBrain.swift */,
 				FE6886B723EB18F8001F1301 /* Question.swift */,
-				028D4FC124C3986300976600 /* SliderView.swift */,
-				025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */,
-				028D4FC324C3987100976600 /* TextfieldView.swift */,
-				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
-				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
 				02ADDAF32497CDB10073039B /* ProfilePrivate.swift */,
 				02ADDAF52497CDD80073039B /* ProfilePublic.swift */,
@@ -506,6 +501,8 @@
 				FEF69CF923F8CC8A002C3524 /* PageNavController.swift */,
 				02ADDB94249BB75C0073039B /* NavigationController.swift */,
 				02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */,
+				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
+				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -654,7 +651,6 @@
 				02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */,
 				02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */,
 				0278570724B7102600C1131A /* PresentationAnimationController.swift in Sources */,
-				02ADDB91249B10C00073039B /* BoardVC.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
 				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
 				023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */,
@@ -671,6 +667,7 @@
 				02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */,
 				FE3561062481A133007E23C9 /* UIPageControl+Ext.swift in Sources */,
 				027856FF24B6931500C1131A /* Appearance.swift in Sources */,
+				026001B224D561D70018428F /* PastConversationDetailVC.swift in Sources */,
 				020C9C9F248FDFC300A6BDE6 /* Date+Ext.swift in Sources */,
 				02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,
@@ -696,7 +693,6 @@
 				02ADDAF42497CDB10073039B /* ProfilePrivate.swift in Sources */,
 				FE6886B823EB18F8001F1301 /* Question.swift in Sources */,
 				025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */,
-				02ADDB93249B11D60073039B /* SettingsVC.swift in Sources */,
 				020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */,
 				02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */,
 				FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */,
@@ -838,17 +834,20 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -861,17 +860,20 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

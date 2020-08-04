@@ -36,7 +36,9 @@ class GenderVC: UIViewController {
         // Do any additional setup after loading the view.
         checkMark.alpha = 0
         nextArrow.alpha = 0
-        
+		nextArrow.isUserInteractionEnabled = true
+		nextArrow.addTarget(self, action: #selector(didPressNext), for: .touchUpInside)
+
         let tapGestureRecogniserFemale = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecogniser:)))
         let tapGestureRecogniserMale = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecogniser:)))
         let tapGestureRecogniserTrans = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecogniser:)))
@@ -76,8 +78,10 @@ class GenderVC: UIViewController {
     }
     
     @objc func imageTapped(tapGestureRecogniser: UITapGestureRecognizer) {
+		clearHighlight()
         let icon = tapGestureRecogniser.view as! UIImageView
         let x: String
+		icon.isHighlighted = true
         switch icon.tag {
         case 0:
             x = K.userGenders.female
@@ -113,4 +117,20 @@ class GenderVC: UIViewController {
             }
         }
     }
+	
+	@objc func didPressNext() {
+		print("it is registering the tap")
+		// get parent view controller
+		let parentVC = self.parent as! PageNavController
+		
+		// change page of PageViewController
+		parentVC.setViewControllers([parentVC.viewControllerList[2]], direction: .forward, animated: true, completion: nil)
+	}
+
+	func clearHighlight() {
+		maleIcon.isHighlighted = false
+		femaleIcon.isHighlighted = false
+		transIcon.isHighlighted =  false
+		otherIcon.isHighlighted = false
+	}
 }
