@@ -46,7 +46,7 @@ class TextfieldView: UIView {
 		textView.autocapitalizationType = .sentences
 		textView.isSelectable = true
 		textView.layer.cornerRadius = 25
-		textView.layer.borderWidth = 1
+		textView.layer.borderWidth = 3
 		textView.layer.borderColor = UIColor.lightGray.cgColor
 		textView.font = UIFont.systemFont(ofSize: 16)
 		textView.text = "Please type your answer here..."

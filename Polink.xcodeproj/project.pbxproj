@@ -50,6 +50,7 @@
 		02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */; };
 		02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */; };
 		02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */; };
+		02A6A21A24E95863000B9364 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A21924E95863000B9364 /* UserDefaults.swift */; };
 		02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* ParticipantFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* ParticipantFeedback.swift */; };
@@ -157,6 +158,7 @@
 		02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+Ext.swift"; sourceTree = "<group>"; };
 		02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = "<group>"; };
 		02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CensoredWordsList.json; sourceTree = "<group>"; };
+		02A6A21924E95863000B9364 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* ParticipantFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantFeedback.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */,
 				02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */,
 				0278570C24B7845F00C1131A /* UIImageView+Ext.swift */,
+				02A6A21924E95863000B9364 /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				0278570124B6968900C1131A /* NewsViewController.swift in Sources */,
 				02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */,
 				02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */,
+				02A6A21A24E95863000B9364 /* UserDefaults.swift in Sources */,
 				0278570724B7102600C1131A /* PresentationAnimationController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
 				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
@@ -834,9 +838,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -844,10 +848,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -860,9 +864,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -870,10 +874,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

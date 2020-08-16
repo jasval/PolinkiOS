@@ -152,8 +152,8 @@ extension MainStatistics {
 			
 			agreeablenessLabel.widthAnchor.constraint(equalTo: mainStack.widthAnchor, multiplier: 0.5),
 			moralHumilityLabel.widthAnchor.constraint(equalTo: mainStack.widthAnchor, multiplier: 0.5),
-			agreeablenessLabel.heightAnchor.constraint(equalToConstant: 30),
-			moralHumilityLabel.heightAnchor.constraint(equalToConstant: 30),
+			agreeablenessLabel.heightAnchor.constraint(equalToConstant: 80),
+			moralHumilityLabel.heightAnchor.constraint(equalToConstant: 80),
 			
 			agreeableGraph.leadingAnchor.constraint(equalTo: agreeableStack.leadingAnchor, constant: 10),
 			agreeableGraph.trailingAnchor.constraint(equalTo: agreeableStack.trailingAnchor, constant: -10),
