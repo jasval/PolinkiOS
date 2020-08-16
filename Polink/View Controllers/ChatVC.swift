@@ -137,8 +137,10 @@ final class ChatVC: MessagesViewController {
 	
 	func configureNavigationItem() {
 		navigationItem.largeTitleDisplayMode = .never
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.fill.badge.xmark"), style: .done, target: self, action: #selector(reportUser))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-police"), style: .done, target: self, action: #selector(reportUser))
 	}
+	
+
 	
 	func configueMessageInputBar() {
 		messageInputBar.sendButton.setTitle(nil, for: .normal)

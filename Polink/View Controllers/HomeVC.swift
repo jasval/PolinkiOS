@@ -18,8 +18,10 @@ protocol HomeVCDelegate: UITableViewController {
 
 class HomeVC: UIViewController {
 
+	private var observer: NSKeyValueObservation?
 	private var presentationAnimationController: PopupPresentationAnimationController?
-	
+	private let defaults = UserDefaults.standard
+
 	var mainLabel: UILabel = {
 		let label = UILabel(frame: CGRect(0, 0, 100, 100))
 		label.textAlignment = .center
@@ -32,11 +34,8 @@ class HomeVC: UIViewController {
 		return label
 	}()
 	
-
 	var statistics: MainStatistics?
 	let matchButton = UIButton(type: .roundedRect)
-	let listeningSwitch = UISwitch()
-	let switchTitle = UILabel()
 	
 	// Lazy var for Firebase functions
 	fileprivate lazy var functions = Functions.functions()
@@ -64,17 +63,9 @@ class HomeVC: UIViewController {
 	
 	deinit {
 		userProfileListener?.remove()
+		observer?.invalidate()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		if listeningSwitch.isOn {
-			matchButton.isEnabled = true
-			self.matchButton.backgroundColor = .black
-		} else {
-			matchButton.isEnabled = false
-			self.matchButton.backgroundColor = .white
-		}
-	}
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
@@ -88,21 +79,22 @@ class HomeVC: UIViewController {
 
 		application.registerForRemoteNotifications()
 
-		
 		setupViews()
 		setupConstraints()
 		userRef = db.collection("users").document(currentUser.uid)
 		navigationController?.setNavigationBarHidden(true, animated: false)
 		// Do any additional setup after loading the view.
 		
-		userProfileListener = userRef?.addSnapshotListener(includeMetadataChanges: false, listener: { (QuerySnapshot, error) in
+		userProfileListener = userRef?.addSnapshotListener(includeMetadataChanges: false, listener: { [weak self] (QuerySnapshot, error) in
 			guard let snapshot = QuerySnapshot else {
 				print("Error listening for user's public profile updates: \(error?.localizedDescription ?? "No error")")
 				return
 			}
 			do {
-				self.userProfile = try snapshot.data(as: ProfilePublic.self)
-				self.listeningSwitch.setOn(self.userProfile!.listening, animated: true)
+				self?.userProfile = try snapshot.data(as: ProfilePublic.self)
+				self?.compareAndUpdateFCM()
+				self?.defaults.set(self?.userProfile?.listening, forKey: "USER_LISTENING")
+				self?.updateButton()
 			} catch {
 				print("Found error decoding data to local variable userProfile: \(error.localizedDescription)")
 			}
@@ -129,41 +121,6 @@ class HomeVC: UIViewController {
 		}
 	}
 	
-	
-	@objc private func switchValueDidChange(_ sender:UISwitch) {
-		
-		guard let userIsListening = userProfile?.listening else { return }
-
-		do {
-			if sender.isOn && userIsListening {
-				matchButton.isEnabled = true
-				matchButton.backgroundColor = .black
-				switchTitle.text = "Listening"
-				return
-			} else if sender.isOn && !userIsListening {
-				userProfile?.listening = true
-				matchButton.isEnabled = true
-				matchButton.backgroundColor = .black
-				switchTitle.text = "Listening"
-				try userRef?.setData(from: userProfile)
-			} else if !sender.isOn && !userIsListening {
-				matchButton.isEnabled = false
-				matchButton.backgroundColor = .white
-				switchTitle.text = "Not listening"
-				return
-			} else {
-				userProfile?.listening = false
-				matchButton.isEnabled = false
-				matchButton.backgroundColor = .white
-				switchTitle.text = "Not listening"
-				try userRef?.setData(from: userProfile)
-			}
-		} catch {
-			print("Couldn't write listening state to database: \(error.localizedDescription)")
-		}
-
-	}
-	
 	func setupViews() {
 		view.addSubview(mainLabel)
 		mainLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -182,19 +139,6 @@ class HomeVC: UIViewController {
 		matchButton.layer.shadowRadius = 5
 		matchButton.layer.shadowOpacity = 0.5
 		matchButton.addTarget(self, action: #selector(didPressMatchButton), for: .touchUpInside)
-
-		view.addSubview(listeningSwitch)
-		listeningSwitch.translatesAutoresizingMaskIntoConstraints = false
-		listeningSwitch.onTintColor = .black
-		listeningSwitch.isUserInteractionEnabled = true
-		listeningSwitch.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
-
-		view.addSubview(switchTitle)
-		switchTitle.tintColor = .black
-		switchTitle.textColor = .black
-		switchTitle.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-		switchTitle.text = "Listening"
-		switchTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		statistics = MainStatistics(self)
 		guard let stats = statistics else {return}
@@ -212,13 +156,8 @@ class HomeVC: UIViewController {
 			mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
 			mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
 			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-			listeningSwitch.topAnchor.constraint(equalTo: matchButton.bottomAnchor, constant: 20),
-			listeningSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
-			
-			switchTitle.bottomAnchor.constraint(equalTo: listeningSwitch.topAnchor, constant: -10),
-			switchTitle.centerXAnchor.constraint(equalTo: listeningSwitch.centerXAnchor),
 		])
+		
 		guard let stats = statistics else {return}
 		NSLayoutConstraint.activate([
 			stats.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20),
@@ -301,18 +240,31 @@ class HomeVC: UIViewController {
 		}
 	}
 	
-}
-extension HomeVC:  NewsViewControllerDelegate {
-	func newsWasSelected(_ newsToSend: News) {
-		//
+	func compareAndUpdateFCM() {
+		let fcmToken = defaults.string(forKey: "FCM_TOKEN")
+		if userProfile?.fcm != fcmToken {
+			userRef?.updateData(["fcm": fcmToken ?? ""]) { err in
+				if let err = err {
+					print(err.localizedDescription)
+				} else {
+					print("FCM token uploaded to server successfully")
+				}
+			}
+		}
 	}
 	
-	
-	func newsViewControllerDidFinish(_ newsViewController: NewsViewController) {
-//		UserDefaults.standard.set(true, forKey: GlobalKeys.HasShownContextMenuIntro)
-//		UserDefaults.standard.synchronize()
-		newsViewController.dismiss(animated: true, completion: nil)
+	func updateButton() {
+		if defaults.bool(forKey: "USER_LISTENING") {
+			print("defaults bool is true")
+			self.matchButton.isEnabled = true
+			self.matchButton.backgroundColor = .black
+		} else {
+			print("defaults bool is false")
+			self.matchButton.isEnabled = false
+			self.matchButton.backgroundColor = .white
+		}
 	}
+	
 }
 
 extension HomeVC: UIViewControllerTransitioningDelegate {
@@ -350,5 +302,17 @@ extension HomeVC: MainStatisticsDelegate {
 
 	func getCurrentUserID() -> String {
 		currentUser.uid
+	}
+}
+
+extension HomeVC: ProfileVCDelegate {
+	func updateListeningMode(listening: Bool) {
+		userRef?.updateData(["listening": listening]) { err in
+			if let err = err {
+				print(err.localizedDescription)
+			} else {
+				print("Document updated successfully")
+			}
+		}
 	}
 }

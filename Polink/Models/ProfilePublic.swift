@@ -16,4 +16,5 @@ struct ProfilePublic: Codable {
 	var ideology: IdeologyMapping?
 	var listening: Bool
 	var redFlags: Int
+	var fcm: String
 }

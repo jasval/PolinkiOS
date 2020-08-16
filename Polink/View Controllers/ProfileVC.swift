@@ -11,16 +11,34 @@ import FirebaseAuth
 import Firebase
 import SafariServices
 
+protocol ProfileVCDelegate: class {
+	func updateListeningMode(listening: Bool)
+}
+
 class ProfileVC: UIViewController {
 	
+	private var observer: NSKeyValueObservation?
+
+	private var delegate: ProfileVCDelegate?
 	private let defaults = UserDefaults.standard
 	private let currentUser: User
 	private let db = Firestore.firestore()
+	private var userRef : DocumentReference?
+	private var userProfile : ProfilePublic?
+	private var userProfileListener: ListenerRegistration?
 	private var historyRef: CollectionReference {
 		return db.collection("history")
 	}
 	
-	init(user: User) {
+	private var listeningSwitch: UISwitch = {
+		let switchView = UISwitch(frame: .zero)
+		switchView.translatesAutoresizingMaskIntoConstraints = false
+		switchView.onTintColor = .black
+		return switchView
+	}()
+	
+	init(user: User, delegate: ProfileVCDelegate) {
+		self.delegate = delegate
 		self.currentUser = user
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,12 +47,17 @@ class ProfileVC: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	deinit {
+		userProfileListener?.remove()
+		observer?.invalidate()
+	}
+
 	enum Section: String, CaseIterable {
 		case profile, history
 	}
 	
 	enum ItemType {
-		case statistics, logout, pastConversation, updateHistory, privacyPolicy
+		case statistics, logout, pastConversation, updateHistory, privacyPolicy, listening
 	}
 	
 	struct Item: Hashable {
@@ -44,7 +67,6 @@ class ProfileVC: UIViewController {
 		let conversation: Room?
 		private let identifier: UUID
 		
-		
 		init(title: String, type: ItemType) {
 			self.title = title
 			self.type = type
@@ -53,7 +75,6 @@ class ProfileVC: UIViewController {
 		}
 		
 		init(conversation: Room) {
-			
 			self.title = conversation.id
 			self.type = .pastConversation
 			self.conversation = conversation
@@ -80,6 +101,10 @@ class ProfileVC: UIViewController {
 			return type == .privacyPolicy
 		}
 		
+		var isListening: Bool {
+			return type == .listening
+		}
+		
 		func hash(into hasher: inout Hasher) {
 			hasher.combine(self.identifier)
 		}
@@ -96,6 +121,7 @@ class ProfileVC: UIViewController {
 	var firstSectionItems: [Item] = {
 		return [
 			Item(title: "Profile - Statistics", type: .statistics),
+			Item(title: "Listening", type: .listening),
 			Item(title: "Privacy Policy", type: .privacyPolicy),
 			Item(title: "Logout", type: .logout)]
 	}()
@@ -110,6 +136,13 @@ class ProfileVC: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = .white
 		tableView.delegate = self
+		
+		observer = defaults.observe(\.userIsListening, options: [.initial, .new], changeHandler: { [weak self] (defaults, change) in
+			let listening = defaults.bool(forKey: "USER_LISTENING")
+			print("There has been a change")
+			self?.listeningSwitch.setOn(listening, animated: false)
+		})
+
 		configureDataSource()
 		configureTableView()
 		pastConversations = [updateHistory]
@@ -121,7 +154,7 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC  {
 	func configureDataSource() {
-		self.dataSource = DiffableDataSource(tableView: tableView) { (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
+		self.dataSource = DiffableDataSource(tableView: tableView) { [weak self] (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
 						
 			let cell = tableView.dequeueReusableCell(withIdentifier: ProfileVC.reuseIdentifier, for: indexPath)
 			
@@ -152,6 +185,10 @@ extension ProfileVC  {
 			} else if item.isPrivacyPolicy {
 				cell.textLabel?.text = item.title
 				cell.accessoryType = .disclosureIndicator
+			} else if item.isListening {
+				cell.textLabel?.text = item.title
+				cell.accessoryView = self?.listeningSwitch
+				self?.listeningSwitch.addTarget(self, action: #selector(self?.switchValueDidChange(_:)), for: .valueChanged)
 			} else {
 				fatalError("Unknown item type!")
 			}
@@ -242,6 +279,11 @@ extension ProfileVC  {
 		guard let index = rooms.firstIndex(of: room) else {return}
 		rooms.remove(at: index)
 		pastConversations?.remove(at: index)
+	}
+	
+	@objc private func switchValueDidChange(_ sender :UISwitch) {
+		print("we are switching the switch")
+		delegate?.updateListeningMode(listening: sender.isOn)
 	}
 
 }
@@ -347,6 +389,8 @@ extension ProfileVC: UITableViewDelegate {
 				vc.modalPresentationStyle = .popover
 				self.present(vc, animated: true, completion: nil)
 			}
+		case .listening:
+			break
 		}
 	}
 	
@@ -364,9 +408,7 @@ extension ProfileVC: ProfileDetailViewControllerDelegate {
 	}
 }
 
-extension ProfileVC: UIAdaptivePresentationControllerDelegate {
-	
-}
+extension ProfileVC: UIAdaptivePresentationControllerDelegate {}
 
 class DiffableDataSource: UITableViewDiffableDataSource<ProfileVC.Section, ProfileVC.Item> {
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -258,7 +258,7 @@ class QuizVC: UIViewController {
 		let r = Registration.state
 		if let userId = userId, let userEmail = userEmail {
 			let ideology = IdeologyMapping(econ: (r.polinkIdeology?[K.ideologyAxes.econ])!, dipl: (r.polinkIdeology?[K.ideologyAxes.dipl])!, scty: (r.polinkIdeology?[K.ideologyAxes.scty])!, govt: (r.polinkIdeology?[K.ideologyAxes.govt])!)
-			let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: ideology, listening: true, redFlags: 0)
+			let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: ideology, listening: true, redFlags: 0, fcm: "")
 			let userPrivate = ProfilePrivate(email: userEmail, firstName: r.fname!, lastName: r.lname!, gender: r.gender!, createdAt: Date(), dateOfBirth: r.dob!)
 			do {
 				// Create a write batch
@@ -318,8 +318,5 @@ class QuizVC: UIViewController {
 			self.quizProgress.setProgress(self.quiz.getProgress(movement), animated: true)
 		}, completion: nil)
 	}
-	
-
-	
 }
 

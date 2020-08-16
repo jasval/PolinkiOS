@@ -130,13 +130,13 @@ struct QuizBrain {
     //    List of essential profiling questions
     let quizList: [Question] = [
         Question("Oppression by corporations is more of a concern than oppression by governments.", econ: 10, dipl: 0, govt: 0, scty: 0),
-        Question("It is necessary for the government to interviene in the economy to protect consumers", econ: 10, dipl: 0, govt: 0, scty: 0),
+        Question("It is necessary for the government to intervene in the economy to protect consumers", econ: 10, dipl: 0, govt: 0, scty: 0),
         Question("The freer the markets, the freer the people.", econ: -10, dipl: 0, govt: 0, scty: 0),
         Question("It is better to maintain a balanced budget than to endure welfare for all citizens.", econ: -10, dipl: 0, govt: 0, scty: 0),
         Question("Publicly-funded research is more beneficial to the people than leaving it to the market.", econ: 10, dipl: 0, govt: 0, scty: 10),
         Question("Tariffs on international trade are important to encourage local production.", econ: 5, dipl: 0, govt: -10, scty: 0),
         Question("From each according to his ability, to each according to his needs.", econ: 10, dipl: 0, govt: 0, scty: 0),
-        Question("It would be best if social programs were abolished in favor of private charity.", econ: -10, dipl: 0, govt: 0, scty: 0),
+        Question("It would be best if social programmes were abolished in favor of private charity.", econ: -10, dipl: 0, govt: 0, scty: 0),
         Question("Taxes should be increased on the rich to provide for the poor.", econ: 10, dipl: 0, govt: 0, scty: 0),
         Question("Inheritance is a legitimate form of wealth.", econ: -10, dipl: 0, govt: 0, scty: -5),
         Question("Basic utilities like roads and electricity should be publicly owned.", econ: 10, dipl: 0, govt: 0, scty: 0),
