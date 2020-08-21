@@ -145,7 +145,7 @@ final class ChatVC: MessagesViewController {
 	func configueMessageInputBar() {
 		messageInputBar.sendButton.setTitle(nil, for: .normal)
 		messageInputBar.sendButton.setTitle(nil, for: .selected)
-		messageInputBar.sendButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
+		messageInputBar.sendButton.setImage(UIImage(named: "icon-send"), for: .normal)
 		messageInputBar.sendButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
 		messageInputBar.sendButton.setTitleColor( #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.3), for: .highlighted)
 		messageInputBar.sendButton.showsTouchWhenHighlighted = true
@@ -154,13 +154,13 @@ final class ChatVC: MessagesViewController {
 		
 		let newsItem = InputBarButtonItem(type: .system)
 		newsItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-		newsItem.image = UIImage(systemName: "book.fill")
+		newsItem.image = UIImage(named: "icon-news")
 		newsItem.addTarget(self, action: #selector(newsButtonPressed), for: .primaryActionTriggered)
 		newsItem.setSize(CGSize(60, 30), animated: false)
 		
 		let agreementItem = InputBarButtonItem(type: .system)
 		agreementItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-		agreementItem.image = UIImage(systemName: "shield.lefthalf.fill")
+		agreementItem.image = UIImage(named: "icon-handshake")
 		agreementItem.addTarget(self, action: #selector(agreementButtonPressed), for: .primaryActionTriggered)
 		agreementItem.setSize(CGSize(60, 30), animated: false)
 		

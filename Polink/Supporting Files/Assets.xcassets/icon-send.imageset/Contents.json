@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "icons8-handshake.png",
+      "filename" : "icon-send.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-handshake copy.png",
+      "filename" : "icons8-sent.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

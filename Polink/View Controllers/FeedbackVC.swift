@@ -324,15 +324,16 @@ class FeedbackVC: UIViewController {
 		if feedbackForm.count < 12 {
 			return false
 		}
+		return true
 		
-		let result = feedbackForm.reduce(true) { (result, tupleKeyValue) -> Bool in
-			if result && tupleKeyValue.value != nil {
-				return true
-			} else {
-				return false
-			}
-		}
-		return result
+//		let result = feedbackForm.reduce(true) { (result, tupleKeyValue) -> Bool in
+//			if result && tupleKeyValue.value != nil {
+//				return true
+//			} else {
+//				return false
+//			}
+//		}
+//		return result
 	}
 }
 

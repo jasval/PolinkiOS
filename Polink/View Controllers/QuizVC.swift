@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Charts
+import RealmSwift
 
 class QuizVC: UIViewController {
 	
@@ -22,7 +23,7 @@ class QuizVC: UIViewController {
 	@IBOutlet weak var backButton: UIButton!
 	private var results : RadarChartView?
 	// creating an instance of the QuizBrain
-	var quiz = QuizBrain()
+	lazy var quiz = QuizBrain()
 	
 	// initialising the firestore database
 	let db = Firestore.firestore()
@@ -34,8 +35,6 @@ class QuizVC: UIViewController {
 		super.viewDidLoad()
 		
 		// progress bar styling and initialisation
-		print(Registration.state.dob?.description as Any)
-		print(Registration.state.polinkIdeology?.description as Any)
 		quizProgress.progress = 0
 		quizProgress.transform = quizProgress.transform.scaledBy(x: 1, y: 4)
 		quizProgress.layer.masksToBounds = true
@@ -128,8 +127,8 @@ class QuizVC: UIViewController {
 	
 	func loadQuestion() {
 		animateOutQ()
-		if quiz.questionNo < quiz.quizList.count {
-			quizLabel.text = quiz.quizList[quiz.questionNo].prompt
+		if quiz.questionNo < quiz.questionStack!.count {
+			quizLabel.text = quiz.questionStack?[quiz.questionNo].prompt
 			titleLabel.text = "Question: \(quiz.questionNo + 1)"
 			animateInQ()
 		} else {
@@ -137,6 +136,7 @@ class QuizVC: UIViewController {
 				let finalScore = try quiz.calcScores()
 				// Printing and declaration of lastScore for testing
 //				let lastScore = quiz.answerStack.peek()
+				animateOut(backButton)
 				for button in buttons {
 					animateOut(button)
 				}
@@ -151,14 +151,34 @@ class QuizVC: UIViewController {
 				animateOut(quizProgress)
 				displayResults()
 				sendResults()
+				writeQuestionsToDB(quiz.getQuestionStack())
 			} catch {
 				print(error)
 			}
 		}
 	}
 	
+	func writeQuestionsToDB(_ questions: [Question]?) {
+		guard let questions = questions else {return}
+		
+		do {
+			let container = try Container(userID: Auth.auth().currentUser?.uid)
+			try container.write({ (transaction) in
+				for question in questions {
+					transaction.add(question, update: .all)
+				}
+			})
+		} catch {
+			fatalError(error.localizedDescription)
+		}
+
+	}
+	
 	func displayResults(){
-		let ideology = IdeologyMapping(econ: Registration.state.polinkIdeology?[K.ideologyAxes.econ] ?? 0, dipl: Registration.state.polinkIdeology?[K.ideologyAxes.dipl] ?? 0, scty: Registration.state.polinkIdeology?[K.ideologyAxes.scty] ?? 0, govt: Registration.state.polinkIdeology?[K.ideologyAxes.govt] ?? 0)
+		let ideology = IdeologyMapping(econ: Registration.state.polinkIdeology?[K.ideologyAxes.econ] ?? 0,
+									   dipl: Registration.state.polinkIdeology?[K.ideologyAxes.dipl] ?? 0,
+									   scty: Registration.state.polinkIdeology?[K.ideologyAxes.scty] ?? 0,
+									   govt: Registration.state.polinkIdeology?[K.ideologyAxes.govt] ?? 0)
 		results = RadarChartView()
 		results?.translatesAutoresizingMaskIntoConstraints = false
 		results?.noDataText = "There is no data to display int the graph"
@@ -257,9 +277,23 @@ class QuizVC: UIViewController {
 		let userEmail =  Auth.auth().currentUser?.email
 		let r = Registration.state
 		if let userId = userId, let userEmail = userEmail {
-			let ideology = IdeologyMapping(econ: (r.polinkIdeology?[K.ideologyAxes.econ])!, dipl: (r.polinkIdeology?[K.ideologyAxes.dipl])!, scty: (r.polinkIdeology?[K.ideologyAxes.scty])!, govt: (r.polinkIdeology?[K.ideologyAxes.govt])!)
-			let userPublic = ProfilePublic(uid: userId, country: r.geoLocCountry ?? "United Kingdom", city: r.geoLocCity ?? "London", ideology: ideology, listening: true, redFlags: 0, fcm: "")
-			let userPrivate = ProfilePrivate(email: userEmail, firstName: r.fname!, lastName: r.lname!, gender: r.gender!, createdAt: Date(), dateOfBirth: r.dob!)
+			let ideology = IdeologyMapping(econ: (r.polinkIdeology?[K.ideologyAxes.econ])!,
+										   dipl: (r.polinkIdeology?[K.ideologyAxes.dipl])!,
+										   scty: (r.polinkIdeology?[K.ideologyAxes.scty])!,
+										   govt: (r.polinkIdeology?[K.ideologyAxes.govt])!)
+			let userPublic = ProfilePublic(uid: userId,
+										   country: r.geoLocCountry ?? "United Kingdom",
+										   city: r.geoLocCity ?? "London",
+										   ideology: ideology,
+										   listening: true,
+										   redFlags: 0,
+										   fcm: "")
+			let userPrivate = ProfilePrivate(email: userEmail,
+											 firstName: r.fname!,
+											 lastName: r.lname!,
+											 gender: r.gender!,
+											 createdAt: Date(),
+											 dateOfBirth: r.dob!)
 			do {
 				// Create a write batch
 				let batch = db.batch()

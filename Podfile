@@ -20,5 +20,8 @@ target 'Polink' do
   pod 'Charts'
   pod 'ChartsRealm'
   pod 'RealmSwift'
+  pod 'paper-onboarding'
+  pod 'AMPopTip'
+  pod 'BulletinBoard'
 end
 

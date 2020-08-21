@@ -17,7 +17,7 @@ class TabBarController: UITabBarController {
 		
 		let defaults = UserDefaults.standard
 
-		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
 		
 		if !defaults.bool(forKey: "LOGGED_IN") {
 				defaults.set(true, forKey: "LOGGED_IN")
