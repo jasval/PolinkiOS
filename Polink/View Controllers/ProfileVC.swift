@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import Firebase
 import SafariServices
+import RealmSwift
 
 protocol ProfileVCDelegate: class {
 	func updateListeningMode(listening: Bool)
@@ -18,7 +19,8 @@ protocol ProfileVCDelegate: class {
 class ProfileVC: UIViewController {
 	
 	private var observer: NSKeyValueObservation?
-
+	private lazy var realm = try! Realm()
+	private var profileIsIncomplete: Bool = false
 	private var delegate: ProfileVCDelegate?
 	private let defaults = UserDefaults.standard
 	private let currentUser: User
@@ -53,11 +55,11 @@ class ProfileVC: UIViewController {
 	}
 
 	enum Section: String, CaseIterable {
-		case profile, history
+		case profile, alert, history
 	}
 	
 	enum ItemType {
-		case statistics, logout, pastConversation, updateHistory, privacyPolicy, listening
+		case statistics, logout, pastConversation, updateHistory, privacyPolicy, listening, completeProfile
 	}
 	
 	struct Item: Hashable {
@@ -118,7 +120,7 @@ class ProfileVC: UIViewController {
 	var dataSource: DiffableDataSource! = nil
 	var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Item>! = nil
 	
-	var firstSectionItems: [Item] = {
+	lazy var firstSectionItems: [Item] = {
 		return [
 			Item(title: "Profile - Statistics", type: .statistics),
 			Item(title: "Listening", type: .listening),
@@ -126,9 +128,15 @@ class ProfileVC: UIViewController {
 			Item(title: "Logout", type: .logout)]
 	}()
 	
-	var updateHistory: Item {
+//	lazy var secondSectionItems: [Item] = {
+//		return [
+//			Item(title: "Complete your profile", type: .completeProfile)
+//		]
+//	}()
+	
+	lazy var updateHistory: Item = {
 		Item(title: "Update History", type: .updateHistory)
-	}
+	}()
 	
 	static let reuseIdentifier = "reuse-identifier"
 	
@@ -137,7 +145,15 @@ class ProfileVC: UIViewController {
 		view.backgroundColor = .white
 		tableView.delegate = self
 		
-		observer = defaults.observe(\.userIsListening, options: [.initial, .new], changeHandler: { [weak self] (defaults, change) in
+		
+		let objects = realm.objects(QuestionObject.self)
+		if objects.count < 60 {
+			profileIsIncomplete = true
+		}
+		
+		observer = defaults.observe(\.userIsListening,
+									options: [.initial, .new],
+									changeHandler: { [weak self] (defaults, change) in
 			let listening = defaults.bool(forKey: "USER_LISTENING")
 			print("There has been a change")
 			self?.listeningSwitch.setOn(listening, animated: false)
@@ -154,43 +170,53 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC  {
 	func configureDataSource() {
-		self.dataSource = DiffableDataSource(tableView: tableView) { [weak self] (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
-						
-			let cell = tableView.dequeueReusableCell(withIdentifier: ProfileVC.reuseIdentifier, for: indexPath)
+		self.dataSource = DiffableDataSource(tableView: tableView) {
 			
-			// Past conversation cells
-			if item.isRoom {
+			[weak self] (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
+						
+			let cell = tableView.dequeueReusableCell(withIdentifier: ProfileVC.reuseIdentifier,
+													 for: indexPath)
+			
+			switch item.type {
+			case .pastConversation:
 				let formatter = DateFormatter()
 				formatter.dateStyle = .medium
 				cell.textLabel?.text = "Conversation - " + formatter.string(from:item.conversation!.createdAt)
 				cell.accessoryType = .disclosureIndicator
 				cell.accessoryView = nil
-				
-				// first section cells
-			} else if item.isStatistics {
+			case .statistics:
 				cell.textLabel?.text = item.title
 				cell.accessoryType = .disclosureIndicator
-			} else if item.isLogout {
+			case .logout:
 				cell.textLabel?.text = item.title
 				cell.textLabel?.textColor = .red
 				cell.textLabel?.tintColor = .red
 				cell.accessoryType = .none
-			} else if item.isUpdate {
+			case .updateHistory:
 				cell.textLabel?.text = item.title
 				cell.backgroundColor = .black
 				cell.textLabel?.textColor = .white
 				cell.textLabel?.textAlignment = .center
-				cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium)
+				cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize,
+														 weight: .medium)
 				cell.accessoryType = .none
-			} else if item.isPrivacyPolicy {
+			case .privacyPolicy:
 				cell.textLabel?.text = item.title
 				cell.accessoryType = .disclosureIndicator
-			} else if item.isListening {
+			case .listening:
 				cell.textLabel?.text = item.title
 				cell.accessoryView = self?.listeningSwitch
-				self?.listeningSwitch.addTarget(self, action: #selector(self?.switchValueDidChange(_:)), for: .valueChanged)
-			} else {
-				fatalError("Unknown item type!")
+				self?.listeningSwitch.addTarget(self,
+												action: #selector(self?.switchValueDidChange(_:)),
+												for: .valueChanged)
+			case .completeProfile:
+				cell.textLabel?.text = item.title
+				cell.backgroundColor = #colorLiteral(red: 1, green: 0.6784313725, blue: 0.09411764706, alpha: 1)
+				cell.textLabel?.textAlignment = .center
+				cell.textLabel?.textColor = .white
+				cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize,
+														 weight: .medium)
+				cell.accessoryType = .none
 			}
 			return cell
 		}
@@ -200,12 +226,17 @@ extension ProfileVC  {
 	}
 	
 	func updateUI(animated: Bool = true) {
-		let profileItems = firstSectionItems
 		
 		currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
 		
 		currentSnapshot.appendSections([Section.profile])
-		currentSnapshot.appendItems(profileItems, toSection: .profile)
+		currentSnapshot.appendItems(firstSectionItems, toSection: .profile)
+		
+		if profileIsIncomplete {
+			currentSnapshot.appendSections([Section.alert])
+			currentSnapshot.appendItems([Item(title: "Complete your profile",
+											  type: .completeProfile)])
+		}
 		
 		if pastConversations != nil {
 			currentSnapshot.appendSections([.history])
@@ -217,7 +248,13 @@ extension ProfileVC  {
 	}
 	
 	func updateHistoryItems() {
-		historyRef.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false).whereField("finished", isEqualTo: true).getDocuments { (QuerySnapshot, error) in
+		historyRef.whereField("participants",
+							  arrayContains: currentUser.uid)
+									.whereField("reported", isEqualTo: false)
+									.whereField("finished", isEqualTo: true)
+									.getDocuments
+			{ (QuerySnapshot, error) in
+				
 			guard let snapshot = QuerySnapshot else {
 				print("Error getting history: \(error?.localizedDescription ?? "No error")")
 				return
@@ -291,7 +328,7 @@ extension ProfileVC  {
 extension ProfileVC: UITableViewDelegate {
 	func configureTableView() {
 		view.addSubview(tableView)
-		tableView.contentInset.top = -15
+		tableView.contentInset.top = 10
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
 			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -316,9 +353,15 @@ extension ProfileVC: UITableViewDelegate {
 				print(item.title)
 			}
 		case .logout:
-			let alert = UIAlertController(title: "Logging out?", message: "You can always log back in with your registered email and password", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))
-			alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [unowned self] (action) in
+			let alert = UIAlertController(title: "Logging out?",
+										  message: "You can always log back in with your registered email and password",
+										  preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Nevermind",
+										  style: .cancel,
+										  handler: nil))
+			alert.addAction(UIAlertAction(title: "Log Out",
+										  style: .destructive,
+										  handler: { [unowned self] (action) in
 				do {
 					try Auth.auth().signOut()
 					self.defaults.set(false, forKey: "LOGGED_IN")
@@ -354,7 +397,9 @@ extension ProfileVC: UITableViewDelegate {
 						ideologyMapping.scty = ideologyMapping.scty / index
 						ideologyMapping.dipl = ideologyMapping.dipl / index
 
-						vc = ProfileDetailViewController(profile, aggregatedFeedback: ideologyMapping, delegate: self)
+						vc = ProfileDetailViewController(profile,
+														 aggregatedFeedback: ideologyMapping,
+														 delegate: self)
 					}
 
 					let navController = UINavigationController(rootViewController: vc)
@@ -370,7 +415,10 @@ extension ProfileVC: UITableViewDelegate {
 			userRef.getDocument { [unowned self] (document, error) in
 				do {
 					guard let profile = try document?.data(as: ProfilePublic.self) else {return}
-					let vc = PastConversationDetailVC(rowItem.conversation!, profile: profile, delegate: self)
+					
+					let vc = PastConversationDetailVC(rowItem.conversation!,
+													  profile: profile,
+													  delegate: self)
 					
 					let navController = UINavigationController(rootViewController: vc)
 					navController.presentationController?.delegate = self
@@ -391,6 +439,26 @@ extension ProfileVC: UITableViewDelegate {
 			}
 		case .listening:
 			break
+		case .completeProfile:
+			userRef?.getDocument(completion: { [unowned self] (documentSnapshot, error) in
+				if let error = error {
+					print(error.localizedDescription)
+				}
+				do {
+					self.userProfile = try documentSnapshot?.data(as: ProfilePublic.self)
+					print("Present the view controller")
+					let questionObjects = self.realm.objects(QuestionObject.self)
+					let vc = PoliticalQuizVC(questions: questionObjects,
+											 userIdeology: (self.userProfile!.ideology!),
+											 delegate: self) {
+						self.presentedViewController?.dismiss(animated: true,
+															  completion: nil)
+					}
+					self.present(vc, animated: true, completion: nil)
+				} catch {
+					fatalError(error.localizedDescription)
+				}
+			})
 		}
 	}
 	
@@ -408,10 +476,25 @@ extension ProfileVC: ProfileDetailViewControllerDelegate {
 	}
 }
 
+extension ProfileVC: PoliticalQuizVCDelegate {
+	func politicalQuizViewController(didSave questionObjects: [Question]) {
+		do {
+			let container = try Container(userID: currentUser.uid)
+			try container.write { (transaction) in
+				for question in questionObjects {
+					transaction.add(question, update: .modified)
+				}
+			}
+		} catch {
+			fatalError(error.localizedDescription)
+		}
+	}
+}
+
 extension ProfileVC: UIAdaptivePresentationControllerDelegate {}
 
 class DiffableDataSource: UITableViewDiffableDataSource<ProfileVC.Section, ProfileVC.Item> {
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return ProfileVC.Section.allCases[section].rawValue.uppercased()
-	}
+//	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//		return ProfileVC.Section.allCases[section].rawValue.uppercased()
+//	}
 }

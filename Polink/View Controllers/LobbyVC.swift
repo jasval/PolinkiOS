@@ -394,7 +394,7 @@ extension LobbyVC: LobbyViewControllerDelegate {
 	
 	func retrieveNewsInformation(delegate: NewsViewControllerDelegate, isInitial: Bool) -> NewsViewController? {
 		
-		if availableNews != nil {
+		if availableNews.count != 0 {
 			let newsViewController = NewsViewController(newsToDisplay: availableNews, delegate: delegate)
 			
 			return newsViewController

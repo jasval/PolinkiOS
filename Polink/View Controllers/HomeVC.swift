@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
 import FirebaseFunctions
+import RealmSwift
 
 protocol HomeVCDelegate: UITableViewController {
 	func matchingDataIsPassed(userProfiles: [(String, Double)])
@@ -78,9 +79,13 @@ class HomeVC: UIViewController {
 			completionHandler: {_, _ in })
 
 		application.registerForRemoteNotifications()
-
+		
 		setupViews()
 		setupConstraints()
+		updateButton()
+		
+		RealmUtil.setDefaultRealmForUser(username: currentUser.uid)
+
 		userRef = db.collection("users").document(currentUser.uid)
 		navigationController?.setNavigationBarHidden(true, animated: false)
 		// Do any additional setup after loading the view.
@@ -193,7 +198,7 @@ class HomeVC: UIViewController {
 		
 		db.collectionGroup("users")
 			.whereField("country", isEqualTo: userProfile.country)
-			.whereField("listening", isEqualTo: true).getDocuments { (QuerySnapshot, error) in
+			.whereField("listening", isEqualTo: true).getDocuments { [weak self] (QuerySnapshot, error) in
 				guard let documents = QuerySnapshot else {
 					print("There was an error retrieving the user profiles from the database: \(String(describing: error?.localizedDescription))")
 					return
@@ -210,9 +215,9 @@ class HomeVC: UIViewController {
 					}
 					distanceCalculator.calculateDistances()
 					// Get the array of distances from the DistanceCalculator
-					self.profileDistances = distanceCalculator.getProfileDistances()
+					self?.profileDistances = distanceCalculator.getProfileDistances()
 					// Call a delegate method to send the information to LobbyVC and present that view
-					self.matchUsers()
+					self?.matchUsers()
 				} catch {
 					print("Something went wrong whilst decoding the information stored in the database:\(error.localizedDescription)")
 				}

@@ -212,6 +212,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AMPopTip (4.5.0)
   - AppCenter (3.3.2):
     - AppCenter/Analytics (= 3.3.2)
     - AppCenter/Crashes (= 3.3.2)
@@ -226,6 +227,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - BulletinBoard (4.1.2)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -388,6 +390,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - paper-onboarding (6.1.5)
   - PopupDialog (1.1.1):
     - DynamicBlurView (~> 4.0)
   - PromisesObjC (1.2.9)
@@ -399,7 +402,9 @@ PODS:
     - Realm (= 3.18.0)
 
 DEPENDENCIES:
+  - AMPopTip
   - AppCenter
+  - BulletinBoard
   - Charts
   - ChartsRealm
   - Fakery
@@ -411,14 +416,17 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - Kingfisher (~> 5.0)
   - MessageKit
+  - paper-onboarding
   - PopupDialog
   - RealmSwift
 
 SPEC REPOS:
   trunk:
     - abseil
+    - AMPopTip
     - AppCenter
     - BoringSSL-GRPC
+    - BulletinBoard
     - Charts
     - ChartsRealm
     - DynamicBlurView
@@ -449,6 +457,7 @@ SPEC REPOS:
     - leveldb-library
     - MessageKit
     - nanopb
+    - paper-onboarding
     - PopupDialog
     - PromisesObjC
     - Protobuf
@@ -457,8 +466,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  AMPopTip: e0ed2967892b18d1e55505c015fa06e535003fdc
   AppCenter: aba7de06e4c2184f90dc84f7866bd07f82427d69
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  BulletinBoard: 1c0cb191b6c6245d08f51bd2445f1e36414ec0ed
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   ChartsRealm: 2ae8bf478211a94b3b6dd20738db0b9b132eb66b
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
@@ -489,12 +500,13 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  paper-onboarding: fede1799b1da6988f3788e3b71654583c6f3bce1
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
 
-PODFILE CHECKSUM: 55f13a7ebb8306860c16c6219f674d042d7468f3
+PODFILE CHECKSUM: 34f0fe70ba76fb866488cc9ec58515469f04fb8a
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.9.1
