@@ -49,6 +49,7 @@ class HomeVC: UIViewController {
 	private var userProfileListener: ListenerRegistration?
 	private var userHandler: AuthStateDidChangeListenerHandle?
 	private var profileDistances: [(String,Double)]?
+	private lazy var realm = try! Realm()
 	
 	// Delegate for passing information to LobbyVC
 	weak var delegate : HomeVCDelegate?
@@ -106,6 +107,20 @@ class HomeVC: UIViewController {
 		})
 	
 		statistics?.didPressStatsButton(UIButton())
+		
+		if let config = realm.object(ofType: ConfigurationObject.self, forPrimaryKey: "onboarded") {
+			if config.value == false {
+				let onboardingViewController = MainOnboardViewController(delegate: self)
+				onboardingViewController.hidesBottomBarWhenPushed = true
+				self.navigationController?.fadeTo(onboardingViewController)
+			} else {
+				print(config.value)
+			}
+		} else {
+			let onboardingViewController = MainOnboardViewController(delegate: self)
+			onboardingViewController.hidesBottomBarWhenPushed = true
+			self.navigationController?.fadeTo(onboardingViewController)
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -320,4 +335,8 @@ extension HomeVC: ProfileVCDelegate {
 			}
 		}
 	}
+}
+
+extension HomeVC: MainOnboardViewControllerDelegate {
+	
 }
