@@ -440,21 +440,26 @@ extension ProfileVC: UITableViewDelegate {
 		case .listening:
 			break
 		case .completeProfile:
-			userRef?.getDocument(completion: { [unowned self] (documentSnapshot, error) in
+			print("Starting to query")
+			let userRef = db.collection("users").document(currentUser.uid)
+			userRef.getDocument(completion: { [weak self] (documentSnapshot, error) in
 				if let error = error {
 					print(error.localizedDescription)
 				}
 				do {
-					self.userProfile = try documentSnapshot?.data(as: ProfilePublic.self)
+					print(documentSnapshot.debugDescription)
+					self?.userProfile = try documentSnapshot?.data(as: ProfilePublic.self)
 					print("Present the view controller")
-					let questionObjects = self.realm.objects(QuestionObject.self)
-					let vc = PoliticalQuizVC(questions: questionObjects,
-											 userIdeology: (self.userProfile!.ideology!),
-											 delegate: self) {
-						self.presentedViewController?.dismiss(animated: true,
-															  completion: nil)
+					let questionObjects = self?.realm.objects(QuestionObject.self)
+					let vc = PoliticalQuizVC(questions: questionObjects!,
+											 userIdeology: (self?.userProfile!.ideology!)!,
+											 delegate: self!) {
+												self?.navigationController?.navigationBar.isHidden = false
+												self?.updateUI()
+												self?.navigationController?.fadeFrom()
 					}
-					self.present(vc, animated: true, completion: nil)
+					vc.hidesBottomBarWhenPushed = true
+					self?.navigationController?.fadeTo(vc)
 				} catch {
 					fatalError(error.localizedDescription)
 				}
