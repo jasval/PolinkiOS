@@ -19,6 +19,12 @@ class PoliticalQuizVC: UIViewController {
 		let label = UILabel(frame: .zero)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "Welcome back!"
+		label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+		label.adjustsFontForContentSizeCategory = true
+		label.numberOfLines = 3
+		label.lineBreakMode = .byWordWrapping
+		label.minimumScaleFactor = 18
+		label.contentMode = .left
 		label.alpha = 0.0
 		return label
 	}()
@@ -28,11 +34,16 @@ class PoliticalQuizVC: UIViewController {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "We will ask you some more questions about your views, this should take around 10 min."
 		label.alpha = 0.0
+		label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+		label.numberOfLines = 0
+		label.adjustsFontForContentSizeCategory = true
+		label.lineBreakMode = .byWordWrapping
 		return label
 	}()
 	
 	private var quizProgressBar: UIProgressView = {
 		let view = UIProgressView(progressViewStyle: .default)
+		view.translatesAutoresizingMaskIntoConstraints = false
 		view.progressTintColor = .black
 		view.trackTintColor = .systemGray6
 		view.contentMode = .scaleToFill
@@ -45,14 +56,17 @@ class PoliticalQuizVC: UIViewController {
 		return view
 	}()
 	
-	private var answerStackView: UIStackView = {
-		var buttons = [AnswerButton]()
+	private let buttons: [AnswerButton] = {
+		var buttons: [AnswerButton] = []
 		for i in 1...5 {
 			let button = AnswerButton(position: i)
-			button.addTarget(self, action: #selector(answerButtonPressed(_:)),
-							 for: .touchUpInside)
+			button.addTarget(self, action: #selector(answerButtonPressed(_:)), for: .touchUpInside)
 			buttons.append(button)
 		}
+		return buttons
+	}()
+	
+	private lazy var answerStackView: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: buttons)
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.alignment = .fill
@@ -75,7 +89,7 @@ class PoliticalQuizVC: UIViewController {
 		button.contentMode = .scaleToFill
 		button.contentVerticalAlignment = .center
 		button.layer.masksToBounds = true
-		button.layer.cornerRadius = 25
+		button.layer.cornerRadius = 5
 		button.alpha = 0.0
 		return button
 	}()
@@ -109,6 +123,10 @@ class PoliticalQuizVC: UIViewController {
 	}
 	
 	override func viewDidLoad() {
+		view.backgroundColor = .white
+		navigationController?.navigationBar.isHidden = true
+		
+		setupViews()
 		super.viewDidLoad()
 	}
 	
@@ -129,6 +147,42 @@ class PoliticalQuizVC: UIViewController {
 		Timer.scheduledTimer(withTimeInterval: 9, repeats: false) { (Timer) in
 			self.startQuiz()
 		}
+	}
+	
+	func setupViews() {
+		view.addSubview(backButton)
+		view.addSubview(titleLabel)
+		view.addSubview(quizLabel)
+		view.addSubview(answerStackView)
+		view.addSubview(quizProgressBar)
+		
+		
+		NSLayoutConstraint.activate([
+			backButton.widthAnchor.constraint(equalToConstant: 50),
+			backButton.heightAnchor.constraint(equalToConstant: 30),
+			backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+			backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+			
+			titleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 20),
+			titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -80),
+			titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			titleLabel.heightAnchor.constraint(equalToConstant: 80),
+			
+			quizLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+			quizLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor),
+			quizLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+			quizLabel.heightAnchor.constraint(equalToConstant: 150),
+			
+			answerStackView.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+			answerStackView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor),
+			answerStackView.topAnchor.constraint(equalTo: quizLabel.bottomAnchor, constant: 10),
+			answerStackView.heightAnchor.constraint(equalToConstant: 250),
+			
+			quizProgressBar.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+			quizProgressBar.widthAnchor.constraint(equalTo: titleLabel.widthAnchor),
+			quizProgressBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30)
+		
+		])
 	}
 	
 	@objc func answerButtonPressed(_ sender: AnswerButton) {
@@ -158,6 +212,13 @@ class PoliticalQuizVC: UIViewController {
 	func startQuiz() {
 		quiz.initQuiz(with: previousQuestions)
 		loadQuestion()
+		var delayCounter: Float = 1
+		for button in buttons {
+			animateIn(button, delay: 1 + delayCounter)
+			delayCounter += 0.5
+		}
+		animateIn(quizProgressBar, delay: 5)
+		animateIn(backButton, delay: 6)
 	}
 	
 	func loadQuestion() {
@@ -332,7 +393,13 @@ class PoliticalQuizVC: UIViewController {
 		
 		// Update ideology for target user
 		let publicRef = db.collection("users").document(userId)
-		batch.updateData(["ideology": newIdeology], forDocument: publicRef)
+		
+		batch.updateData(["ideology": [
+			"Diplomacy" : newIdeology.dipl,
+			"Economy"	: newIdeology.econ,
+			"Government": newIdeology.govt,
+			"Society"	: newIdeology.scty
+			]], forDocument: publicRef)
 		
 		// Commit the batch
 		batch.commit() { [weak self] error in
