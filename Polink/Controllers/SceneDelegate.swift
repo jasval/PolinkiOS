@@ -25,19 +25,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				let mainVC = TabBarController()
 				navigationController = UINavigationController(rootViewController: mainVC)
 				
+				print("is logged in")
 				navigationController?.setNavigationBarHidden(true, animated: false)
 				navigationController?.isToolbarHidden = true
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()
 			} else {
 				// If the user token is not logged in...
-				let mainSB = UIStoryboard(name: "Main", bundle: nil)
-				let mainVC = mainSB.instantiateViewController(withIdentifier: "initialViewController") as! InitialVC
+//				let mainSB = UIStoryboard(name: "Main", bundle: nil)
+//				let mainVC = mainSB.instantiateViewController(withIdentifier: "initialViewController") as! InitialVC
+				let mainVC = InitialViewController()
 				navigationController = UINavigationController(rootViewController: mainVC)
 				
 				navigationController?.setToolbarHidden(true, animated: false)
 				navigationController?.setNavigationBarHidden(true, animated: false)
-				
+				print("making window main")
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()
 			}

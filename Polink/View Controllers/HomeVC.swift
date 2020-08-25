@@ -45,7 +45,11 @@ class HomeVC: UIViewController {
 	let db = Firestore.firestore()
 	private var currentUser : User
 	private var userRef : DocumentReference?
-	private var userProfile : ProfilePublic?
+	private var userProfile : ProfilePublic? {
+		didSet {
+			compareAndUpdateFCM(userProfile)
+		}
+	}
 	private var userProfileListener: ListenerRegistration?
 	private var userHandler: AuthStateDidChangeListenerHandle?
 	private var profileDistances: [(String,Double)]?
@@ -98,7 +102,6 @@ class HomeVC: UIViewController {
 			}
 			do {
 				self?.userProfile = try snapshot.data(as: ProfilePublic.self)
-				self?.compareAndUpdateFCM()
 				self?.defaults.set(self?.userProfile?.listening, forKey: "USER_LISTENING")
 				self?.updateButton()
 			} catch {
@@ -260,13 +263,14 @@ class HomeVC: UIViewController {
 		}
 	}
 	
-	func compareAndUpdateFCM() {
+	func compareAndUpdateFCM(_ currentUserProfile: ProfilePublic?) {
 		let fcmToken = defaults.string(forKey: "FCM_TOKEN")
-		if userProfile?.fcm != fcmToken {
+		if currentUserProfile?.fcm != fcmToken {
 			userRef?.updateData(["fcm": fcmToken ?? ""]) { err in
 				if let err = err {
 					print(err.localizedDescription)
 				} else {
+					self.defaults.set(fcmToken, forKey: "FCM_TOKEN")
 					print("FCM token uploaded to server successfully")
 				}
 			}
