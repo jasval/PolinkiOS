@@ -33,6 +33,7 @@
 		023F98CC24F1CEB800C3365E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98C324F1CEB700C3365E /* PageView.swift */; };
 		023F98CE24F1EC1700C3365E /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */; };
 		023F98D024F1EDEF00C3365E /* ConfigurationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */; };
+		023F98D224F5945100C3365E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98D124F5945100C3365E /* InitialViewController.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
 		025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6024CD0F1D00405FDC /* Checkbox.swift */; };
 		025A7F6324CD3ACA00405FDC /* CheckboxFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */; };
@@ -163,6 +164,7 @@
 		023F98C324F1CEB700C3365E /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
 		023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationObject.swift; sourceTree = "<group>"; };
+		023F98D124F5945100C3365E /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		025A7F6024CD0F1D00405FDC /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxFeedbackView.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		020C9C9B248F9C3000A6BDE6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				023F98D124F5945100C3365E /* InitialViewController.swift */,
 				028D4FBF24C3981C00976600 /* FeedbackVC.swift */,
 				FEE7083D23F2A55400E47E7B /* SpinnerVC.swift */,
 				FE01AE7B23E61241002F36FA /* InitialVC.swift */,
@@ -860,6 +863,7 @@
 				028D4FC224C3986300976600 /* SliderView.swift in Sources */,
 				023F98CC24F1CEB800C3365E /* PageView.swift in Sources */,
 				FEF69CFC23F961CE002C3524 /* RegistrationCheckVC.swift in Sources */,
+				023F98D224F5945100C3365E /* InitialViewController.swift in Sources */,
 				FE01AE9123E61874002F36FA /* SignUpVC.swift in Sources */,
 				02A6A22324E9CC04000B9364 /* Container.swift in Sources */,
 				02ADDAF42497CDB10073039B /* ProfilePrivate.swift in Sources */,
@@ -1011,9 +1015,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1021,10 +1025,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1037,9 +1041,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1047,10 +1051,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
