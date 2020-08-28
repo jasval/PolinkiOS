@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
@@ -21,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		window = UIWindow(windowScene: myScene)
 		if let window = window {
-			if UserDefaults.standard.bool(forKey: "LOGGED_IN") {
+			
+			if Auth.auth().currentUser != nil {
 				let mainVC = TabBarController()
 				navigationController = UINavigationController(rootViewController: mainVC)
 				
@@ -31,9 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()
 			} else {
-				// If the user token is not logged in...
-//				let mainSB = UIStoryboard(name: "Main", bundle: nil)
-//				let mainVC = mainSB.instantiateViewController(withIdentifier: "initialViewController") as! InitialVC
 				let mainVC = InitialViewController()
 				navigationController = UINavigationController(rootViewController: mainVC)
 				
@@ -43,6 +42,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()
 			}
+			
+//			if UserDefaults.standard.bool(forKey: "LOGGED_IN") {
+//				let mainVC = TabBarController()
+//				navigationController = UINavigationController(rootViewController: mainVC)
+//				
+//				print("is logged in")
+//				navigationController?.setNavigationBarHidden(true, animated: false)
+//				navigationController?.isToolbarHidden = true
+//				window.rootViewController = navigationController
+//				window.makeKeyAndVisible()
+//			} else {
+//				// If the user token is not logged in...
+////				let mainSB = UIStoryboard(name: "Main", bundle: nil)
+////				let mainVC = mainSB.instantiateViewController(withIdentifier: "initialViewController") as! InitialVC
+//				let mainVC = InitialViewController()
+//				navigationController = UINavigationController(rootViewController: mainVC)
+//				
+//				navigationController?.setToolbarHidden(true, animated: false)
+//				navigationController?.setNavigationBarHidden(true, animated: false)
+//				print("making window main")
+//				window.rootViewController = navigationController
+//				window.makeKeyAndVisible()
+//			}
 		}
 	}
 	

@@ -361,10 +361,10 @@ extension ProfileVC: UITableViewDelegate {
 										  handler: nil))
 			alert.addAction(UIAlertAction(title: "Log Out",
 										  style: .destructive,
-										  handler: { [unowned self] (action) in
+										  handler: { (action) in
 				do {
 					try Auth.auth().signOut()
-					self.defaults.set(false, forKey: "LOGGED_IN")
+//					self.defaults.set(false, forKey: "LOGGED_IN")
 					let mainSB = UIStoryboard(name: "Main", bundle: nil)
 					let vc = mainSB.instantiateViewController(identifier: "initialViewController") as! InitialVC
 					UIApplication.shared.windows.first {$0.isKeyWindow}?.rootViewController = vc
