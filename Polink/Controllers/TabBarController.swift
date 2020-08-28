@@ -15,13 +15,12 @@ class TabBarController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let defaults = UserDefaults.standard
 
 //		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
 		
-		if !defaults.bool(forKey: "LOGGED_IN") {
-				defaults.set(true, forKey: "LOGGED_IN")
-		}
+//		if !defaults.bool(forKey: "LOGGED_IN") {
+//				defaults.set(true, forKey: "LOGGED_IN")
+//		}
 		
 		// setup our custom view controllers
 		let user = Auth.auth().currentUser

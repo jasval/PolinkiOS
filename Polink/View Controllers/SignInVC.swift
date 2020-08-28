@@ -85,7 +85,7 @@ class SignInVC: UIViewController {
 							print(document.description)
 							
 							// For testing purposes
-							UserDefaults.standard.set(true, forKey: "LOGGED_IN")
+//							UserDefaults.standard.set(true, forKey: "LOGGED_IN")
 							
 							let vc = TabBarController()
 							let keywindow = UIApplication.shared.windows.first {$0.isKeyWindow}
