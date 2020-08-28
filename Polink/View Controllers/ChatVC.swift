@@ -359,6 +359,25 @@ final class ChatVC: MessagesViewController {
 		}
 	}
 	
+	func notifyUser(_ target: String) {
+		let jsonObject : [String: Any] = [
+			"userName" : user.displayName,
+			"targetId" : target
+		]
+		
+		let notifyFunction = functions.httpsCallable("notificationOnFinished")
+		notifyFunction.call(jsonObject) { (result, error) in
+			if let error = error {
+				print(error.localizedDescription)
+				return
+			}
+			if let result = result {
+				print(String(describing: result.data))
+				print("Completed!")
+			}
+		}
+	}
+	
 	
 	// MARK: - Helpers
 	
@@ -664,6 +683,7 @@ extension ChatVC: FeedbackViewControllerDelegate {
 			do {
 				navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
 				try self.db.collection("rooms").document(self.room.id).setData(from: self.room)
+				self.notifyUser(room.participants.first!)
 				self.navigationController?.popViewController(animated: true)
 			} catch {
 				print("There was an error overwriting the current room: \(error.localizedDescription)")

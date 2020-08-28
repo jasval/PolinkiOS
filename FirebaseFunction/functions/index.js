@@ -49,9 +49,50 @@ exports.recursiveDelete = functions
     };
   });
 
+exports.notificationOnFinished = functions.
+  https.onCall(async (data) => {
+    const user = data.userName;
+    const targetId = data.targetId;
+
+
+    const userRef = db.collection('users').doc(targetId);
+
+    userRef.get().then((snap) => {
+      const user = snap.data()
+      return user.fcm
+    }).then((fcmToken) => {
+
+      const messageTitle = `${user} finalised the conversation`;
+
+      var message = {
+        notification: {
+          title: messageTitle,
+          body: 'Get in the conversation and offer your feedback!',
+        },
+        apns: {
+          headers: {
+            'apns-priority' : '10',
+          },
+          payload: {
+            aps: {
+              sound: 'default',
+            }
+          }
+        },
+        token: fcmToken
+      }
+      const response = admin.messaging().send(message);
+      return response
+    }).catch((error) => {
+      console.log('We couldnt notify because of this error:', error)
+    })
+
+})
+
+
 exports.sendNotification = functions.firestore
   .document('rooms/{roomId}')
-  .onWrite((event) => {
+  .onCreate((event) => {
     const roomData = event.after.data();
     const participants = roomData.participants;
 
@@ -69,7 +110,17 @@ exports.sendNotification = functions.firestore
       var message = {
         notification: {
           title: 'New Match!',
-          body: 'We have matched you with someone new, jump in and say hi!'
+          body: 'We have matched you with someone new, jump in and say hi!',
+        },
+        apns: {
+          headers: {
+            'apns-priority' : '10',
+          },
+          payload: {
+            aps: {
+              sound: 'default',
+            }
+          }
         },
         tokens: fcmTokens
       }
@@ -97,6 +148,58 @@ exports.sendNotification = functions.firestore
     });
     return;
   });
+
+  exports.sendMessageNotification = functions.firestore
+  .document('rooms/{roomId}/messages/{messageId}')
+  .onCreate((change, context) => {
+    const message = change.data();
+    const logMessage = `Sent a message with id: ${context.params.messageId}`;
+    console.log(logMessage);
+
+    const roomRef = db.collection('rooms').doc(context.params.roomId);
+    roomRef.get().then((snap) => {
+      var targetId;
+      let room = snap.data()
+      for (i = 0; i < room.participants.length; i++) {
+        if (room.participants[i] !== message.senderId) {
+          targetId = room.participants[i];
+        }
+      }
+      return targetId;
+    }).then((targetId) => {
+      const docRef = db.collection('users').doc(targetId);
+
+      return docRef.get();
+    }).then((result) => {
+
+      let messageTitle = `${message.senderUsername} sent you a message`;
+      let messageBody = `${message.content}`;
+      let user = result.data()
+
+      var messageNotification = {
+        notification: {
+          title: messageTitle,
+          body: messageBody
+        },
+        apns: {
+          headers: {
+            'apns-priority' : '10',
+          },
+          payload: {
+            aps: {
+              sound: 'default',
+            }
+          }
+        },
+        token: user.fcm,
+      } 
+
+      const response = admin.messaging().send(messageNotification);
+      return response;
+    }).catch((error) => {
+      console.log('Error getting target id', error);
+    })
+  })
 
   async function getDocuments(array) {
   var newArray = [];
