@@ -34,6 +34,7 @@
 		023F98CE24F1EC1700C3365E /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */; };
 		023F98D024F1EDEF00C3365E /* ConfigurationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */; };
 		023F98D224F5945100C3365E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98D124F5945100C3365E /* InitialViewController.swift */; };
+		023F98D424F89CF900C3365E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98D324F89CF900C3365E /* TableViewCell.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
 		025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6024CD0F1D00405FDC /* Checkbox.swift */; };
 		025A7F6324CD3ACA00405FDC /* CheckboxFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */; };
@@ -165,6 +166,7 @@
 		023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
 		023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationObject.swift; sourceTree = "<group>"; };
 		023F98D124F5945100C3365E /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		023F98D324F89CF900C3365E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		025A7F6024CD0F1D00405FDC /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxFeedbackView.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				025EE79424C4E29C00352E74 /* IdeologyMapping.swift */,
 				02A6A21D24E9AE11000B9364 /* QuestionObject.swift */,
 				023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */,
+				023F98D324F89CF900C3365E /* TableViewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 				027856F724B690BB00C1131A /* OnboardViewController.swift in Sources */,
 				02A542D624AA58B500A03A81 /* String+Ext.swift in Sources */,
 				027856F524B680FD00C1131A /* Popup.swift in Sources */,
+				023F98D424F89CF900C3365E /* TableViewCell.swift in Sources */,
 				023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */,
 				028D4FC224C3986300976600 /* SliderView.swift in Sources */,
 				023F98CC24F1CEB800C3365E /* PageView.swift in Sources */,

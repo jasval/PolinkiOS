@@ -53,7 +53,7 @@ class LobbyVC: UITableViewController {
 	
 	init(user: User) {
 		self.currentUser = user
-		super.init(style: .grouped)
+		super.init(style: .insetGrouped)
 		
 		title = "Rooms"
 	}
@@ -67,7 +67,7 @@ class LobbyVC: UITableViewController {
 		super.viewDidLoad()
 		
 		clearsSelectionOnViewWillAppear = true
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: roomCellIdentifier)
+		tableView.register(TableViewCell.self, forCellReuseIdentifier: roomCellIdentifier)
 		
 		
 		roomListener = roomReference.whereField("participants", arrayContains: currentUser.uid).whereField("reported", isEqualTo: false)
@@ -114,14 +114,10 @@ class LobbyVC: UITableViewController {
 			}
 		})
 		
-		for room in rooms {
-			print(room.participantFeedbacks[0].uid)
-		}
 	}
 	
 	func getLatestNews() throws {
 		let todayStr = Date().getFormattedDate(format: "yyy-MM-dd")
-		print(todayStr)
 		db.collection("news").document(todayStr).getDocument { [weak self](documentSnapshot, error) in
 			guard let document = documentSnapshot else {return}
 			if document.exists {
@@ -157,9 +153,6 @@ class LobbyVC: UITableViewController {
 				})
 			}
 		}
-		for news in availableNews {
-			print(news.title + "  " + String(describing: news.publishedAt))
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -181,8 +174,6 @@ class LobbyVC: UITableViewController {
 	
 	// Needs to be revised in order to implement
 	private func createRoom(id: String, ownId: String, matchedId: String) {
-	print("Creating room")
-		
 		let room = Room(id: id, ownId: ownId, matchedId: matchedId)
 		
 		do {
@@ -238,15 +229,12 @@ class LobbyVC: UITableViewController {
 			switch change.type {
 				
 			case .added:
-				print("We add")
 				addRoomToTable(room)
 				
 			case .modified:
-				print("We modify")
 				updateRoomInTable(room)
 				
 			case .removed:
-				print("We remove")
 				removeRoomFromTable(room)
 			}
 		} catch {
@@ -266,18 +254,30 @@ extension LobbyVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 55
+		return 50
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCell(withIdentifier: roomCellIdentifier, for: indexPath)
+//		let cell = tableView.dequeueReusableCell(withIdentifier: roomCellIdentifier, for: indexPath) as! UITableViewCell
+//		let cell = UITableViewCell(style: .subtitle, reuseIdentifier: roomCellIdentifier)
+		let cell = TableViewCell(roomIdentifier: roomCellIdentifier)
 		
 		cell.accessoryType = .disclosureIndicator
 		
 		// Name to be shown in the table is the randomised name of the other participant
 		let interlocutor: ParticipantFeedback? = rooms[indexPath.row].participantFeedbacks.first { (Participant) -> Bool in
 			Participant.uid != currentUser.uid
+		}
+		if rooms[indexPath.row].pending {
+			cell.backgroundColor = .white
+			cell.detailTextLabel?.text = "\u{1F551}"
+		} else if rooms[indexPath.row].finished {
+			cell.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+			cell.detailTextLabel?.text = "\u{0021}"
+		} else {
+			cell.detailTextLabel?.text = "\u{270D}"
+			cell.backgroundColor = #colorLiteral(red: 0.5970652699, green: 0.8503940701, blue: 0.6134408712, alpha: 1)
 		}
 		
 		cell.textLabel?.text = interlocutor?.randomUsername
@@ -286,6 +286,8 @@ extension LobbyVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		
 		let room = rooms[indexPath.row]
 		
 		// Create a sender from participants data
