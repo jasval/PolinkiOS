@@ -18,6 +18,23 @@
 		023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D6249D72E300202D87 /* UIView+Ext.swift */; };
 		023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84D8249EA98800202D87 /* DistancePoint.swift */; };
 		023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A84DA249ED17C00202D87 /* DistanceCalculator.swift */; };
+		023F989824EF6EFA00C3365E /* MainOnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */; };
+		023F98B024F1CEA700C3365E /* PaperOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98AD24F1CEA700C3365E /* PaperOnboarding.swift */; };
+		023F98B124F1CEA700C3365E /* PaperOnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */; };
+		023F98B224F1CEA700C3365E /* PaperOnboardingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */; };
+		023F98C424F1CEB800C3365E /* FillAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B424F1CEB600C3365E /* FillAnimationView.swift */; };
+		023F98C524F1CEB800C3365E /* GestureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B624F1CEB600C3365E /* GestureControl.swift */; };
+		023F98C624F1CEB800C3365E /* ConstraintsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */; };
+		023F98C724F1CEB800C3365E /* Configuring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B924F1CEB700C3365E /* Configuring.swift */; };
+		023F98C824F1CEB800C3365E /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98BB24F1CEB700C3365E /* OnboardingContentView.swift */; };
+		023F98C924F1CEB800C3365E /* OnboardingContantViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98BD24F1CEB700C3365E /* OnboardingContantViewItem.swift */; };
+		023F98CA24F1CEB800C3365E /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98C024F1CEB700C3365E /* PageContainer.swift */; };
+		023F98CB24F1CEB800C3365E /* PageViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98C224F1CEB700C3365E /* PageViewItem.swift */; };
+		023F98CC24F1CEB800C3365E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98C324F1CEB700C3365E /* PageView.swift */; };
+		023F98CE24F1EC1700C3365E /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */; };
+		023F98D024F1EDEF00C3365E /* ConfigurationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */; };
+		023F98D224F5945100C3365E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98D124F5945100C3365E /* InitialViewController.swift */; };
+		023F98D424F89CF900C3365E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98D324F89CF900C3365E /* TableViewCell.swift */; };
 		02579DFC24BC6887004D1413 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02579DFB24BC6887004D1413 /* DataManager.swift */; };
 		025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6024CD0F1D00405FDC /* Checkbox.swift */; };
 		025A7F6324CD3ACA00405FDC /* CheckboxFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */; };
@@ -50,6 +67,14 @@
 		02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */; };
 		02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */; };
 		02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */; };
+		02A6A21A24E95863000B9364 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A21924E95863000B9364 /* UserDefaults.swift */; };
+		02A6A21C24E99EE2000B9364 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A21B24E99EE2000B9364 /* Collection+Ext.swift */; };
+		02A6A21E24E9AE11000B9364 /* QuestionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A21D24E9AE11000B9364 /* QuestionObject.swift */; };
+		02A6A22124E9C6ED000B9364 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A22024E9C6ED000B9364 /* Persistable.swift */; };
+		02A6A22324E9CC04000B9364 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A22224E9CC04000B9364 /* Container.swift */; };
+		02A6A22524E9CCAE000B9364 /* WriteTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A22424E9CCAE000B9364 /* WriteTransaction.swift */; };
+		02A6A22924EA9E51000B9364 /* RealmUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A22824EA9E51000B9364 /* RealmUtil.swift */; };
+		02A6A22B24EAA98D000B9364 /* PoliticalQuizVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */; };
 		02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */; };
 		02ADDAE8249629130073039B /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE7249629130073039B /* Sender.swift */; };
 		02ADDAEA24964E970073039B /* ParticipantFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDAE924964E970073039B /* ParticipantFeedback.swift */; };
@@ -125,6 +150,23 @@
 		023A84D8249EA98800202D87 /* DistancePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePoint.swift; sourceTree = "<group>"; };
 		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
+		023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOnboardViewController.swift; sourceTree = "<group>"; };
+		023F98AD24F1CEA700C3365E /* PaperOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboarding.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboarding.swift; sourceTree = SOURCE_ROOT; };
+		023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDataSource.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboardingDataSource.swift; sourceTree = SOURCE_ROOT; };
+		023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDelegate.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboardingDelegate.swift; sourceTree = SOURCE_ROOT; };
+		023F98B424F1CEB600C3365E /* FillAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillAnimationView.swift; sourceTree = "<group>"; };
+		023F98B624F1CEB600C3365E /* GestureControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureControl.swift; sourceTree = "<group>"; };
+		023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsHelper.swift; sourceTree = "<group>"; };
+		023F98B924F1CEB700C3365E /* Configuring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuring.swift; sourceTree = "<group>"; };
+		023F98BB24F1CEB700C3365E /* OnboardingContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
+		023F98BD24F1CEB700C3365E /* OnboardingContantViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContantViewItem.swift; sourceTree = "<group>"; };
+		023F98C024F1CEB700C3365E /* PageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContainer.swift; sourceTree = "<group>"; };
+		023F98C224F1CEB700C3365E /* PageViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewItem.swift; sourceTree = "<group>"; };
+		023F98C324F1CEB700C3365E /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
+		023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationObject.swift; sourceTree = "<group>"; };
+		023F98D124F5945100C3365E /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		023F98D324F89CF900C3365E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		02579DFB24BC6887004D1413 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		025A7F6024CD0F1D00405FDC /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxFeedbackView.swift; sourceTree = "<group>"; };
@@ -157,6 +199,14 @@
 		02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+Ext.swift"; sourceTree = "<group>"; };
 		02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = "<group>"; };
 		02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CensoredWordsList.json; sourceTree = "<group>"; };
+		02A6A21924E95863000B9364 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		02A6A21B24E99EE2000B9364 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
+		02A6A21D24E9AE11000B9364 /* QuestionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionObject.swift; sourceTree = "<group>"; };
+		02A6A22024E9C6ED000B9364 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		02A6A22224E9CC04000B9364 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		02A6A22424E9CCAE000B9364 /* WriteTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTransaction.swift; sourceTree = "<group>"; };
+		02A6A22824EA9E51000B9364 /* RealmUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtil.swift; sourceTree = "<group>"; };
+		02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticalQuizVC.swift; sourceTree = "<group>"; };
 		02AC8CB624ACA66300C4D120 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		02ADDAE7249629130073039B /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		02ADDAE924964E970073039B /* ParticipantFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantFeedback.swift; sourceTree = "<group>"; };
@@ -265,6 +315,7 @@
 		020C9C99248F9BCD00A6BDE6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				023F98AC24F1CE6E00C3365E /* Onboarding */,
 				FE39869023F5CF2A0052C841 /* CLLocation+CodablExt.swift */,
 				FE3561052481A133007E23C9 /* UIPageControl+Ext.swift */,
 				FE3561072481A9A0007E23C9 /* UIPageVC+Ext.swift */,
@@ -282,6 +333,9 @@
 				02A542D924AA5BBD00A03A81 /* NSMutableString+Ext.swift */,
 				02A542DB24AA5C0600A03A81 /* NSAttributedString+Ext.swift */,
 				0278570C24B7845F00C1131A /* UIImageView+Ext.swift */,
+				02A6A21924E95863000B9364 /* UserDefaults.swift */,
+				02A6A21B24E99EE2000B9364 /* Collection+Ext.swift */,
+				023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,6 +353,7 @@
 		020C9C9B248F9C3000A6BDE6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				023F98D124F5945100C3365E /* InitialViewController.swift */,
 				028D4FBF24C3981C00976600 /* FeedbackVC.swift */,
 				FEE7083D23F2A55400E47E7B /* SpinnerVC.swift */,
 				FE01AE7B23E61241002F36FA /* InitialVC.swift */,
@@ -315,6 +370,8 @@
 				02ADDB6E249AE18D0073039B /* ProfileVC.swift */,
 				025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */,
 				026001B124D561D70018428F /* PastConversationDetailVC.swift */,
+				02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */,
+				023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -342,13 +399,112 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		023F98AC24F1CE6E00C3365E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				023F98B324F1CEB600C3365E /* FillAnimationView */,
+				023F98B524F1CEB600C3365E /* GestureControl */,
+				023F98B724F1CEB700C3365E /* Helpers */,
+				023F98BA24F1CEB700C3365E /* OnboardingContentView */,
+				023F98BE24F1CEB700C3365E /* PageView */,
+				023F98AD24F1CEA700C3365E /* PaperOnboarding.swift */,
+				023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */,
+				023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		023F98B324F1CEB600C3365E /* FillAnimationView */ = {
+			isa = PBXGroup;
+			children = (
+				023F98B424F1CEB600C3365E /* FillAnimationView.swift */,
+			);
+			name = FillAnimationView;
+			path = Polink/Extensions/PaperOnboarding/FillAnimationView;
+			sourceTree = SOURCE_ROOT;
+		};
+		023F98B524F1CEB600C3365E /* GestureControl */ = {
+			isa = PBXGroup;
+			children = (
+				023F98B624F1CEB600C3365E /* GestureControl.swift */,
+			);
+			name = GestureControl;
+			path = Polink/Extensions/PaperOnboarding/GestureControl;
+			sourceTree = SOURCE_ROOT;
+		};
+		023F98B724F1CEB700C3365E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */,
+				023F98B924F1CEB700C3365E /* Configuring.swift */,
+			);
+			name = Helpers;
+			path = Polink/Extensions/PaperOnboarding/Helpers;
+			sourceTree = SOURCE_ROOT;
+		};
+		023F98BA24F1CEB700C3365E /* OnboardingContentView */ = {
+			isa = PBXGroup;
+			children = (
+				023F98BB24F1CEB700C3365E /* OnboardingContentView.swift */,
+				023F98BC24F1CEB700C3365E /* Item */,
+			);
+			name = OnboardingContentView;
+			path = Polink/Extensions/PaperOnboarding/OnboardingContentView;
+			sourceTree = SOURCE_ROOT;
+		};
+		023F98BC24F1CEB700C3365E /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				023F98BD24F1CEB700C3365E /* OnboardingContantViewItem.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		023F98BE24F1CEB700C3365E /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				023F98BF24F1CEB700C3365E /* PageContainerView */,
+				023F98C124F1CEB700C3365E /* Item */,
+				023F98C324F1CEB700C3365E /* PageView.swift */,
+			);
+			name = PageView;
+			path = Polink/Extensions/PaperOnboarding/PageView;
+			sourceTree = SOURCE_ROOT;
+		};
+		023F98BF24F1CEB700C3365E /* PageContainerView */ = {
+			isa = PBXGroup;
+			children = (
+				023F98C024F1CEB700C3365E /* PageContainer.swift */,
+			);
+			path = PageContainerView;
+			sourceTree = "<group>";
+		};
+		023F98C124F1CEB700C3365E /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				023F98C224F1CEB700C3365E /* PageViewItem.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
 		02579DFA24BC6872004D1413 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				02579DFB24BC6887004D1413 /* DataManager.swift */,
 				027856FE24B6931500C1131A /* Appearance.swift */,
+				02A6A22224E9CC04000B9364 /* Container.swift */,
+				02A6A22424E9CCAE000B9364 /* WriteTransaction.swift */,
+				02A6A22824EA9E51000B9364 /* RealmUtil.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		02A6A21F24E9C6DA000B9364 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				02A6A22024E9C6ED000B9364 /* Persistable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		02ADDAE624951D390073039B /* Custom Cell Implementation */ = {
@@ -442,6 +598,7 @@
 		FE01AE7623E61240002F36FA /* Polink */ = {
 			isa = PBXGroup;
 			children = (
+				02A6A21F24E9C6DA000B9364 /* Protocols */,
 				023C33F724C8633500E43F03 /* Polink.entitlements */,
 				020C9C99248F9BCD00A6BDE6 /* Extensions */,
 				02579DFA24BC6872004D1413 /* Utilities */,
@@ -478,6 +635,9 @@
 				02A542D324AA55AF00A03A81 /* LanguageModerationResources.swift */,
 				027856EB24B2BAFF00C1131A /* News.swift */,
 				025EE79424C4E29C00352E74 /* IdeologyMapping.swift */,
+				02A6A21D24E9AE11000B9364 /* QuestionObject.swift */,
+				023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */,
+				023F98D324F89CF900C3365E /* TableViewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -638,6 +798,7 @@
 				02ADDAE8249629130073039B /* Sender.swift in Sources */,
 				023A84D5249D0FA500202D87 /* NSLayoutContraint+Ext.swift in Sources */,
 				02ADDB6D249ADBDE0073039B /* HomeVC.swift in Sources */,
+				023F98C824F1CEB800C3365E /* OnboardingContentView.swift in Sources */,
 				025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */,
 				02A542D424AA55AF00A03A81 /* LanguageModerationResources.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageVC+Ext.swift in Sources */,
@@ -650,19 +811,31 @@
 				0278570124B6968900C1131A /* NewsViewController.swift in Sources */,
 				02A542DC24AA5C0600A03A81 /* NSAttributedString+Ext.swift in Sources */,
 				02ADDAFA2497E02F0073039B /* UIColor+Ext.swift in Sources */,
+				023F98CB24F1CEB800C3365E /* PageViewItem.swift in Sources */,
+				023F98B024F1CEA700C3365E /* PaperOnboarding.swift in Sources */,
+				02A6A21A24E95863000B9364 /* UserDefaults.swift in Sources */,
+				02A6A21E24E9AE11000B9364 /* QuestionObject.swift in Sources */,
 				0278570724B7102600C1131A /* PresentationAnimationController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
 				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
+				02A6A22524E9CCAE000B9364 /* WriteTransaction.swift in Sources */,
 				023A84D9249EA98800202D87 /* DistancePoint.swift in Sources */,
 				02ADDAEC249765680073039B /* Snapshot+Ext.swift in Sources */,
+				02A6A22124E9C6ED000B9364 /* Persistable.swift in Sources */,
 				02579DFC24BC6887004D1413 /* DataManager.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
 				02262BB824C9350100BBDF0D /* MainStatistics.swift in Sources */,
+				023F98C524F1CEB800C3365E /* GestureControl.swift in Sources */,
 				023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */,
+				023F98C724F1CEB800C3365E /* Configuring.swift in Sources */,
 				027856EC24B2BAFF00C1131A /* News.swift in Sources */,
+				023F98B124F1CEA700C3365E /* PaperOnboardingDataSource.swift in Sources */,
+				023F98CA24F1CEB800C3365E /* PageContainer.swift in Sources */,
+				023F98CE24F1EC1700C3365E /* UINavigationController + Ext.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Ext.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
+				023F98B224F1CEA700C3365E /* PaperOnboardingDelegate.swift in Sources */,
 				0278570924B710C000C1131A /* PopupDismissalAnimationController.swift in Sources */,
 				02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */,
 				FE3561062481A133007E23C9 /* UIPageControl+Ext.swift in Sources */,
@@ -681,28 +854,40 @@
 				02A542DA24AA5BBD00A03A81 /* NSMutableString+Ext.swift in Sources */,
 				FE01AE9323E61897002F36FA /* SignInVC.swift in Sources */,
 				0278570D24B7846000C1131A /* UIImageView+Ext.swift in Sources */,
+				02A6A21C24E99EE2000B9364 /* Collection+Ext.swift in Sources */,
+				02A6A22B24EAA98D000B9364 /* PoliticalQuizVC.swift in Sources */,
+				02A6A22924EA9E51000B9364 /* RealmUtil.swift in Sources */,
 				02A542D824AA5B7400A03A81 /* NSString+Ext.swift in Sources */,
 				FE84F5CB23F9813200312206 /* GenderVC.swift in Sources */,
 				027856F724B690BB00C1131A /* OnboardViewController.swift in Sources */,
 				02A542D624AA58B500A03A81 /* String+Ext.swift in Sources */,
 				027856F524B680FD00C1131A /* Popup.swift in Sources */,
+				023F98D424F89CF900C3365E /* TableViewCell.swift in Sources */,
 				023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */,
 				028D4FC224C3986300976600 /* SliderView.swift in Sources */,
+				023F98CC24F1CEB800C3365E /* PageView.swift in Sources */,
 				FEF69CFC23F961CE002C3524 /* RegistrationCheckVC.swift in Sources */,
+				023F98D224F5945100C3365E /* InitialViewController.swift in Sources */,
 				FE01AE9123E61874002F36FA /* SignUpVC.swift in Sources */,
+				02A6A22324E9CC04000B9364 /* Container.swift in Sources */,
 				02ADDAF42497CDB10073039B /* ProfilePrivate.swift in Sources */,
 				FE6886B823EB18F8001F1301 /* Question.swift in Sources */,
+				023F989824EF6EFA00C3365E /* MainOnboardViewController.swift in Sources */,
 				025A7F6124CD0F1D00405FDC /* Checkbox.swift in Sources */,
 				020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */,
 				02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */,
+				023F98D024F1EDEF00C3365E /* ConfigurationObject.swift in Sources */,
 				FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */,
 				0278570324B696DF00C1131A /* OnboardPagingView.swift in Sources */,
 				FEE7083E23F2A55400E47E7B /* SpinnerVC.swift in Sources */,
 				FE32EB092484258E00E8C2D5 /* ChatVC.swift in Sources */,
 				FE01AE9523E618D6002F36FA /* QuizVC.swift in Sources */,
 				025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */,
+				023F98C624F1CEB800C3365E /* ConstraintsHelper.swift in Sources */,
 				02ADDAF62497CDD80073039B /* ProfilePublic.swift in Sources */,
 				FE4A038024851EC700228F88 /* Message.swift in Sources */,
+				023F98C924F1CEB800C3365E /* OnboardingContantViewItem.swift in Sources */,
+				023F98C424F1CEB800C3365E /* FillAnimationView.swift in Sources */,
 				028D4FC424C3987100976600 /* TextfieldView.swift in Sources */,
 				02ADDB6F249AE18D0073039B /* ProfileVC.swift in Sources */,
 				FE84F5C923F9810900312206 /* UserInfoVC.swift in Sources */,
@@ -836,7 +1021,7 @@
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -844,7 +1029,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
 				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";
@@ -862,7 +1047,7 @@
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -870,7 +1055,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
 				PROVISIONING_PROFILE_SPECIFIER = "Polink Production";

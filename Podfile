@@ -6,7 +6,6 @@ target 'Polink' do
   use_frameworks!
 
   # Pods for polink.dev
-  pod 'AppCenter'
   pod 'Fakery'
   pod 'MessageKit'
   pod 'Firebase/Firestore'
@@ -20,5 +19,7 @@ target 'Polink' do
   pod 'Charts'
   pod 'ChartsRealm'
   pod 'RealmSwift'
+  pod 'AMPopTip'
+  pod 'BulletinBoard'
 end
 

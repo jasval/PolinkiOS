@@ -37,9 +37,6 @@
                                             <color key="titleShadowColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                         </state>
-                                        <connections>
-                                            <action selector="signUpPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LNO-e4-TvS"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1NR-AE-imT">
                                         <rect key="frame" x="0.0" y="60" width="235" height="40"/>
@@ -53,9 +50,6 @@
                                             <color key="titleShadowColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                         </state>
-                                        <connections>
-                                            <action selector="signInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fnh-yO-Plr"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -72,9 +66,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="mainTitleLabel" destination="x8E-d4-JjI" id="zRi-M5-JNS"/>
-                        <outletCollection property="buttons" destination="iuM-Aa-DTu" collectionClass="NSMutableArray" id="od1-02-Oz7"/>
-                        <outletCollection property="buttons" destination="1NR-AE-imT" collectionClass="NSMutableArray" id="Wxo-5P-MoU"/>
                         <segue destination="ZNc-QO-VfV" kind="show" identifier="firstToRegister" id="giJ-zR-het"/>
                         <segue destination="TPM-ca-X99" kind="show" identifier="firstToLogin" id="NgA-kp-U4l"/>
                     </connections>

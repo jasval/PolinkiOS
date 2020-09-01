@@ -13,7 +13,6 @@ class SliderView: UIView {
 	private let title: String
 	private let rangeMin: Float
 	private let rangeMax: Float
-//	private let step: Float
 	var currentValue: Double
 	var delegate: InputControllerDelegate?
 	var type: Feedback
@@ -23,7 +22,6 @@ class SliderView: UIView {
 		self.title = title
 		self.rangeMin = rangeMin
 		self.rangeMax = rangeMax
-//		self.step = step
 		self.currentValue = Double(rangeMin)
 		self.delegate = delegate
 		super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -35,7 +33,6 @@ class SliderView: UIView {
 		self.title = "Default Title"
 		self.rangeMin = 0
 		self.rangeMax = 5
-//		self.step = 1
 		self.currentValue = 0
 		self.type = Feedback.agreedOn
 		super.init(frame: frame)
@@ -108,7 +105,6 @@ class SliderView: UIView {
 		slider.isUserInteractionEnabled = true
 		contentView.addArrangedSubview(slider)
 		slider.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
-		//		contentView.addSubview(slider)
 	}
 	func setupConstraints() {
 		
@@ -143,9 +139,6 @@ class SliderView: UIView {
 
 	@objc func sliderValueDidChange (_ sender: UISlider!) {
 		print("Slider value changed")
-		
-//		let roundedStepValue = round(sender.value / step) * step
-//		sender.value = roundedStepValue
 		
 		currentValue = Double(sender.value)
 		DispatchQueue.main.async {

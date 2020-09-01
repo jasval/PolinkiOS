@@ -16,8 +16,8 @@ public enum Feedback: String {
 	case agreedOn = "What did you agree on?"
 	case learnings = "What did you learn from this conversation?"
 	case finalRebuttal = "Offer your closing arguments."
-	case governmentValue = "Libertarian or Authoritorian?"
-	case economicValue = "Equality or Growth in Economy?"
+	case governmentValue = "Authoritorian or Libertarian?"
+	case economicValue = "Economic Growth or Equality?"
 	case diplomacyValue = "Nation-centric or Globalised?"
 	case societyValue = "Traditionalist or Progressive?"
 	case agreement = "Did you agree in any topics?"
@@ -324,15 +324,16 @@ class FeedbackVC: UIViewController {
 		if feedbackForm.count < 12 {
 			return false
 		}
+		return true
 		
-		let result = feedbackForm.reduce(true) { (result, tupleKeyValue) -> Bool in
-			if result && tupleKeyValue.value != nil {
-				return true
-			} else {
-				return false
-			}
-		}
-		return result
+//		let result = feedbackForm.reduce(true) { (result, tupleKeyValue) -> Bool in
+//			if result && tupleKeyValue.value != nil {
+//				return true
+//			} else {
+//				return false
+//			}
+//		}
+//		return result
 	}
 }
 

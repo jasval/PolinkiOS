@@ -212,20 +212,14 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - AppCenter (3.3.2):
-    - AppCenter/Analytics (= 3.3.2)
-    - AppCenter/Crashes (= 3.3.2)
-  - AppCenter/Analytics (3.3.2):
-    - AppCenter/Core
-  - AppCenter/Core (3.3.2)
-  - AppCenter/Crashes (3.3.2):
-    - AppCenter/Core
+  - AMPopTip (4.5.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - BulletinBoard (4.1.2)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -399,7 +393,8 @@ PODS:
     - Realm (= 3.18.0)
 
 DEPENDENCIES:
-  - AppCenter
+  - AMPopTip
+  - BulletinBoard
   - Charts
   - ChartsRealm
   - Fakery
@@ -417,8 +412,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
-    - AppCenter
+    - AMPopTip
     - BoringSSL-GRPC
+    - BulletinBoard
     - Charts
     - ChartsRealm
     - DynamicBlurView
@@ -457,8 +453,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  AppCenter: aba7de06e4c2184f90dc84f7866bd07f82427d69
+  AMPopTip: e0ed2967892b18d1e55505c015fa06e535003fdc
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  BulletinBoard: 1c0cb191b6c6245d08f51bd2445f1e36414ec0ed
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   ChartsRealm: 2ae8bf478211a94b3b6dd20738db0b9b132eb66b
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
@@ -495,6 +492,6 @@ SPEC CHECKSUMS:
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
 
-PODFILE CHECKSUM: 55f13a7ebb8306860c16c6219f674d042d7468f3
+PODFILE CHECKSUM: c8c2dd426675e72b91bc33005c9231081b1c747f
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.9.1

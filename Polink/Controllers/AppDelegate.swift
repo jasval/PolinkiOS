@@ -9,9 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Configure Firebase and Firestore extensions.
 		FirebaseApp.configure()
-		let db = Firestore.firestore()
+//		let db = Firestore.firestore()
 		
 		Messaging.messaging().delegate = self
 		
@@ -178,6 +176,8 @@ extension AppDelegate : MessagingDelegate {
 		let dataDict:[String: String] = ["token": fcmToken]
 		NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
 		// TODO: If necessary send token to application server.
+		UserDefaults.standard.set(fcmToken, forKey: "FCM_TOKEN")
+		
 		// Note: This callback is fired at each app startup and whenever a new token is generated.
 	}
 	// [END refresh_token]

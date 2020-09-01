@@ -137,13 +137,15 @@ final class ChatVC: MessagesViewController {
 	
 	func configureNavigationItem() {
 		navigationItem.largeTitleDisplayMode = .never
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.fill.badge.xmark"), style: .done, target: self, action: #selector(reportUser))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-police"), style: .done, target: self, action: #selector(reportUser))
 	}
+	
+
 	
 	func configueMessageInputBar() {
 		messageInputBar.sendButton.setTitle(nil, for: .normal)
 		messageInputBar.sendButton.setTitle(nil, for: .selected)
-		messageInputBar.sendButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
+		messageInputBar.sendButton.setImage(UIImage(named: "icon-send"), for: .normal)
 		messageInputBar.sendButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
 		messageInputBar.sendButton.setTitleColor( #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.3), for: .highlighted)
 		messageInputBar.sendButton.showsTouchWhenHighlighted = true
@@ -152,13 +154,13 @@ final class ChatVC: MessagesViewController {
 		
 		let newsItem = InputBarButtonItem(type: .system)
 		newsItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-		newsItem.image = UIImage(systemName: "book.fill")
+		newsItem.image = UIImage(named: "icon-news")
 		newsItem.addTarget(self, action: #selector(newsButtonPressed), for: .primaryActionTriggered)
 		newsItem.setSize(CGSize(60, 30), animated: false)
 		
 		let agreementItem = InputBarButtonItem(type: .system)
 		agreementItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-		agreementItem.image = UIImage(systemName: "shield.lefthalf.fill")
+		agreementItem.image = UIImage(named: "icon-handshake")
 		agreementItem.addTarget(self, action: #selector(agreementButtonPressed), for: .primaryActionTriggered)
 		agreementItem.setSize(CGSize(60, 30), animated: false)
 		
@@ -354,6 +356,25 @@ final class ChatVC: MessagesViewController {
 				print("Completed!")
 			}
 			
+		}
+	}
+	
+	func notifyUser(_ target: String) {
+		let jsonObject : [String: Any] = [
+			"userName" : user.displayName,
+			"targetId" : target
+		]
+		
+		let notifyFunction = functions.httpsCallable("notificationOnFinished")
+		notifyFunction.call(jsonObject) { (result, error) in
+			if let error = error {
+				print(error.localizedDescription)
+				return
+			}
+			if let result = result {
+				print(String(describing: result.data))
+				print("Completed!")
+			}
 		}
 	}
 	
@@ -662,6 +683,7 @@ extension ChatVC: FeedbackViewControllerDelegate {
 			do {
 				navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
 				try self.db.collection("rooms").document(self.room.id).setData(from: self.room)
+				self.notifyUser(room.participants.first!)
 				self.navigationController?.popViewController(animated: true)
 			} catch {
 				print("There was an error overwriting the current room: \(error.localizedDescription)")

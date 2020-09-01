@@ -15,20 +15,19 @@ class TabBarController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let defaults = UserDefaults.standard
 
-		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//		let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
 		
-		if !defaults.bool(forKey: "LOGGED_IN") {
-				defaults.set(true, forKey: "LOGGED_IN")
-		}
+//		if !defaults.bool(forKey: "LOGGED_IN") {
+//				defaults.set(true, forKey: "LOGGED_IN")
+//		}
 		
 		// setup our custom view controllers
 		let user = Auth.auth().currentUser
 		if let user = user {
 			let roomNavController = createLobbyNC(user: user)
 			let homeNavController = createHomeNC(user: user)
-			let profileNavController = createProfileNC(user: user)
+			let profileNavController = createProfileNC(user: user, delegate: homeNavController.viewControllers.first as! ProfileVCDelegate)
 			viewControllers = [roomNavController, homeNavController, profileNavController]
 			self.tabBar.tintColor = .black
 			self.selectedIndex = 1
@@ -55,8 +54,8 @@ extension TabBarController {
 		return NavigationController(roomVC)
 	}
 	
-	func createProfileNC(user: User) -> UINavigationController {
-		let profileVC = ProfileVC(user: user)
+	func createProfileNC(user: User, delegate: ProfileVCDelegate) -> UINavigationController {
+		let profileVC = ProfileVC(user: user, delegate: delegate)
 		profileVC.title = "Settings"
 		profileVC.tabBarItem = UITabBarItem(title: profileVC.title, image: UIImage(systemName: "person.crop.circle.fill"), tag: 3)
 		
