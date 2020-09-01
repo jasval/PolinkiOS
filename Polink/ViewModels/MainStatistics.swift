@@ -41,7 +41,9 @@ class MainStatistics: UIView {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "Agreeableness"
 		label.textAlignment = .center
-		label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+		label.font = UIFont.preferredFont(forTextStyle: .title3)
+		label.adjustsFontForContentSizeCategory = true
+//		label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
 		return label
 	}()
 	
@@ -50,7 +52,9 @@ class MainStatistics: UIView {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "Moral Humility"
 		label.textAlignment = .center
-		label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+//		label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+		label.font = UIFont.preferredFont(forTextStyle: .title3)
+		label.adjustsFontForContentSizeCategory = true
 		return label
 	}()
 	
@@ -59,7 +63,9 @@ class MainStatistics: UIView {
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setTitle("Get Latest Stats", for: .normal)
 		button.setTitleColor(.white, for: .normal)
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+//		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		button.backgroundColor = .black
 		button.layer.cornerRadius = 10
 		button.layer.shadowOffset = CGSize(width: 2, height: 2)

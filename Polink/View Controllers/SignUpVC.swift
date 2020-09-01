@@ -64,7 +64,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
 			_ = popup.viewController as! PopupDialogDefaultViewController
 			
 			let dialogAppearance = PopupDialogDefaultView.appearance()
-			dialogAppearance.titleFont = .boldSystemFont(ofSize: 14)
+			dialogAppearance.titleFont = .boldSystemFont(ofSize: UIFont.systemFontSize)
 			let overlayAppearance = PopupDialogOverlayView.appearance()
 			overlayAppearance.color = .black
 			overlayAppearance.blurRadius = 25
@@ -85,7 +85,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
 					
 					// Format the popup
 					let dialogAppearance = PopupDialogDefaultView.appearance()
-					dialogAppearance.titleFont = .boldSystemFont(ofSize: 14)
+					dialogAppearance.titleFont = .boldSystemFont(ofSize: UIFont.systemFontSize)
 					let overlayAppearance = PopupDialogOverlayView.appearance()
 					overlayAppearance.color = .init(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
 					overlayAppearance.blurEnabled = true

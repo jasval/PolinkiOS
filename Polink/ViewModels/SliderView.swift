@@ -57,6 +57,7 @@ class SliderView: UIView {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.textAlignment = .natural
+		label.adjustsFontForContentSizeCategory = true
 		label.textColor = .black
 		return label
 	}()
@@ -65,6 +66,7 @@ class SliderView: UIView {
 		let answer = UILabel()
 		answer.translatesAutoresizingMaskIntoConstraints = false
 		answer.textAlignment = .center
+		answer.adjustsFontForContentSizeCategory = true
 		answer.layer.borderColor = UIColor.lightGray.cgColor
 		answer.layer.borderWidth = 1
 		answer.layer.cornerRadius = 25

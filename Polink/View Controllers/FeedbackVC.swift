@@ -76,7 +76,8 @@ class FeedbackVC: UIViewController {
 	private var headerConversation: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .boldSystemFont(ofSize: 19)
+		label.font = .preferredFont(forTextStyle: .headline)
+		label.adjustsFontForContentSizeCategory = true
 		label.text = Headers.conversation.rawValue
 		return label
 	}()
@@ -84,7 +85,8 @@ class FeedbackVC: UIViewController {
 	private var headerInterlocutor: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .boldSystemFont(ofSize: 19)
+		label.font = .preferredFont(forTextStyle: .headline)
+		label.adjustsFontForContentSizeCategory = true
 		label.text = Headers.interlocutor.rawValue
 		return label
 	}()
@@ -92,7 +94,8 @@ class FeedbackVC: UIViewController {
 	private var headerLearnings: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .boldSystemFont(ofSize: 19)
+		label.font = .preferredFont(forTextStyle: .headline)
+		label.adjustsFontForContentSizeCategory = true
 		label.text = Headers.learnings.rawValue
 		return label
 	}()
@@ -100,7 +103,8 @@ class FeedbackVC: UIViewController {
 	private var headerFinalRemarks: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .boldSystemFont(ofSize: 19)
+		label.font = .preferredFont(forTextStyle: .headline)
+		label.adjustsFontForContentSizeCategory = true
 		label.text = Headers.finalRemarks.rawValue
 		return label
 	}()
@@ -114,6 +118,7 @@ class FeedbackVC: UIViewController {
 		button.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		button.layer.cornerRadius = 25
 		button.addTarget(self, action: #selector(userDidPressFeedbackButton), for: .touchUpInside)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		return button
 	}()
 
