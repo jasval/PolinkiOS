@@ -51,6 +51,7 @@ class CheckboxFeedbackView: UIView {
 	let textLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .natural
 		label.textColor = .black
 		return label
@@ -93,7 +94,9 @@ class CheckboxFeedbackView: UIView {
 		let label = UILabel(frame: CGRect(0, 0, 100, 100))
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "Yes"
-		label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+//		label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+		label.font = UIFont.preferredFont(forTextStyle: .body)
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .center
 		label.textColor = .black
 		return label
@@ -103,7 +106,9 @@ class CheckboxFeedbackView: UIView {
 		let label = UILabel(frame: CGRect(0, 0, 100, 100))
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "No"
-		label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+//		label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+		label.font = UIFont.preferredFont(forTextStyle: .body)
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .center
 		label.textColor = .black
 		return label

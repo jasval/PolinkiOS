@@ -58,6 +58,7 @@ class ProfilerSliderView: UIView {
 	let titleLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .natural
 		label.textColor = .black
 		return label
@@ -66,6 +67,7 @@ class ProfilerSliderView: UIView {
 	let governmentLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.adjustsFontForContentSizeCategory = true
 		label.text = Feedback.governmentValue.rawValue
 		label.textAlignment = .center
 		label.textColor = .black
@@ -88,6 +90,7 @@ class ProfilerSliderView: UIView {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = Feedback.societyValue.rawValue
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .center
 		label.textColor = .black
 		return label
@@ -109,6 +112,7 @@ class ProfilerSliderView: UIView {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = Feedback.economicValue.rawValue
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .center
 		label.textColor = .black
 		return label
@@ -130,6 +134,7 @@ class ProfilerSliderView: UIView {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = Feedback.diplomacyValue.rawValue
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .center
 		label.textColor = .black
 		return label

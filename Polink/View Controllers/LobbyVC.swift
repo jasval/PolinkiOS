@@ -33,17 +33,14 @@ class LobbyVC: UITableViewController {
 	private var rooms = [Room]()
 	private var history = [Room]()
 	
-	
 	// Store the news here.
 	private var availableNews = [News]()
 	private var newsReference: CollectionReference {
 		return db.collection("news")
 	}
 	private var newsListener: ListenerRegistration?
-	//
 	private var roomListener: ListenerRegistration?
 	private var privateProfileListener: ListenerRegistration?
-	
 	private let currentUser: User
 	
 	deinit {
@@ -301,6 +298,7 @@ extension LobbyVC {
 		let sender = Sender(senderId: currentUser.uid, displayName: rootSender?.randomUsername)
 		// Push view controller passing the user and the room in question
 		let vc = ChatVC(user: sender, room: room, delegate: self)
+		vc.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }

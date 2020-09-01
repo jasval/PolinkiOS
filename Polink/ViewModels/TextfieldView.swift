@@ -20,6 +20,7 @@ class TextfieldView: UIView {
 	private var label: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.adjustsFontForContentSizeCategory = true
 		label.textAlignment = .natural
 		label.textColor = .black
 		label.numberOfLines = -1
@@ -31,6 +32,7 @@ class TextfieldView: UIView {
 		let button = UIButton()
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setTitle("Save", for: .normal)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		button.titleLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		button.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -48,7 +50,9 @@ class TextfieldView: UIView {
 		textView.layer.cornerRadius = 25
 		textView.layer.borderWidth = 3
 		textView.layer.borderColor = UIColor.lightGray.cgColor
-		textView.font = UIFont.systemFont(ofSize: 16)
+//		textView.font = UIFont.systemFont(ofSize: 16)
+		textView.font = UIFont.preferredFont(forTextStyle: .body)
+		textView.adjustsFontForContentSizeCategory = true
 		textView.text = "Please type your answer here..."
 		textView.textColor = UIColor.lightGray
 		return textView

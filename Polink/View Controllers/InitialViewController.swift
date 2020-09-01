@@ -15,7 +15,9 @@ class InitialViewController: UIViewController {
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setTitle("Sign Up", for: .normal)
 		button.backgroundColor = .black
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+//		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		button.setTitleColor(.white, for: .normal)
 		button.addTarget(self, action: #selector(signUpPressed(_:)), for: .touchUpInside)
 		button.alpha = 0
@@ -30,7 +32,9 @@ class InitialViewController: UIViewController {
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setTitle("Sign In", for: .normal)
 		button.backgroundColor = .black
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+//		button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		button.setTitleColor(.white, for: .normal)
 		button.addTarget(self, action: #selector(signInPressed(_:)), for: .touchUpInside)
 		button.alpha = 0
@@ -43,6 +47,7 @@ class InitialViewController: UIViewController {
 		let label = UILabel(frame: .zero)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.systemFont(ofSize: 50, weight: .semibold)
+		label.adjustsFontForContentSizeCategory = true
 		label.contentMode = .center
 		label.textAlignment = .center
 		label.layer.shadowColor = UIColor.lightGray.cgColor

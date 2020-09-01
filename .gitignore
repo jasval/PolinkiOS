@@ -50,7 +50,11 @@ DerivedData/
 xcuserdata/
 
 GoogleService-Info.plist
+<<<<<<< HEAD
+NewsServer/polink-ios-firebase-adminsdk-gt79j-7afc812373.json
+=======
 FirebaseFunction/functions/package-lock.json
+>>>>>>> c24c8cd123dd6bbc20a7cd13dcf2b117026a8bd8
 
 ## Other
 *.moved-aside
