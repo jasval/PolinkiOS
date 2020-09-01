@@ -35,6 +35,8 @@ class AnswerButton: UIButton {
         adjustsImageWhenDisabled = true
         autoresizesSubviews = true
         clearsContextBeforeDrawing = true
+		titleLabel?.adjustsFontForContentSizeCategory = true
+		titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         alpha = 0
         switch position {
         case 1:

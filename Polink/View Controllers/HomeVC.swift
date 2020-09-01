@@ -27,9 +27,10 @@ class HomeVC: UIViewController {
 		let label = UILabel(frame: CGRect(0, 0, 100, 100))
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.adjustsFontForContentSizeCategory = true
 		label.text = K.appName
 		label.font = UIFont.systemFont(ofSize: 50, weight: .semibold)
+//		label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+		label.adjustsFontForContentSizeCategory = true
 		label.layer.shadowOffset = CGSize(width: 2, height: 2)
 		label.layer.shadowColor = UIColor.lightGray.cgColor
 		return label
@@ -156,6 +157,8 @@ class HomeVC: UIViewController {
 		matchButton.setTitleColor(.white, for: .normal)
 		matchButton.setTitleColor(.lightGray, for: .disabled)
 		matchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//		matchButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title2)
+
 		matchButton.layer.cornerRadius = 25
 		matchButton.layer.shadowOffset = CGSize(width: 2, height: 2)
 		matchButton.layer.shadowColor = UIColor.lightGray.cgColor

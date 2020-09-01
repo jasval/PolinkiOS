@@ -147,7 +147,7 @@ final class ChatVC: MessagesViewController {
 		messageInputBar.sendButton.setTitle(nil, for: .selected)
 		messageInputBar.sendButton.setImage(UIImage(named: "icon-send"), for: .normal)
 		messageInputBar.sendButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-		messageInputBar.sendButton.setTitleColor( #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.3), for: .highlighted)
+		messageInputBar.sendButton.setTitleColor( #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .disabled)
 		messageInputBar.sendButton.showsTouchWhenHighlighted = true
 		messageInputBar.sendButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		messageInputBar.delegate = self
@@ -155,12 +155,16 @@ final class ChatVC: MessagesViewController {
 		let newsItem = InputBarButtonItem(type: .system)
 		newsItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		newsItem.image = UIImage(named: "icon-news")
+		newsItem.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+		newsItem.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .disabled)
 		newsItem.addTarget(self, action: #selector(newsButtonPressed), for: .primaryActionTriggered)
 		newsItem.setSize(CGSize(60, 30), animated: false)
 		
 		let agreementItem = InputBarButtonItem(type: .system)
 		agreementItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		agreementItem.image = UIImage(named: "icon-handshake")
+		agreementItem.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+		agreementItem.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .disabled)
 		agreementItem.addTarget(self, action: #selector(agreementButtonPressed), for: .primaryActionTriggered)
 		agreementItem.setSize(CGSize(60, 30), animated: false)
 		
@@ -187,6 +191,7 @@ final class ChatVC: MessagesViewController {
 			layout.setMessageOutgoingAvatarSize(.zero)
 			layout.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: .init(top: 5, left: 0, bottom: 0, right: 8)))
 			layout.setMessageIncomingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: .init(top: 5, left: 8, bottom: 0, right: 0)))
+			layout.textMessageSizeCalculator.messageLabelFont = UIFont.preferredFont(forTextStyle: .body)
 		}
 	}
 	
@@ -222,7 +227,8 @@ final class ChatVC: MessagesViewController {
 		messageInputBar.inputTextView.isUserInteractionEnabled = false
 		messageInputBar.sendButton.isUserInteractionEnabled = false
 		let item = messageInputBar.leftStackViewItems[1] as? InputBarButtonItem
-		item?.isUserInteractionEnabled = false
+//		item?.isUserInteractionEnabled = false
+		item?.isEnabled = false
 	}
 	
 	// for the implementation of the custom message type
@@ -501,7 +507,7 @@ extension ChatVC: MessagesLayoutDelegate {
 	func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
 		return 0
 	}
-	
+		
 }
 
 // MARK: - MessagesDataSource
@@ -576,7 +582,6 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 		var cleanText = text
 		cleanText.censor()
 		
-		print(cleanText)
 		let message = Message(sender: user, content: cleanText)
 		messageInputBar.inputTextView.text = String()
 		//		messageInputBar.invalidatePlugins()
@@ -587,8 +592,6 @@ extension ChatVC: InputBarAccessoryViewDelegate {
 		messageInputBar.sendButton.startAnimating()
 		messageInputBar.inputTextView.placeholder = "Sending..."
 		DispatchQueue.global(qos: .default).async {
-			// fake send request task to give the sensation to the user that there is some work going on
-			sleep(1)
 			DispatchQueue.main.async { [weak self] in
 				self?.messageInputBar.sendButton.stopAnimating()
 				self?.messageInputBar.inputTextView.placeholder = ""
@@ -621,10 +624,7 @@ extension ChatVC: NewsViewControllerDelegate {
 	func newsWasSelected(_ newsToSend: News) {
 		let message = Message(sender: user, content: newsToSend.articleURL)
 		self.save(message)
-		
-		//Set Timer for inactivity of the button
-		
-		
+				
 		//Add newsDiscussed to current Room
 		documentReference.updateData(["newsDiscussed" : FieldValue.arrayUnion([newsToSend.title])]) { Error in
 			guard let error = Error else {return}
