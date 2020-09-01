@@ -17,7 +17,6 @@ target 'Polink' do
   pod 'Firebase/Functions'
   pod 'Kingfisher', '~> 5.0'
   pod 'Charts'
-  pod 'ChartsRealm'
   pod 'RealmSwift'
   pod 'AMPopTip'
   pod 'BulletinBoard'
