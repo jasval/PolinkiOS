@@ -13,7 +13,7 @@ The app is meant to act as a hub for political discussion around controversial i
 
 # Testing Instructions
 In order to test this application it is recommended to join the public beta currently available through Testflight: https://testflight.apple.com/join/RGHcn7QY
-The application runs exclusively on iOS devices.
+The application runs exclusively on devices running iOS 13 or later.
 
 # Analytics
 The app is also monitored using Google Analytics and the information gathered can be accessed through this link: https://analytics.google.com/analytics/web/?hl=en_US#/p221774660/reports/home
