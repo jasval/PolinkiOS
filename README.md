@@ -11,14 +11,17 @@ App development for iOS of the Polink App
 # Project Aims
 The app is meant to act as a hub for political discussion around controversial issues, ensuring a safe environment bridging opposing views. In a world of great political divide and extreme polarisation, we need to explore solutions that seek to bring people together and celebrate contributions from different parties and their diversity.
 
-# Project Objectives
-* Identify key functionality that will set this app apart from others in the market.
-* Requirements gathering by surveying potential users and identifying differences between demographics.
-* Write clean, efficient code that allows for third party libraries integration and networking with a database to store information.
-* Test the application by creating unit tests and system-wide tests that challenge and measure performance. Refactor code appropiately.
-* Iterate over the development process as much as needed responding to user feedback.
-* Explore design alternatives to ensure it engages with our target audience and establishes a visual identity that matches the brand.
+# Testing Instructions
+In order to test this application it is recommended to join the public beta currently available through Testflight: https://testflight.apple.com/join/RGHcn7QY
+The application runs exclusively on iOS devices.
 
-# Methodology
-1. 
-2. 
+# Analytics
+The app is also monitored using Google Analytics and the information gathered can be accessed through this link: https://analytics.google.com/analytics/web/?hl=en_US#/p221774660/reports/home
+
+# Online Surveys
+The surveys carried out by us can be found in the following links:
+* Requirement Gathering Survey: https://forms.gle/FB3v9MQUZYqchzys8
+* BetaTesting Survey: https://forms.gle/bWhgacjnwa4H8SrXA
+
+The answers to those surveys along with other spreadsheets can be found in the following link: https://drive.google.com/drive/folders/1vYFo1yBhju34gdWqBg40BR61hymA8V_p?usp=sharing
+
