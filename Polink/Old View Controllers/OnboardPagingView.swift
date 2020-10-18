@@ -57,7 +57,7 @@ class OnboardPagingView: UIView {
 		var xOrigin: CGFloat = 0.0
 		pages.forEach { (page) in
 			let pageFrame = CGRect(x: xOrigin, y: 0.0, width: bounds.width, height: bounds.height - pageControlSize.height)
-			page.frame = pageFrame.insetBy(dx: Appearance.padding, dy: Appearance.padding)
+			page.frame = pageFrame.insetBy(dx: OldAppearance.padding, dy: OldAppearance.padding)
 			page.layoutSubviews()
 			xOrigin += bounds.width
 		}

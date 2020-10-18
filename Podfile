@@ -20,5 +20,6 @@ target 'Polink' do
   pod 'RealmSwift'
   pod 'AMPopTip'
   pod 'BulletinBoard'
+  pod 'lottie-ios'
 end
 

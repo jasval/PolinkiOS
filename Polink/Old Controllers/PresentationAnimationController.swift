@@ -33,9 +33,9 @@ class PopupPresentationAnimationController: NSObject, UIViewControllerAnimatedTr
 		
 		let initialFrame = transitionContext.initialFrame(for: fromVC)
 		
-		let preferredWidth = Appearance.preferredWidth(for: toVC.traitCollection)
-		let finalWidth = min(initialFrame.width - 2.0 * Appearance.padding, preferredWidth)
-		let finalHeight = min(initialFrame.height - 2.0 * Appearance.padding, 500.0)
+		let preferredWidth = OldAppearance.preferredWidth(for: toVC.traitCollection)
+		let finalWidth = min(initialFrame.width - 2.0 * OldAppearance.padding, preferredWidth)
+		let finalHeight = min(initialFrame.height - 2.0 * OldAppearance.padding, 500.0)
 		let finalFrame = CGRect(x: initialFrame.origin.x + (initialFrame.width - finalWidth) / 2.0,
 										y: initialFrame.origin.y + (initialFrame.height - finalHeight) / 2.0,
 										width: finalWidth,
@@ -43,7 +43,7 @@ class PopupPresentationAnimationController: NSObject, UIViewControllerAnimatedTr
 		
 		toVC.view.frame = finalFrame
 		toVC.view.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
-		toVC.view.layer.cornerRadius = Appearance.cornerRadius
+		toVC.view.layer.cornerRadius = OldAppearance.cornerRadius
 		toVC.view.clipsToBounds = true
 		overlayView.frame = initialFrame
 		containerView.addSubview(overlayView)

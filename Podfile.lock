@@ -372,6 +372,7 @@ PODS:
     - Kingfisher/Core (= 5.14.1)
   - Kingfisher/Core (5.14.1)
   - leveldb-library (1.22)
+  - lottie-ios (3.1.8)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
   - nanopb (1.30905.0):
@@ -401,6 +402,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - FirebaseFirestoreSwift
   - Kingfisher (~> 5.0)
+  - lottie-ios
   - MessageKit
   - PopupDialog
   - RealmSwift
@@ -438,6 +440,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - Kingfisher
     - leveldb-library
+    - lottie-ios
     - MessageKit
     - nanopb
     - PopupDialog
@@ -478,6 +481,7 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
@@ -486,6 +490,6 @@ SPEC CHECKSUMS:
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
 
-PODFILE CHECKSUM: afdbfffb9ca66da468a885ad792961006efca951
+PODFILE CHECKSUM: 3973c84e5bf18378accd3570131294d86c28cb3a
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.8.4

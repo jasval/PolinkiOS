@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-@IBDesignable
 class Button: UIButton {
 	
 	static let imageHeight: CGFloat = 36.0
@@ -70,19 +69,19 @@ class Button: UIButton {
 		switch style {
 		case .primary:
 			titleColor = .white
-			backgroundColor = .black
+            backgroundColor = Appearance.ColorPalette.primaryColor
 			layer.cornerRadius = Appearance.cornerRadius
-			font = UIFont(name: "Trim-Regular", size: 17.0)
+            font = UIFont.preferredFont(forTextStyle: .title3).withSize(17)
 			break
 		case .secondary, .custom:
 			titleColor = .black
 			backgroundColor = UIColor.clear
-			font = UIFont(name: "Trim-Regular", size: 17.0)
+			font = UIFont.preferredFont(forTextStyle: .title3).withSize(17)
 			break
 		case .tertiary:
 			titleColor = .secondaryLabel
 			backgroundColor = UIColor.clear
-			font = UIFont(name: "Trim-Regular", size: 13.0)
+			font = UIFont.preferredFont(forTextStyle: .title3).withSize(13)
 			break
 		}
 		

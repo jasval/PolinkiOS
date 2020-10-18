@@ -9,7 +9,21 @@
 import Foundation
 
 struct K {
-    static let appName = "🗣 Polink"
+    
+    static let appName = "Polink"
+    static let lightAnimationName = "PolinkLightAnimation"
+    static let darkAnimationName = "PolinkDarkAnimation"
+    
+    enum loginFlow: String {
+        case signUpEmail = "Email Sign Up"
+        case signInEmail = "Email Sign In"
+        case signOut = "Sign Out"
+    }
+    
+    enum Error: String {
+        case signUpError = "Sign Up Failed"
+        case signInError = "Sign In Failed"
+    }
     
     struct Popup {
         static let signUpError = "Sign up Failed"
@@ -41,6 +55,7 @@ struct K {
         static let stronglyDisagree = "Strongly Disagree"
     }
 	
+    // TO-DO: Eliminate
     struct userGenders {
         static let male = "Male"
         static let female = "Female"

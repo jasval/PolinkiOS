@@ -23,9 +23,6 @@
 		023F98B124F1CEA700C3365E /* PaperOnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */; };
 		023F98B224F1CEA700C3365E /* PaperOnboardingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */; };
 		023F98C424F1CEB800C3365E /* FillAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B424F1CEB600C3365E /* FillAnimationView.swift */; };
-		023F98C524F1CEB800C3365E /* GestureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B624F1CEB600C3365E /* GestureControl.swift */; };
-		023F98C624F1CEB800C3365E /* ConstraintsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */; };
-		023F98C724F1CEB800C3365E /* Configuring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98B924F1CEB700C3365E /* Configuring.swift */; };
 		023F98C824F1CEB800C3365E /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98BB24F1CEB700C3365E /* OnboardingContentView.swift */; };
 		023F98C924F1CEB800C3365E /* OnboardingContantViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98BD24F1CEB700C3365E /* OnboardingContantViewItem.swift */; };
 		023F98CA24F1CEB800C3365E /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F98C024F1CEB700C3365E /* PageContainer.swift */; };
@@ -48,7 +45,7 @@
 		027856F924B691D400C1131A /* ModalLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856F824B691D400C1131A /* ModalLayoutView.swift */; };
 		027856FB24B692A100C1131A /* ButtonLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856FA24B692A100C1131A /* ButtonLayoutView.swift */; };
 		027856FD24B692DD00C1131A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856FC24B692DD00C1131A /* Button.swift */; };
-		027856FF24B6931500C1131A /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856FE24B6931500C1131A /* Appearance.swift */; };
+		027856FF24B6931500C1131A /* OldAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027856FE24B6931500C1131A /* OldAppearance.swift */; };
 		0278570124B6968900C1131A /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570024B6968900C1131A /* NewsViewController.swift */; };
 		0278570324B696DF00C1131A /* OnboardPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570224B696DF00C1131A /* OnboardPagingView.swift */; };
 		0278570524B6987D00C1131A /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278570424B6987D00C1131A /* NewsImageView.swift */; };
@@ -87,6 +84,18 @@
 		02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB94249BB75C0073039B /* NavigationController.swift */; };
 		02ADDB97249BD3DE0073039B /* CGRect+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB96249BD3DE0073039B /* CGRect+Ext.swift */; };
 		259D382C6644788B81A90C56 /* Pods_Polink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */; };
+		E177E62B253B29ED00488EB2 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E62A253B29ED00488EB2 /* UserViewModel.swift */; };
+		E177E62D253B2E5900488EB2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E62C253B2E5900488EB2 /* UserModel.swift */; };
+		E177E631253B31FB00488EB2 /* LogSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E630253B31FB00488EB2 /* LogSignViewController.swift */; };
+		E177E660253B37B600488EB2 /* AnimatedLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E65F253B37B600488EB2 /* AnimatedLogo.swift */; };
+		E177E6B8253B3DB600488EB2 /* GestureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6B7253B3DB600488EB2 /* GestureControl.swift */; };
+		E177E6BA253B3DF300488EB2 /* Configuring.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6B9253B3DF300488EB2 /* Configuring.swift */; };
+		E177E6BC253B3DF500488EB2 /* ConstraintsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6BB253B3DF400488EB2 /* ConstraintsHelper.swift */; };
+		E177E6BE253B42D800488EB2 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6BD253B42D800488EB2 /* TitleLabel.swift */; };
+		E177E6C1253B43DF00488EB2 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6C0253B43DF00488EB2 /* Appearance.swift */; };
+		E177E6C4253B488C00488EB2 /* ChitChatAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C3253B488C00488EB2 /* ChitChatAnimation.json */; };
+		E177E6C8253B874000488EB2 /* PolinkLightAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C7253B874000488EB2 /* PolinkLightAnimation.json */; };
+		E177E6CA253B874500488EB2 /* PolinkDarkAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C9253B874500488EB2 /* PolinkDarkAnimation.json */; };
 		FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7723E61241002F36FA /* AppDelegate.swift */; };
 		FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7923E61241002F36FA /* SceneDelegate.swift */; };
 		FE01AE7C23E61241002F36FA /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7B23E61241002F36FA /* InitialVC.swift */; };
@@ -151,13 +160,10 @@
 		023A84DA249ED17C00202D87 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		023C33F724C8633500E43F03 /* Polink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Polink.entitlements; sourceTree = "<group>"; };
 		023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOnboardViewController.swift; sourceTree = "<group>"; };
-		023F98AD24F1CEA700C3365E /* PaperOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboarding.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboarding.swift; sourceTree = SOURCE_ROOT; };
-		023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDataSource.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboardingDataSource.swift; sourceTree = SOURCE_ROOT; };
-		023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDelegate.swift; path = Polink/Extensions/PaperOnboarding/PaperOnboardingDelegate.swift; sourceTree = SOURCE_ROOT; };
+		023F98AD24F1CEA700C3365E /* PaperOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboarding.swift; path = PaperOnboarding/PaperOnboarding.swift; sourceTree = "<group>"; };
+		023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDataSource.swift; path = PaperOnboarding/PaperOnboardingDataSource.swift; sourceTree = "<group>"; };
+		023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaperOnboardingDelegate.swift; path = PaperOnboarding/PaperOnboardingDelegate.swift; sourceTree = "<group>"; };
 		023F98B424F1CEB600C3365E /* FillAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillAnimationView.swift; sourceTree = "<group>"; };
-		023F98B624F1CEB600C3365E /* GestureControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureControl.swift; sourceTree = "<group>"; };
-		023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsHelper.swift; sourceTree = "<group>"; };
-		023F98B924F1CEB700C3365E /* Configuring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuring.swift; sourceTree = "<group>"; };
 		023F98BB24F1CEB700C3365E /* OnboardingContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
 		023F98BD24F1CEB700C3365E /* OnboardingContantViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContantViewItem.swift; sourceTree = "<group>"; };
 		023F98C024F1CEB700C3365E /* PageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContainer.swift; sourceTree = "<group>"; };
@@ -180,7 +186,7 @@
 		027856F824B691D400C1131A /* ModalLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalLayoutView.swift; sourceTree = "<group>"; };
 		027856FA24B692A100C1131A /* ButtonLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLayoutView.swift; sourceTree = "<group>"; };
 		027856FC24B692DD00C1131A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		027856FE24B6931500C1131A /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		027856FE24B6931500C1131A /* OldAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldAppearance.swift; sourceTree = "<group>"; };
 		0278570024B6968900C1131A /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		0278570224B696DF00C1131A /* OnboardPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardPagingView.swift; sourceTree = "<group>"; };
 		0278570424B6987D00C1131A /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
@@ -221,6 +227,18 @@
 		0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Polink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EA7193EDD4B5F8FAA43DAD /* Pods-Polink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.debug.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.debug.xcconfig"; sourceTree = "<group>"; };
 		79EE6A75AFBC42B481B3A336 /* Pods-Polink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.release.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.release.xcconfig"; sourceTree = "<group>"; };
+		E177E62A253B29ED00488EB2 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		E177E62C253B2E5900488EB2 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		E177E630253B31FB00488EB2 /* LogSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSignViewController.swift; sourceTree = "<group>"; };
+		E177E65F253B37B600488EB2 /* AnimatedLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLogo.swift; sourceTree = "<group>"; };
+		E177E6B7253B3DB600488EB2 /* GestureControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GestureControl.swift; path = GestureControl/GestureControl.swift; sourceTree = "<group>"; };
+		E177E6B9253B3DF300488EB2 /* Configuring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Configuring.swift; path = Helpers/Configuring.swift; sourceTree = "<group>"; };
+		E177E6BB253B3DF400488EB2 /* ConstraintsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstraintsHelper.swift; path = Helpers/ConstraintsHelper.swift; sourceTree = "<group>"; };
+		E177E6BD253B42D800488EB2 /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		E177E6C0253B43DF00488EB2 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		E177E6C3253B488C00488EB2 /* ChitChatAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChitChatAnimation.json; sourceTree = "<group>"; };
+		E177E6C7253B874000488EB2 /* PolinkLightAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PolinkLightAnimation.json; sourceTree = "<group>"; };
+		E177E6C9253B874500488EB2 /* PolinkDarkAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PolinkDarkAnimation.json; sourceTree = "<group>"; };
 		FE01AE7423E61240002F36FA /* Polink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE01AE7723E61241002F36FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE01AE7923E61241002F36FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -280,7 +298,7 @@
 		FE35610924829909007E23C9 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		FE39868E23F5CADA0052C841 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		FE39869023F5CF2A0052C841 /* CLLocation+CodablExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+CodablExt.swift"; sourceTree = "<group>"; };
-		FE4A03792484FD3500228F88 /* LobbyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LobbyVC.swift; path = "Polink/View Controllers/LobbyVC.swift"; sourceTree = SOURCE_ROOT; };
+		FE4A03792484FD3500228F88 /* LobbyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LobbyVC.swift; path = "Polink/Old View Controllers/LobbyVC.swift"; sourceTree = SOURCE_ROOT; };
 		FE4A037B24851B6D00228F88 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE4A037F24851EC700228F88 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		FE4A03812485BBEE00228F88 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
@@ -312,7 +330,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		020C9C99248F9BCD00A6BDE6 /* Extensions */ = {
+		020C9C99248F9BCD00A6BDE6 /* Old Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				023F98AC24F1CE6E00C3365E /* Onboarding */,
@@ -337,7 +355,7 @@
 				02A6A21B24E99EE2000B9364 /* Collection+Ext.swift */,
 				023F98CD24F1EC1700C3365E /* UINavigationController + Ext.swift */,
 			);
-			path = Extensions;
+			path = "Old Extensions";
 			sourceTree = "<group>";
 		};
 		020C9C9A248F9C1400A6BDE6 /* Supporting Files */ = {
@@ -353,50 +371,9 @@
 		020C9C9B248F9C3000A6BDE6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				023F98D124F5945100C3365E /* InitialViewController.swift */,
-				028D4FBF24C3981C00976600 /* FeedbackVC.swift */,
-				FEE7083D23F2A55400E47E7B /* SpinnerVC.swift */,
-				FE01AE7B23E61241002F36FA /* InitialVC.swift */,
-				FE01AE9023E61874002F36FA /* SignUpVC.swift */,
-				FE01AE9223E61897002F36FA /* SignInVC.swift */,
-				FE84F5C823F9810900312206 /* UserInfoVC.swift */,
-				FE84F5CA23F9813200312206 /* GenderVC.swift */,
-				FE84F5CC23F9814600312206 /* LocationVC.swift */,
-				FEF69CFB23F961CE002C3524 /* RegistrationCheckVC.swift */,
-				FE01AE9423E618D6002F36FA /* QuizVC.swift */,
-				FE4A03792484FD3500228F88 /* LobbyVC.swift */,
-				FE32EB082484258E00E8C2D5 /* ChatVC.swift */,
-				02ADDB6C249ADBDE0073039B /* HomeVC.swift */,
-				02ADDB6E249AE18D0073039B /* ProfileVC.swift */,
-				025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */,
-				026001B124D561D70018428F /* PastConversationDetailVC.swift */,
-				02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */,
-				023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */,
+				E177E630253B31FB00488EB2 /* LogSignViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		02397C7C24D7411100546090 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				027856F424B680FD00C1131A /* Popup.swift */,
-				027856F624B690BB00C1131A /* OnboardViewController.swift */,
-				027856F824B691D400C1131A /* ModalLayoutView.swift */,
-				027856FA24B692A100C1131A /* ButtonLayoutView.swift */,
-				027856FC24B692DD00C1131A /* Button.swift */,
-				0278570024B6968900C1131A /* NewsViewController.swift */,
-				0278570224B696DF00C1131A /* OnboardPagingView.swift */,
-				0278570424B6987D00C1131A /* NewsImageView.swift */,
-				025A7F6024CD0F1D00405FDC /* Checkbox.swift */,
-				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
-				025EE79224C4D0BB00352E74 /* GraphView.swift */,
-				028D4FC124C3986300976600 /* SliderView.swift */,
-				025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */,
-				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
-				028D4FC324C3987100976600 /* TextfieldView.swift */,
-				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		023F98AC24F1CE6E00C3365E /* Onboarding */ = {
@@ -411,7 +388,7 @@
 				023F98AE24F1CEA700C3365E /* PaperOnboardingDataSource.swift */,
 				023F98AF24F1CEA700C3365E /* PaperOnboardingDelegate.swift */,
 			);
-			path = Onboarding;
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		023F98B324F1CEB600C3365E /* FillAnimationView */ = {
@@ -420,27 +397,27 @@
 				023F98B424F1CEB600C3365E /* FillAnimationView.swift */,
 			);
 			name = FillAnimationView;
-			path = Polink/Extensions/PaperOnboarding/FillAnimationView;
-			sourceTree = SOURCE_ROOT;
+			path = PaperOnboarding/FillAnimationView;
+			sourceTree = "<group>";
 		};
 		023F98B524F1CEB600C3365E /* GestureControl */ = {
 			isa = PBXGroup;
 			children = (
-				023F98B624F1CEB600C3365E /* GestureControl.swift */,
+				E177E6B7253B3DB600488EB2 /* GestureControl.swift */,
 			);
 			name = GestureControl;
-			path = Polink/Extensions/PaperOnboarding/GestureControl;
-			sourceTree = SOURCE_ROOT;
+			path = PaperOnboarding;
+			sourceTree = "<group>";
 		};
 		023F98B724F1CEB700C3365E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				023F98B824F1CEB700C3365E /* ConstraintsHelper.swift */,
-				023F98B924F1CEB700C3365E /* Configuring.swift */,
+				E177E6B9253B3DF300488EB2 /* Configuring.swift */,
+				E177E6BB253B3DF400488EB2 /* ConstraintsHelper.swift */,
 			);
 			name = Helpers;
-			path = Polink/Extensions/PaperOnboarding/Helpers;
-			sourceTree = SOURCE_ROOT;
+			path = PaperOnboarding;
+			sourceTree = "<group>";
 		};
 		023F98BA24F1CEB700C3365E /* OnboardingContentView */ = {
 			isa = PBXGroup;
@@ -449,8 +426,8 @@
 				023F98BC24F1CEB700C3365E /* Item */,
 			);
 			name = OnboardingContentView;
-			path = Polink/Extensions/PaperOnboarding/OnboardingContentView;
-			sourceTree = SOURCE_ROOT;
+			path = PaperOnboarding/OnboardingContentView;
+			sourceTree = "<group>";
 		};
 		023F98BC24F1CEB700C3365E /* Item */ = {
 			isa = PBXGroup;
@@ -468,8 +445,8 @@
 				023F98C324F1CEB700C3365E /* PageView.swift */,
 			);
 			name = PageView;
-			path = Polink/Extensions/PaperOnboarding/PageView;
-			sourceTree = SOURCE_ROOT;
+			path = PaperOnboarding/PageView;
+			sourceTree = "<group>";
 		};
 		023F98BF24F1CEB700C3365E /* PageContainerView */ = {
 			isa = PBXGroup;
@@ -487,24 +464,24 @@
 			path = Item;
 			sourceTree = "<group>";
 		};
-		02579DFA24BC6872004D1413 /* Utilities */ = {
+		02579DFA24BC6872004D1413 /* Old Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				02579DFB24BC6887004D1413 /* DataManager.swift */,
-				027856FE24B6931500C1131A /* Appearance.swift */,
+				027856FE24B6931500C1131A /* OldAppearance.swift */,
 				02A6A22224E9CC04000B9364 /* Container.swift */,
 				02A6A22424E9CCAE000B9364 /* WriteTransaction.swift */,
 				02A6A22824EA9E51000B9364 /* RealmUtil.swift */,
 			);
-			path = Utilities;
+			path = "Old Utilities";
 			sourceTree = "<group>";
 		};
-		02A6A21F24E9C6DA000B9364 /* Protocols */ = {
+		02A6A21F24E9C6DA000B9364 /* Old Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				02A6A22024E9C6ED000B9364 /* Persistable.swift */,
 			);
-			path = Protocols;
+			path = "Old Protocols";
 			sourceTree = "<group>";
 		};
 		02ADDAE624951D390073039B /* Custom Cell Implementation */ = {
@@ -567,6 +544,92 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E177E629253B29B800488EB2 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				E177E62A253B29ED00488EB2 /* UserViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		E177E62E253B314600488EB2 /* Old View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				027856F424B680FD00C1131A /* Popup.swift */,
+				027856F624B690BB00C1131A /* OnboardViewController.swift */,
+				027856F824B691D400C1131A /* ModalLayoutView.swift */,
+				027856FA24B692A100C1131A /* ButtonLayoutView.swift */,
+				0278570024B6968900C1131A /* NewsViewController.swift */,
+				0278570224B696DF00C1131A /* OnboardPagingView.swift */,
+				0278570424B6987D00C1131A /* NewsImageView.swift */,
+				025A7F6024CD0F1D00405FDC /* Checkbox.swift */,
+				02262BB724C9350100BBDF0D /* MainStatistics.swift */,
+				025EE79224C4D0BB00352E74 /* GraphView.swift */,
+				028D4FC124C3986300976600 /* SliderView.swift */,
+				025A7F6224CD3ACA00405FDC /* CheckboxFeedbackView.swift */,
+				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
+				028D4FC324C3987100976600 /* TextfieldView.swift */,
+				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
+				FE84F5CA23F9813200312206 /* GenderVC.swift */,
+				FE84F5CC23F9814600312206 /* LocationVC.swift */,
+				FEF69CFB23F961CE002C3524 /* RegistrationCheckVC.swift */,
+				FE01AE9423E618D6002F36FA /* QuizVC.swift */,
+				FE4A03792484FD3500228F88 /* LobbyVC.swift */,
+				FE32EB082484258E00E8C2D5 /* ChatVC.swift */,
+				02ADDB6C249ADBDE0073039B /* HomeVC.swift */,
+				02ADDB6E249AE18D0073039B /* ProfileVC.swift */,
+				025EE78E24C4CCCD00352E74 /* ProfileDetailViewController.swift */,
+				026001B124D561D70018428F /* PastConversationDetailVC.swift */,
+				02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */,
+				023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */,
+				FE84F5C823F9810900312206 /* UserInfoVC.swift */,
+				FE01AE9223E61897002F36FA /* SignInVC.swift */,
+				FE01AE9023E61874002F36FA /* SignUpVC.swift */,
+				FE01AE7B23E61241002F36FA /* InitialVC.swift */,
+				FEE7083D23F2A55400E47E7B /* SpinnerVC.swift */,
+				023F98D124F5945100C3365E /* InitialViewController.swift */,
+				028D4FBF24C3981C00976600 /* FeedbackVC.swift */,
+			);
+			name = "Old View Controllers";
+			path = "Polink/Old View Controllers";
+			sourceTree = SOURCE_ROOT;
+		};
+		E177E65D253B377200488EB2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E177E65E253B377F00488EB2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E177E65F253B37B600488EB2 /* AnimatedLogo.swift */,
+				E177E6BD253B42D800488EB2 /* TitleLabel.swift */,
+				027856FC24B692DD00C1131A /* Button.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E177E6BF253B438400488EB2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FE0CE33823E8927E002E5604 /* K.swift */,
+				E177E6C0253B43DF00488EB2 /* Appearance.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E177E6C2253B487800488EB2 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				E177E6C9253B874500488EB2 /* PolinkDarkAnimation.json */,
+				E177E6C7253B874000488EB2 /* PolinkLightAnimation.json */,
+				E177E6C3253B488C00488EB2 /* ChitChatAnimation.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		F49FFF6D3A1AB3D6A8D3335D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,26 +661,30 @@
 		FE01AE7623E61240002F36FA /* Polink */ = {
 			isa = PBXGroup;
 			children = (
-				02A6A21F24E9C6DA000B9364 /* Protocols */,
-				023C33F724C8633500E43F03 /* Polink.entitlements */,
-				020C9C99248F9BCD00A6BDE6 /* Extensions */,
-				02579DFA24BC6872004D1413 /* Utilities */,
-				02397C7C24D7411100546090 /* ViewModels */,
-				FE01AE8D23E6127A002F36FA /* Controllers */,
-				FE01AE8B23E61254002F36FA /* Models */,
-				FE01AE8C23E6125E002F36FA /* Views */,
-				020C9C9A248F9C1400A6BDE6 /* Supporting Files */,
+				E177E6C2253B487800488EB2 /* Animations */,
+				E177E6BF253B438400488EB2 /* Utilities */,
+				E177E65E253B377F00488EB2 /* Views */,
+				E177E65D253B377200488EB2 /* Models */,
+				E177E629253B29B800488EB2 /* View Models */,
 				020C9C9B248F9C3000A6BDE6 /* View Controllers */,
+				E177E62E253B314600488EB2 /* Old View Controllers */,
+				02A6A21F24E9C6DA000B9364 /* Old Protocols */,
+				023C33F724C8633500E43F03 /* Polink.entitlements */,
+				020C9C99248F9BCD00A6BDE6 /* Old Extensions */,
+				02579DFA24BC6872004D1413 /* Old Utilities */,
+				FE01AE8D23E6127A002F36FA /* Old Controllers */,
+				FE01AE8B23E61254002F36FA /* Old Models */,
+				FE01AE8C23E6125E002F36FA /* Old Views */,
+				020C9C9A248F9C1400A6BDE6 /* Supporting Files */,
 			);
 			path = Polink;
 			sourceTree = "<group>";
 		};
-		FE01AE8B23E61254002F36FA /* Models */ = {
+		FE01AE8B23E61254002F36FA /* Old Models */ = {
 			isa = PBXGroup;
 			children = (
 				02ADDAE624951D390073039B /* Custom Cell Implementation */,
 				02A542DF24AB4D8B00A03A81 /* CensoredWordsList.json */,
-				FE0CE33823E8927E002E5604 /* K.swift */,
 				FE6886B523EB1865001F1301 /* QuizBrain.swift */,
 				FE6886B723EB18F8001F1301 /* Question.swift */,
 				FE39868E23F5CADA0052C841 /* UserDataModel.swift */,
@@ -638,21 +705,22 @@
 				02A6A21D24E9AE11000B9364 /* QuestionObject.swift */,
 				023F98CF24F1EDEF00C3365E /* ConfigurationObject.swift */,
 				023F98D324F89CF900C3365E /* TableViewCell.swift */,
+				E177E62C253B2E5900488EB2 /* UserModel.swift */,
 			);
-			path = Models;
+			path = "Old Models";
 			sourceTree = "<group>";
 		};
-		FE01AE8C23E6125E002F36FA /* Views */ = {
+		FE01AE8C23E6125E002F36FA /* Old Views */ = {
 			isa = PBXGroup;
 			children = (
 				FE0CE33423E884FD002E5604 /* Main.storyboard */,
 				FEF69CF323F8C430002C3524 /* Registration.storyboard */,
 				FEF69CF723F8CA70002C3524 /* Quiz.storyboard */,
 			);
-			path = Views;
+			path = "Old Views";
 			sourceTree = "<group>";
 		};
-		FE01AE8D23E6127A002F36FA /* Controllers */ = {
+		FE01AE8D23E6127A002F36FA /* Old Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				FE01AE7923E61241002F36FA /* SceneDelegate.swift */,
@@ -664,7 +732,7 @@
 				0278570624B7102600C1131A /* PresentationAnimationController.swift */,
 				0278570824B710C000C1131A /* PopupDismissalAnimationController.swift */,
 			);
-			path = Controllers;
+			path = "Old Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -730,10 +798,13 @@
 			files = (
 				020C9C9D248FC36300A6BDE6 /* Default-568h@2x.png in Resources */,
 				02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */,
+				E177E6CA253B874500488EB2 /* PolinkDarkAnimation.json in Resources */,
 				FEF69CF423F8C430002C3524 /* Registration.storyboard in Resources */,
 				FEF69CF823F8CA70002C3524 /* Quiz.storyboard in Resources */,
 				FE01AE8123E61242002F36FA /* Assets.xcassets in Resources */,
 				FE0CE33723E88D1D002E5604 /* GoogleService-Info.plist in Resources */,
+				E177E6C4253B488C00488EB2 /* ChitChatAnimation.json in Resources */,
+				E177E6C8253B874000488EB2 /* PolinkLightAnimation.json in Resources */,
 				FE0CE33523E884FD002E5604 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,6 +871,7 @@
 				02ADDB6D249ADBDE0073039B /* HomeVC.swift in Sources */,
 				023F98C824F1CEB800C3365E /* OnboardingContentView.swift in Sources */,
 				025EE78F24C4CCCD00352E74 /* ProfileDetailViewController.swift in Sources */,
+				E177E6BA253B3DF300488EB2 /* Configuring.swift in Sources */,
 				02A542D424AA55AF00A03A81 /* LanguageModerationResources.swift in Sources */,
 				FE3561082481A9A0007E23C9 /* UIPageVC+Ext.swift in Sources */,
 				FE4A037C24851B6D00228F88 /* Room.swift in Sources */,
@@ -815,6 +887,7 @@
 				023F98B024F1CEA700C3365E /* PaperOnboarding.swift in Sources */,
 				02A6A21A24E95863000B9364 /* UserDefaults.swift in Sources */,
 				02A6A21E24E9AE11000B9364 /* QuestionObject.swift in Sources */,
+				E177E631253B31FB00488EB2 /* LogSignViewController.swift in Sources */,
 				0278570724B7102600C1131A /* PresentationAnimationController.swift in Sources */,
 				FE39869123F5CF2A0052C841 /* CLLocation+CodablExt.swift in Sources */,
 				02A542D224AA55A000A03A81 /* LanguageModerationDictionary.swift in Sources */,
@@ -824,26 +897,27 @@
 				02A6A22124E9C6ED000B9364 /* Persistable.swift in Sources */,
 				02579DFC24BC6887004D1413 /* DataManager.swift in Sources */,
 				FE4A03822485BBEE00228F88 /* Registration.swift in Sources */,
+				E177E62D253B2E5900488EB2 /* UserModel.swift in Sources */,
 				FE6886B623EB1865001F1301 /* QuizBrain.swift in Sources */,
 				02262BB824C9350100BBDF0D /* MainStatistics.swift in Sources */,
-				023F98C524F1CEB800C3365E /* GestureControl.swift in Sources */,
 				023A84DB249ED17C00202D87 /* DistanceCalculator.swift in Sources */,
-				023F98C724F1CEB800C3365E /* Configuring.swift in Sources */,
 				027856EC24B2BAFF00C1131A /* News.swift in Sources */,
 				023F98B124F1CEA700C3365E /* PaperOnboardingDataSource.swift in Sources */,
 				023F98CA24F1CEB800C3365E /* PageContainer.swift in Sources */,
 				023F98CE24F1EC1700C3365E /* UINavigationController + Ext.swift in Sources */,
 				FE35610A24829909007E23C9 /* UIButton+Ext.swift in Sources */,
+				E177E6BC253B3DF500488EB2 /* ConstraintsHelper.swift in Sources */,
 				FE6886BA23EC69A1001F1301 /* AnswerButton.swift in Sources */,
 				023F98B224F1CEA700C3365E /* PaperOnboardingDelegate.swift in Sources */,
 				0278570924B710C000C1131A /* PopupDismissalAnimationController.swift in Sources */,
 				02AC8CB724ACA66300C4D120 /* CoreDataStack.swift in Sources */,
 				FE3561062481A133007E23C9 /* UIPageControl+Ext.swift in Sources */,
-				027856FF24B6931500C1131A /* Appearance.swift in Sources */,
+				027856FF24B6931500C1131A /* OldAppearance.swift in Sources */,
 				026001B224D561D70018428F /* PastConversationDetailVC.swift in Sources */,
 				020C9C9F248FDFC300A6BDE6 /* Date+Ext.swift in Sources */,
 				02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,
+				E177E62B253B29ED00488EB2 /* UserViewModel.swift in Sources */,
 				027856FB24B692A100C1131A /* ButtonLayoutView.swift in Sources */,
 				027856FD24B692DD00C1131A /* Button.swift in Sources */,
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
@@ -868,6 +942,7 @@
 				023F98CC24F1CEB800C3365E /* PageView.swift in Sources */,
 				FEF69CFC23F961CE002C3524 /* RegistrationCheckVC.swift in Sources */,
 				023F98D224F5945100C3365E /* InitialViewController.swift in Sources */,
+				E177E660253B37B600488EB2 /* AnimatedLogo.swift in Sources */,
 				FE01AE9123E61874002F36FA /* SignUpVC.swift in Sources */,
 				02A6A22324E9CC04000B9364 /* Container.swift in Sources */,
 				02ADDAF42497CDB10073039B /* ProfilePrivate.swift in Sources */,
@@ -883,13 +958,15 @@
 				FE32EB092484258E00E8C2D5 /* ChatVC.swift in Sources */,
 				FE01AE9523E618D6002F36FA /* QuizVC.swift in Sources */,
 				025EE79324C4D0BB00352E74 /* GraphView.swift in Sources */,
-				023F98C624F1CEB800C3365E /* ConstraintsHelper.swift in Sources */,
 				02ADDAF62497CDD80073039B /* ProfilePublic.swift in Sources */,
 				FE4A038024851EC700228F88 /* Message.swift in Sources */,
 				023F98C924F1CEB800C3365E /* OnboardingContantViewItem.swift in Sources */,
+				E177E6C1253B43DF00488EB2 /* Appearance.swift in Sources */,
+				E177E6BE253B42D800488EB2 /* TitleLabel.swift in Sources */,
 				023F98C424F1CEB800C3365E /* FillAnimationView.swift in Sources */,
 				028D4FC424C3987100976600 /* TextfieldView.swift in Sources */,
 				02ADDB6F249AE18D0073039B /* ProfileVC.swift in Sources */,
+				E177E6B8253B3DB600488EB2 /* GestureControl.swift in Sources */,
 				FE84F5C923F9810900312206 /* UserInfoVC.swift in Sources */,
 				FE84F5CD23F9814600312206 /* LocationVC.swift in Sources */,
 			);
@@ -1019,8 +1096,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
@@ -1032,7 +1109,7 @@
 				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1045,8 +1122,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Polink/Polink.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3FH52996L3;
 				INFOPLIST_FILE = "$(SRCROOT)/Polink/Supporting Files/Info.plist";
@@ -1058,7 +1135,7 @@
 				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jlsv.polink-dev";
 				PRODUCT_NAME = Polink;
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Polink Testing";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

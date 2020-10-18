@@ -134,7 +134,7 @@ class ModalLayoutView: UIView {
 		let contentHeight: CGFloat
 		let titleTextSize: CGSize
 		let bodyTextSize: CGSize
-		let textWidth = min(ModalLayoutView.preferredTextWidth, bounds.width - 2.0 * Appearance.padding)
+		let textWidth = min(ModalLayoutView.preferredTextWidth, bounds.width - 2.0 * OldAppearance.padding)
 		let textHeight: CGFloat
 		
 		if hasText {
@@ -155,16 +155,16 @@ class ModalLayoutView: UIView {
 			bodyTextSize = .zero
 			let textOffsetFromBottom = min(260.0, bounds.height * preferredContentRatio)
 			// Padding: 1x above text. 1x below buttons. 2x between text/buttons
-			let padding = hasButtons ? 4.0 * Appearance.padding : 0.0
+			let padding = hasButtons ? 4.0 * OldAppearance.padding : 0.0
 			let minTextHeight = min(titleTextSize.height + bodyTextSize.height + ModalLayoutView.bodyTextPadding, ModalLayoutView.minTextHeight)
 //			let minTextHeight = min(titleTextSize.height + ModalLayoutView.bodyTextPadding, ModalLayoutView.minTextHeight)
 			textHeight = max(textOffsetFromBottom - buttonsHeight - padding - layoutMargins.bottom, minTextHeight)
-			contentHeight = bounds.height - layoutMargins.top - textHeight - buttonsHeight - padding - layoutMargins.bottom - Appearance.padding
+			contentHeight = bounds.height - layoutMargins.top - textHeight - buttonsHeight - padding - layoutMargins.bottom - OldAppearance.padding
 		} else {
 			titleTextSize = .zero
 			bodyTextSize = .zero
 			textHeight = 0.0
-			let padding = hasButtons ? 2.0 * Appearance.padding : 0.0
+			let padding = hasButtons ? 2.0 * OldAppearance.padding : 0.0
 			contentHeight = bounds.height - layoutMargins.top - layoutMargins.bottom - buttonsHeight - padding
 		}
 		
@@ -184,13 +184,13 @@ class ModalLayoutView: UIView {
 		}
 		
 		// Buttons have padding around all edges
-		buttonLayoutView.frame = CGRect(x: Appearance.padding,
-												  y: bounds.height - buttonsHeight - Appearance.padding - layoutMargins.bottom,
-												  width: bounds.width - 2.0 * Appearance.padding,
+		buttonLayoutView.frame = CGRect(x: OldAppearance.padding,
+												  y: bounds.height - buttonsHeight - OldAppearance.padding - layoutMargins.bottom,
+												  width: bounds.width - 2.0 * OldAppearance.padding,
 												  height: buttonsHeight)
 		buttonLayoutView.layoutSubviews()
 		
-		buttonSeparator.frame = CGRect(x: 0.0, y: buttonLayoutView.frame.minY - Appearance.padding, width: bounds.width, height: 1.0)
+		buttonSeparator.frame = CGRect(x: 0.0, y: buttonLayoutView.frame.minY - OldAppearance.padding, width: bounds.width, height: 1.0)
 		buttonSeparator.isHidden = !showButtonSeparator || !hasButtons
 		
 		activityIndicator.center = CGPoint(x: bounds.width / 2.0, y: bounds.height - layoutMargins.bottom - ModalLayoutView.activityIndicatorOffsetFromBottom)
@@ -198,9 +198,9 @@ class ModalLayoutView: UIView {
 		guard hasText else { return }
 		//added optional to content view --> This could lead to serious problems
 //		textScrollView.frame = CGRect(x: 0.0, y: contentView?.frame.maxY ?? 100 + Appearance.padding, width: bounds.width, height: textHeight)
-		textScrollView.frame = CGRect(x: 0.0, y: contentView?.frame.maxY ?? 100 + Appearance.padding, width: bounds.width, height: textHeight)
+		textScrollView.frame = CGRect(x: 0.0, y: contentView?.frame.maxY ?? 100 + OldAppearance.padding, width: bounds.width, height: textHeight)
 
-		titleLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: Appearance.padding, width: textWidth, height: titleTextSize.height)
+		titleLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: OldAppearance.padding, width: textWidth, height: titleTextSize.height)
 		
 		bodyLabel.frame = CGRect(x: (bounds.width - textWidth) / 2.0, y: titleLabel.frame.maxY + ModalLayoutView.bodyTextPadding, width: textWidth, height: bodyTextSize.height)
 

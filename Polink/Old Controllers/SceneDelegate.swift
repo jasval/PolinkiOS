@@ -33,7 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				window.rootViewController = navigationController
 				window.makeKeyAndVisible()
 			} else {
-				let mainVC = InitialViewController()
+//				let mainVC = InitialViewController()
+                let mainVC = LogSignViewController()
 				navigationController = UINavigationController(rootViewController: mainVC)
 				
 				navigationController?.setToolbarHidden(true, animated: false)
