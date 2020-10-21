@@ -96,6 +96,9 @@
 		E177E6C4253B488C00488EB2 /* ChitChatAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C3253B488C00488EB2 /* ChitChatAnimation.json */; };
 		E177E6C8253B874000488EB2 /* PolinkLightAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C7253B874000488EB2 /* PolinkLightAnimation.json */; };
 		E177E6CA253B874500488EB2 /* PolinkDarkAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E177E6C9253B874500488EB2 /* PolinkDarkAnimation.json */; };
+		E177E6CD253CA19900488EB2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E177E6CF253CA19900488EB2 /* Localizable.strings */; };
+		E177E6D8253CE29D00488EB2 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6D7253CE29D00488EB2 /* LocalizedString.swift */; };
+		E177E6DA253DC10C00488EB2 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E6D9253DC10C00488EB2 /* Security.swift */; };
 		FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7723E61241002F36FA /* AppDelegate.swift */; };
 		FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7923E61241002F36FA /* SceneDelegate.swift */; };
 		FE01AE7C23E61241002F36FA /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01AE7B23E61241002F36FA /* InitialVC.swift */; };
@@ -239,6 +242,10 @@
 		E177E6C3253B488C00488EB2 /* ChitChatAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChitChatAnimation.json; sourceTree = "<group>"; };
 		E177E6C7253B874000488EB2 /* PolinkLightAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PolinkLightAnimation.json; sourceTree = "<group>"; };
 		E177E6C9253B874500488EB2 /* PolinkDarkAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PolinkDarkAnimation.json; sourceTree = "<group>"; };
+		E177E6CE253CA19900488EB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E177E6D0253CA1B200488EB2 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		E177E6D7253CE29D00488EB2 /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
+		E177E6D9253DC10C00488EB2 /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		FE01AE7423E61240002F36FA /* Polink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE01AE7723E61241002F36FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE01AE7923E61241002F36FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -361,9 +368,11 @@
 		020C9C9A248F9C1400A6BDE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E177E6CF253CA19900488EB2 /* Localizable.strings */,
 				FE01AE8023E61242002F36FA /* Assets.xcassets */,
 				FE0CE33623E88D1D002E5604 /* GoogleService-Info.plist */,
 				FE01AE8523E61242002F36FA /* Info.plist */,
+				E177E6D7253CE29D00488EB2 /* LocalizedString.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -616,6 +625,7 @@
 			children = (
 				FE0CE33823E8927E002E5604 /* K.swift */,
 				E177E6C0253B43DF00488EB2 /* Appearance.swift */,
+				E177E6D9253DC10C00488EB2 /* Security.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -780,6 +790,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
 			);
 			mainGroup = FE01AE6B23E61240002F36FA;
 			productRefGroup = FE01AE7523E61240002F36FA /* Products */;
@@ -798,6 +809,7 @@
 			files = (
 				020C9C9D248FC36300A6BDE6 /* Default-568h@2x.png in Resources */,
 				02A542E024AB4D8B00A03A81 /* CensoredWordsList.json in Resources */,
+				E177E6CD253CA19900488EB2 /* Localizable.strings in Resources */,
 				E177E6CA253B874500488EB2 /* PolinkDarkAnimation.json in Resources */,
 				FEF69CF423F8C430002C3524 /* Registration.storyboard in Resources */,
 				FEF69CF823F8CA70002C3524 /* Quiz.storyboard in Resources */,
@@ -922,6 +934,7 @@
 				027856FD24B692DD00C1131A /* Button.swift in Sources */,
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
 				FE01AE7A23E61241002F36FA /* SceneDelegate.swift in Sources */,
+				E177E6DA253DC10C00488EB2 /* Security.swift in Sources */,
 				028D4FC024C3981C00976600 /* FeedbackVC.swift in Sources */,
 				027856F924B691D400C1131A /* ModalLayoutView.swift in Sources */,
 				FE4A037A2484FD3500228F88 /* LobbyVC.swift in Sources */,
@@ -952,6 +965,7 @@
 				020C9CA7249023D000A6BDE6 /* CustomMessagesFlowLayout.swift in Sources */,
 				02A542D024AA558100A03A81 /* LanguageModeration.swift in Sources */,
 				023F98D024F1EDEF00C3365E /* ConfigurationObject.swift in Sources */,
+				E177E6D8253CE29D00488EB2 /* LocalizedString.swift in Sources */,
 				FE39868F23F5CADA0052C841 /* UserDataModel.swift in Sources */,
 				0278570324B696DF00C1131A /* OnboardPagingView.swift in Sources */,
 				FEE7083E23F2A55400E47E7B /* SpinnerVC.swift in Sources */,
@@ -973,6 +987,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E177E6CF253CA19900488EB2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E177E6CE253CA19900488EB2 /* en */,
+				E177E6D0253CA1B200488EB2 /* es-419 */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FE01AE8623E61242002F36FA /* Debug */ = {

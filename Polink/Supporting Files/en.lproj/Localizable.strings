@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Polink
+
+  Created by Jasper Valdivia on 18/10/2020.
+  Copyright © 2020 Jose Saldana. All rights reserved.
+*/
+
+
+// MARK: - Actions
+
+
+// MARK: - Titles
+
+
+// MARK: - Notifications
+
+
+// MARK: - Descriptive Text
+
+
+// MARK: - Onboarding
+
+
+// MARK: - Settings
+"settings_email_signUp" = "Email Sign Up";
+"settings_email_signIn" = "Email Sign In";
+"settings_signOut" = "Sign Out";
+

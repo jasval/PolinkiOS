@@ -13,13 +13,7 @@ struct K {
     static let appName = "Polink"
     static let lightAnimationName = "PolinkLightAnimation"
     static let darkAnimationName = "PolinkDarkAnimation"
-    
-    enum loginFlow: String {
-        case signUpEmail = "Email Sign Up"
-        case signInEmail = "Email Sign In"
-        case signOut = "Sign Out"
-    }
-    
+        
     enum Error: String {
         case signUpError = "Sign Up Failed"
         case signInError = "Sign In Failed"

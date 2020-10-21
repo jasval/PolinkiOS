@@ -319,7 +319,6 @@ extension ProfileVC  {
 	}
 	
 	@objc private func switchValueDidChange(_ sender :UISwitch) {
-		print("we are switching the switch")
 		delegate?.updateListeningMode(listening: sender.isOn)
 	}
 
@@ -363,12 +362,8 @@ extension ProfileVC: UITableViewDelegate {
 										  style: .destructive,
 										  handler: { (action) in
 				do {
-//					self.defaults.set(false, forKey: "LOGGED_IN")
-//					let mainSB = UIStoryboard(name: "Main", bundle: nil)
-					//					let vc = mainSB.instantiateViewController(identifier: "initialViewController") as! InitialVC
-
 					try Auth.auth().signOut()
-					let vc = InitialViewController()
+					let vc = LogSignViewController()
 					UIApplication.shared.windows.first {$0.isKeyWindow}?.rootViewController = vc
 					
 				} catch {
