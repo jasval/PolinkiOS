@@ -84,7 +84,8 @@
 		02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB94249BB75C0073039B /* NavigationController.swift */; };
 		02ADDB97249BD3DE0073039B /* CGRect+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADDB96249BD3DE0073039B /* CGRect+Ext.swift */; };
 		259D382C6644788B81A90C56 /* Pods_Polink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */; };
-		E177E62B253B29ED00488EB2 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E62A253B29ED00488EB2 /* UserViewModel.swift */; };
+		E11D054B25412829006D85B2 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D054A25412829006D85B2 /* RegistrationViewController.swift */; };
+		E177E62B253B29ED00488EB2 /* RegistrationUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E62A253B29ED00488EB2 /* RegistrationUserViewModel.swift */; };
 		E177E62D253B2E5900488EB2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E62C253B2E5900488EB2 /* UserModel.swift */; };
 		E177E631253B31FB00488EB2 /* LogSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E630253B31FB00488EB2 /* LogSignViewController.swift */; };
 		E177E660253B37B600488EB2 /* AnimatedLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177E65F253B37B600488EB2 /* AnimatedLogo.swift */; };
@@ -230,7 +231,8 @@
 		0668103F5F264B3F2DD00D14 /* Pods_Polink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Polink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EA7193EDD4B5F8FAA43DAD /* Pods-Polink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.debug.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.debug.xcconfig"; sourceTree = "<group>"; };
 		79EE6A75AFBC42B481B3A336 /* Pods-Polink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Polink.release.xcconfig"; path = "Target Support Files/Pods-Polink/Pods-Polink.release.xcconfig"; sourceTree = "<group>"; };
-		E177E62A253B29ED00488EB2 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		E11D054A25412829006D85B2 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		E177E62A253B29ED00488EB2 /* RegistrationUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUserViewModel.swift; sourceTree = "<group>"; };
 		E177E62C253B2E5900488EB2 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E177E630253B31FB00488EB2 /* LogSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSignViewController.swift; sourceTree = "<group>"; };
 		E177E65F253B37B600488EB2 /* AnimatedLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLogo.swift; sourceTree = "<group>"; };
@@ -556,7 +558,7 @@
 		E177E629253B29B800488EB2 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				E177E62A253B29ED00488EB2 /* UserViewModel.swift */,
+				E177E62A253B29ED00488EB2 /* RegistrationUserViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -579,6 +581,7 @@
 				028D4FC524C3987C00976600 /* ProfilerSliderView.swift */,
 				028D4FC324C3987100976600 /* TextfieldView.swift */,
 				FE6886B923EC69A1001F1301 /* AnswerButton.swift */,
+				FE84F5C823F9810900312206 /* UserInfoVC.swift */,
 				FE84F5CA23F9813200312206 /* GenderVC.swift */,
 				FE84F5CC23F9814600312206 /* LocationVC.swift */,
 				FEF69CFB23F961CE002C3524 /* RegistrationCheckVC.swift */,
@@ -591,7 +594,6 @@
 				026001B124D561D70018428F /* PastConversationDetailVC.swift */,
 				02A6A22A24EAA98C000B9364 /* PoliticalQuizVC.swift */,
 				023F989724EF6EFA00C3365E /* MainOnboardViewController.swift */,
-				FE84F5C823F9810900312206 /* UserInfoVC.swift */,
 				FE01AE9223E61897002F36FA /* SignInVC.swift */,
 				FE01AE9023E61874002F36FA /* SignUpVC.swift */,
 				FE01AE7B23E61241002F36FA /* InitialVC.swift */,
@@ -606,6 +608,7 @@
 		E177E65D253B377200488EB2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E11D054A25412829006D85B2 /* RegistrationViewController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -929,7 +932,7 @@
 				020C9C9F248FDFC300A6BDE6 /* Date+Ext.swift in Sources */,
 				02ADDB95249BB75C0073039B /* NavigationController.swift in Sources */,
 				FE01AE7823E61241002F36FA /* AppDelegate.swift in Sources */,
-				E177E62B253B29ED00488EB2 /* UserViewModel.swift in Sources */,
+				E177E62B253B29ED00488EB2 /* RegistrationUserViewModel.swift in Sources */,
 				027856FB24B692A100C1131A /* ButtonLayoutView.swift in Sources */,
 				027856FD24B692DD00C1131A /* Button.swift in Sources */,
 				FE6886B423EAF601001F1301 /* UIViewController+Ext.swift in Sources */,
@@ -948,6 +951,7 @@
 				FE84F5CB23F9813200312206 /* GenderVC.swift in Sources */,
 				027856F724B690BB00C1131A /* OnboardViewController.swift in Sources */,
 				02A542D624AA58B500A03A81 /* String+Ext.swift in Sources */,
+				E11D054B25412829006D85B2 /* RegistrationViewController.swift in Sources */,
 				027856F524B680FD00C1131A /* Popup.swift in Sources */,
 				023F98D424F89CF900C3365E /* TableViewCell.swift in Sources */,
 				023A84D7249D72E300202D87 /* UIView+Ext.swift in Sources */,

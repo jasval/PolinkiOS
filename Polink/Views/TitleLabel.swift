@@ -24,7 +24,7 @@ class TitleLabel: UILabel {
         contentMode = .center
         textAlignment = .center
         text = K.appName
-        font = Appearance.Font.title
+        font = Appearance.Font.logo
         textColor = Appearance.ColorPalette.primaryColor
         shadowColor = Appearance.ColorPalette.primaryShadowColor
         shadowOffset = CGSize(1,1)

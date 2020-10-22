@@ -8,7 +8,7 @@
 
 import UIKit
 import FirebaseAuth
-
+import CoreLocation.CLLocation
 
 
 class PageNavController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -24,6 +24,30 @@ class PageNavController: UIPageViewController, UIPageViewControllerDataSource, U
          return [vc1, vc2, vc3, vc4]
      }()
     
+    lazy var model: RegistrationUserViewModel! = {
+        guard let currentUser = Auth.auth().currentUser else {return nil}
+        let user = UserDataModel(currentUser.uid, email: currentUser.email!)
+        let model = RegistrationUserViewModel(user)
+        return model
+    }()
+    
+    private lazy var completionHandler = { [unowned self] (_ dictionary: [RegistrationViewController.FieldKey: Any?]) -> Result<Any, RegistrationUserViewModel.RegistrationError> in
+        for item in dictionary {
+            switch item.key {
+            case .firstName:
+                return self.model.updateName(item.value as? String, type: .firstName)
+            case .lastName:
+                return self.model.updateName(item.value as? String, type: .lastName)
+            case .dateOfBirth:
+                return self.model.updateDateOfBirth(item.value as? Date)
+            case .gender:
+                return self.model.updateGender(item.value as? UserDataModel.Gender)
+            case .location:
+                return self.model.updateLocation(item.value as? CLLocation)
+            }
+        }
+        return .failure(.incompleteFields)
+    }
     
     // authentication listener
     var handle: AuthStateDidChangeListenerHandle?

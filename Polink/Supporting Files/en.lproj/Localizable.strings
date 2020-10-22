@@ -11,6 +11,11 @@
 
 
 // MARK: - Titles
+"title_registration_basic" = "Tell us more about yourself...";
+"title_registration_basic_sub" = "Do not worry this information is kept secure and will not be disclosed with any third party.";
+"title_registration_gender" = "What is your gender?";
+"title_registration_location" = "Where are you located?";
+"title_registration_check" = "Let's check everything is in order...";
 
 
 // MARK: - Notifications
@@ -27,3 +32,13 @@
 "settings_email_signIn" = "Email Sign In";
 "settings_signOut" = "Sign Out";
 
+//MARK: - Errors
+"error_registration_failed" = "The model did not update.";
+"error_registration_invalidInput" = "The data passed to the model is not valid.";
+"error_registration_incomplete" = "The selection in the view is not complete.";
+"error_registration_nameLength" = "The name entered is either too short or too long.";
+"error_registration_profaneName" = "The name entered contains profanity.";
+"error_registration_dob_young" = "The date of birth does not meet the minimum age criteria.";
+"error_registration_dob_old" = "The date of birth exceeds the maximum age criteria.";
+"error_registration_city" = "The city cannot be interpreted from the given location.";
+"error_registration_country" = "The country cannot be interpreted from the given location.";

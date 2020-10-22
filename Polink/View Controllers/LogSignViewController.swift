@@ -157,9 +157,6 @@ extension LogSignViewController: ASAuthorizationControllerDelegate {
                      Error. If error.code == .MissingOrInvalidNonce, make sure you are
                      sending the SHA256-hashed nonce as a hex string with your request to Apple.
                      */
-                    print("what happened!?")
-                    print(error.code)
-                    print(error.userInfo)
                     print(error.localizedDescription)
                     return
                 }
@@ -177,7 +174,6 @@ extension LogSignViewController: ASAuthorizationControllerDelegate {
                         keywindow?.rootViewController = vc
                         
                     } else {
-                        print("User with uid: \(uid) has not completed his profile")
                         self?.userIsIncomplete()
                         self?.dismiss(animated: true)
                     }

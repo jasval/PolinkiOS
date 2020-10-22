@@ -22,7 +22,8 @@ struct Appearance {
     // TO-DO: Add Appearance Values
     
     struct Font {
-        static let title = UIFont.boldSystemFont(ofSize: 50)
+        static let logo = UIFont.boldSystemFont(ofSize: 50)
+        
     }
     
     struct ColorPalette {
